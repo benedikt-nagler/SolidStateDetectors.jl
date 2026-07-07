@@ -1,6 +1,7 @@
 name: Downgrade
 env:
   JULIA_NUM_THREADS: 4
+  JULIA_PKG_PRECOMPILE_AUTO: 0
 on:
   pull_request:
     branches:
@@ -19,9 +20,9 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        version: ['1.10', '1.12']
+        version: ['1.10', '1']
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - uses: julia-actions/setup-julia@v2
         with:
           version: ${{ matrix.version }}

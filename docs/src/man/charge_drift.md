@@ -44,7 +44,7 @@ On each axes, $v_{l}$ can be described through the parametrization proposed by [
 v_l = \frac{\mu_0 E}{(1 + (E/E_0 )^{\beta})^{1/ \beta}} - \mu_{n} E.
 ```
 
-The parameters $\mu_{0}$, $E_{0}$ and $\beta$ differ for electrons and holes, and $\mu_{n}$ is only relevant for electrons. These parameters were obtained by [B. Bruyneel et al.](https://www.sciencedirect.com/science/article/pii/S0168900206015166) in 2006 and by [B. Bruyneel et al.](https://link.springer.com/article/10.1140/epja/i2016-16070-9) in 2016 by measuring the drift velocities of electrons and holes in the $\langle$100$\rangle$ and $\langle$111$\rangle$ directions in high purity germanium at a temperature of 77 K. These parameters are stored in a configuration file, "drift\_velocity\_config.yaml" and "drift\_velocity\_config\_2016.yaml" respectively, located in `<package_directory>/example/example_config_files/ADLChargeDriftModel`. The configuration file is expressed as following:
+The parameters $\mu_{0}$, $E_{0}$ and $\beta$ differ for electrons and holes, and $\mu_{n}$ is only relevant for electrons. These parameters were obtained by [B. Bruyneel et al.](https://www.sciencedirect.com/science/article/pii/S0168900206015166) in 2006 and by [B. Bruyneel et al.](https://link.springer.com/article/10.1140/epja/i2016-16070-9) in 2016 by measuring the drift velocities of electrons and holes in the $\langle$100$\rangle$ and $\langle$111$\rangle$ directions in high purity germanium at a temperature of 77 K. These parameters are stored in a configuration file, "drift\_velocity\_config.yaml" and "drift\_velocity\_config\_2016.yaml" respectively, located in `<package_directory>/examples/example_config_files/ADLChargeDriftModel`. The configuration file is expressed as following:
 
 
 ```yaml
@@ -118,9 +118,9 @@ charge_drift_model = ADL2016ChargeDriftModel("<path_to_ADL_configuration_file>",
 sim.detector = SolidStateDetector(sim.detector, charge_drift_model)
 ```
 
-Default constructors such as `ADL2016ChargeDriftModel()` and `ADL2016ChargeDriftModel(T=T)` are also available. These automatically load the parameters from the files in `<package_directory>/example/example_config_files/ADLChargeDriftModel`
+Default constructors such as `ADL2016ChargeDriftModel()` and `ADL2016ChargeDriftModel(T=T)` are also available. These automatically load the parameters from the files in `<package_directory>/examples/example_config_files/ADLChargeDriftModel`
 
-The `ÀDLChargeDriftModel` can also be specified already in the configuration file as field `charge_drift_model` of the `semiconductor` of a detector, e.g.
+The `ADLChargeDriftModel` can also be specified already in the configuration file as field `charge_drift_model` of the `semiconductor` of a detector, e.g.
 ```yaml 
 detectors:
   semiconductor:
@@ -184,7 +184,7 @@ sim.detector = SolidStateDetector(sim.detector, charge_drift_model)
 ```
 
 
-If no temperature is given as a parameter, the calculations will be performed at a default temperature of 77 K. If no configuration file is given, the default config file `<package_directory>/example/example_config_files/ADLChargeDriftModel/drift_velocity_config_2016.yaml` is loaded. In charge drift configuration files, the M.A. Omar and L. Reggiani parametrization can be used by adding the following `temperature_dependence` field like this:
+If no temperature is given as a parameter, the calculations will be performed at a default temperature of 77 K. If no configuration file is given, the default config file `<package_directory>/examples/example_config_files/ADLChargeDriftModel/drift_velocity_config_2016.yaml` is loaded. In charge drift configuration files, the M.A. Omar and L. Reggiani parametrization can be used by adding the following `temperature_dependence` field like this:
 
 ```yaml
 temperature_dependence:
@@ -208,7 +208,7 @@ For convenience, this model can already be found in the `drift_velocity_config.y
 
 The [`InactiveLayerChargeDriftModel`](@ref) describes a system in which electrons and holes move along the electric field lines. The mobilities for electrons and holes are scalar ($+$ for holes, and $-$ for electrons), and thus, the velocity field has the same (or opposite) direction as the electric field.
 
-The mobilities are calculated considering three major scattering process: scattering off ionized impurities, neutral impurities and acoustic phonons. Thus, the mobilities depend on the impurity concentrations and temperature.
+The mobilities are calculated considering three major scattering processes: scattering off ionized impurities, neutral impurities and acoustic phonons. Thus, the mobilities depend on the impurity concentrations and temperature.
 
 The precision of the calculation `T` (`Float32` or `Float64`) has to be given as a keyword `T`. Note that `T` has to be of the same type as the chosen in the simulation:
 
@@ -217,10 +217,11 @@ The `InactiveLayerChargeDriftModel` can be specified in the configuration file a
 ```yaml 
 detectors:
   semiconductor:
+    temperature: 90K  # temperature must be defined here for InactiveLayerChargeDriftModel
     # ...
     charge_drift_model:
       model: InactiveLayerChargeDriftModel
-      temperature: 90K
+      # temperature: 90K  # optional: if provided, must match semiconductor.temperature (used for validation only)
       bulk_impurity_density:
         name: constant
         value: -1e10cm^-3
@@ -236,12 +237,16 @@ detectors:
 
 The `charge_drift_model` needs:
 - `model`: the name of the charge drift model, which in this case is `InactiveLayerChargeDriftModel`.
-- `temperature`: the crystal temperature.
+- `temperature` (optional): if provided, validated against `semiconductor.temperature` — both must match or an error is raised. Temperature must be defined in the `semiconductor` and cannot be set only inside the charge drift model, because it is also used independently for diffusion calculations during charge drift.
 - `bulk_impurity_density` (optional): the density of the p-type impurity in the crystal.
 - `surface_impurity_density` (optional): the density profile of lithium (n-type) in the surface layer.
 - `neutral_impurity_density`: the density profile of the non-ionized impurity in the crystal.
 
-> Note that the fields `bulk_impurity_density` and `surface_impurity_density` do not need to be explicitly defined if `PtypePNJunctionImpurityDensity` is chosen as the overall impurity density profile.
+!!! note 
+    The fields `bulk_impurity_density` and `surface_impurity_density` do not need to be explicitly defined if `PtypePNJunctionImpurityDensity` is chosen as the overall impurity density profile.
+
+!!! note
+    The temperature must be defined in `semiconductor.temperature` — it cannot be set only inside the charge drift model config, because the semiconductor temperature is also used independently for diffusion calculations during charge drift. Optionally, a `temperature` field can be added to the `charge_drift_model` config for validation: if provided, it must match `semiconductor.temperature` or an error is raised. If `semiconductor.temperature` is not set, a material-specific default is used (77 K for High Purity Germanium, 293 K otherwise) and a warning is issued — this applies even if a `temperature` is specified in the charge drift model config, since that field only validates, not sets, the semiconductor temperature.
 
 ### Custom Charge Drift Model
 
@@ -259,7 +264,7 @@ end
 ```
 
 The second step is to define two methods (`getVe` for electrons and `getVh` for holes), which perform the transformation of an electric field vector, `fv::SVector{3,T}`, into a velocity vector.
-Note, that the vectors are in cartesian coordinates, independent of the coordinate system (cartesian or cylindrical) of the simulation. Even if not used, the third argument of `getVe` and `getVh` should be a `CartesianPoint{T}`, which also allows to define position-dependent mobility models.
+Note, that the vectors are in cartesian coordinates, independent of the coordinate system (cartesian or cylindrical) of the simulation. Even if not used, the third argument of `getVe` and `getVh` should be a `CartesianPoint{T}`, which also allows defining position-dependent mobility models.
 
 ```julia
 using StaticArrays
@@ -301,7 +306,7 @@ end
 The second step would be to define a method for `_calculate_signal`, which returns a charge signal based on a given charge drift `path` and its `pathtimestamps`, the `charge` value of the charge cloud, the interpolated weighting potential `wpot` and the `point_types` to infer the coordinate system type `S` (`Cartesian` or `Cylindrical`):
 
 ```julia
-using SolidStateDetectors: CoordinateSystemType, SSDFloat
+using SolidStateDetectors: SSDFloat
 using Interpolations
 function SolidStateDetectors._calculate_signal( 
         ctm::CustomChargeTrappingModel{T},
@@ -322,7 +327,7 @@ end
 ### `NoChargeTrappingModel`
 
 If no charge trapping model is selected, the default is the `NoChargeTrappingModel`.
-In this case, the signal is calculated using the Schockley-Ramo theorem, i.e. by evaluating the weighting potential `wpot` at every point `path[i]` of the charge drift path and multiplying it with the `charge` of the charge cloud.
+In this case, the signal is calculated using the Shockley-Ramo theorem, i.e. by evaluating the weighting potential `wpot` at every point `path[i]` of the charge drift path and multiplying it with the `charge` of the charge cloud.
 
 
 ### `BoggsChargeTrappingModel`
@@ -336,27 +341,32 @@ The `BoggsChargeTrappingModel` can be applied in the configuration file by addin
 detectors:
   - semiconductor:
       material: #...
+      temperature: 78K  # preferred: define temperature here
       geometry: #...
       charge_trapping_model:
         model: Boggs
         parameters:
           nσe-1: 1020cm
           nσh-1: 2040cm
-          temperature: 78K
+          # temperature: 78K  # optional: if provided, must match semiconductor.temperature
 
 # ... or ...
 
 detectors:
   - semiconductor:
       material: #...
+      temperature: 78K  # preferred: define temperature here
       geometry: #...
       charge_trapping_model:
         model: Boggs
         parameters:
           nσe: 0.001cm^-1
           nσh: 0.0005cm^-1
-          temperature: 78K
+          # temperature: 78K  # optional: if provided, must match semiconductor.temperature
 ```
+
+!!! note
+    The temperature is preferably defined in `semiconductor.temperature` and will be passed automatically to the trapping model. A `temperature` field can also be specified inside `parameters`; if both are provided they must match or an error is raised. Unlike the charge drift model, if no `semiconductor.temperature` is defined, a `temperature` inside `parameters` alone is also accepted. If `semiconductor.temperature` is not set, a material-specific default is used (77 K for High Purity Germanium, 293 K otherwise) and a warning is issued — this applies even if a `temperature` is specified inside `parameters`, since the semiconductor temperature is always resolved first and passed to the trapping model.
 
 It can also be applied to an already read-in `SolidStateDetector` using for example:
 ```julia
@@ -435,8 +445,11 @@ charge_trapping_model:
         τe: 1μs
 ```
 
-This model also allows to disable the charge trapping model inside the inactive layer by having `model_inactive:` and the bulk by deleting `model:` from the `charge_trapping_model:` block.
+This model also allows disabling the charge trapping model inside the inactive layer by having `model_inactive:` and the bulk by deleting `model:` from the `charge_trapping_model:` block.
 If `inactive_layer_geometry` is passed to the yaml file, this is the region used for the inactive layer charge trapping model, else, the model will use the inactive layer geometry defined by the impurity density model (`PtypePNJunctionImpurityDensity`) using the point types.
+
+!!! note
+    The temperature is preferably defined in `semiconductor.temperature` and will be passed automatically. Optionally, a `temperature` field can be added at the top level of the `charge_trapping_model` config (i.e. alongside `model` and `model_inactive`, not inside `parameters`); if both are provided they must match or an error is raised. Unlike the charge drift model, if no `semiconductor.temperature` is defined, a top-level `temperature` in the `charge_trapping_model` alone is also accepted. If `semiconductor.temperature` is not set, a material-specific default is used (77 K for High Purity Germanium, 293 K otherwise) and a warning is issued — this applies even if a `temperature` is specified in the `charge_trapping_model` config, since the semiconductor temperature is always resolved first and passed to the trapping model.
 
 ```julia
 using SolidStateDetectors, Unitful
@@ -518,7 +531,7 @@ simulate!(evt, sim, diffusion = true, end_drift_when_no_field = true)
 ```
 ![Diffusion](../assets/diffusion.gif)
 
-In the abscence of an external electric field, the size (standard deviation $\sigma$) of the charge cloud is expected to evolve with $\sigma = \sqrt{6 D t}$ (in three dimensions), where $t$ is the time. Thus, the diffusion constant determines the time evolution of the charge cloud size.
+In the absence of an external electric field, the size (standard deviation $\sigma$) of the charge cloud is expected to evolve with $\sigma = \sqrt{6 D t}$ (in three dimensions), where $t$ is the time. Thus, the diffusion constant determines the time evolution of the charge cloud size.
 
 For an initial charge cloud of `1000` point charges, all located at the origin of the coordinate system, and a diffusion constant of $101\,\text{cm}^2\text{/s}$, the random walk algorithm results in the expected $\sqrt{t}$ dependence. A fit of $\sigma = \sqrt{6Dt}$ shows that the diffusion constant with which the charge cloud evolves matches the input value for $D$.
 
@@ -539,12 +552,12 @@ Values for `De` and `Dh` in `SolidStateDetectors.material_properties` can be giv
 
 ### Self-Repulsion
 
-After the creation electron-hole pairs, both the electron and the hole clouds repel each other. The electric field of a point-charge, $q$, at a distance to the charge, $\vec{r}$, is given by
+After the creation of electron-hole pairs, both the electron and the hole clouds repel each other. The electric field of a point-charge, $q$, at a distance to the charge, $\vec{r}$, is given by
 ```math 
 \vec{E} = \frac{1}{4\pi\epsilon_0\epsilon_r} \frac{q}{r^2} \vec{e}_r
 ```
 
-SolidStateDetectors.jl does not account for attraction of electron and holes but only for repulsion of charge carriers of the same type. The determination of the electric field vector is calculated pair-wise for each pair of charge carriers.
+SolidStateDetectors.jl does not account for attraction of electrons and holes but only for repulsion of charge carriers of the same type. The determination of the electric field vector is calculated pair-wise for each pair of charge carriers.
 
 ```julia
 center = CartesianPoint{T}(0,0,0)

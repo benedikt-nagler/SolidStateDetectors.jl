@@ -4,7 +4,7 @@ using Test
 
 using SolidStateDetectors
 using SolidStateDetectors: getVe, getVh, Vl, get_path_to_example_config_files, AbstractChargeDriftModel, ConstantImpurityDensity, group_points_by_distance, distance_squared, scale_to_temperature
-using SolidStateDetectors.ConstructiveSolidGeometry: AbstractCoordinatePoint
+using SolidStateDetectors.ConstructiveSolidGeometry: AbstractCoordinatePoint, geom_sigdigits
 using SolidStateDetectors: AbstractVirtualVolume
 using ArraysOfArrays
 using InteractiveUtils
@@ -16,11 +16,27 @@ using Unitful
 
 T = Float32
 
-sim = Simulation{T}(SSD_examples[:InvertedCoax])
-timed_simulate!(sim, convergence_limit = 1e-5, device_array_type = device_array_type, refinement_limits = [0.2, 0.1, 0.05], verbose = false)
-
 pos = CartesianPoint{T}(0.02,0,0.05); Edep = 1u"eV"
 nbcc = NBodyChargeCloud(pos, Edep, 40, radius = T(0.0005), number_of_shells = 2)
+
+@timed_testset "Create single events" begin
+    evt0 = Event([pos], [Edep], 40, radius = [T(0.0005)], number_of_shells = 2)
+    # Test out all alternative methods to create an Event
+    for evt in (
+        Event([pos], [Edep], 40, radius = [T(0.0005)], number_of_shells = 2, max_interaction_distance = 1u"m"),
+        Event([[pos]], [[Edep]], 40, radius = [[T(0.0005)]], number_of_shells = 2),
+        Event(nbcc),
+        Event([nbcc]),
+        Event([nbcc.locations], [nbcc.energies]),
+        Event(nbcc.locations, nbcc.energies, max_interaction_distance = 1u"m")
+    )
+        @test evt.locations == evt0.locations
+        @test evt.energies == evt0.energies
+    end
+end
+
+sim = Simulation{T}(SSD_examples[:InvertedCoax])
+timed_simulate!(sim, convergence_limit = 1e-5, device_array_type = device_array_type, refinement_limits = [0.2, 0.1, 0.05], verbose = false)
 
 @timed_testset "Diffusion and Self-Repulsion" begin
     evt = Event(nbcc)
@@ -53,9 +69,14 @@ end
     @test isapprox( signalsum, T(2), atol = 5e-3 )
 end
 
+@timed_testset "Initial radius for charge carriers" begin
+    for ptype in InteractiveUtils.subtypes(SolidStateDetectors.ParticleType)
+        @test SolidStateDetectors.radius_guess(T(1e6), ptype) isa T
+    end
+end
 
 @timed_testset "Charge Trapping: BoggsChargeTrappingModel" begin
-    sim.detector = SolidStateDetector(sim.detector, BoggsChargeTrappingModel{T}())
+    sim.detector = SolidStateDetector(sim.detector, BoggsChargeTrappingModel{T}(Dict(), sim.detector.semiconductor.temperature))
     evt = Event(pos, Edep)
     timed_simulate!(evt, sim)
     signalsum = T(0)
@@ -89,7 +110,7 @@ end
                 "nσh-1" => "500cm",
                 "meffe" => 0.1,
                 "meffh" => 0.2,
-                "temperature" => "100K"
+                "temperature" => "78K"
             )
         )
         simB = @test_nowarn Simulation{T}(config_dict)
@@ -98,8 +119,30 @@ end
         @test simB.detector.semiconductor.charge_trapping_model.nσh == T(0.2)
         @test simB.detector.semiconductor.charge_trapping_model.meffe == T(0.1)
         @test simB.detector.semiconductor.charge_trapping_model.meffh == T(0.2)
-        @test simB.detector.semiconductor.charge_trapping_model.temperature == T(100)
-
+        @test simB.detector.semiconductor.charge_trapping_model.temperature == T(78)
+    end
+    @testset "CTM temperature is inherited from semiconductor when not in config" begin
+        config_dict = SolidStateDetectors.parse_config_file(SSD_examples[:InvertedCoax])
+        config_dict["detectors"][1]["semiconductor"]["charge_trapping_model"] = Dict(
+            "model" => "Boggs",
+            "parameters" => Dict("nσe" => "0.001cm^-1", "nσh" => "0.0005cm^-1")
+        )
+        sim_boggs = @test_nowarn Simulation{T}(config_dict)
+        @test sim_boggs.detector.semiconductor.charge_trapping_model.temperature == sim_boggs.detector.semiconductor.temperature
+    end
+    @testset "Temperature mismatch in parameters raises ConfigFileError" begin
+        config_dict = SolidStateDetectors.parse_config_file(SSD_examples[:InvertedCoax])
+        config_dict["detectors"][1]["semiconductor"]["charge_trapping_model"] = Dict(
+            "model" => "Boggs",
+            "parameters" => Dict("nσe" => "0.001cm^-1", "nσh" => "0.0005cm^-1", "temperature" => "100K")
+        )
+        @test_throws SolidStateDetectors.ConfigFileError Simulation{T}(config_dict)
+    end
+    @testset "Temperature from config only (no argument)" begin
+        ctm = @test_nowarn BoggsChargeTrappingModel{T}(Dict(
+            "parameters" => Dict("nσe" => "0.001cm^-1", "temperature" => "78K")
+        ))
+        @test ctm.temperature == T(78)
     end
 end
 @timed_testset "Charge Trapping: ConstantLifetimeChargeTrappingModel" begin
@@ -154,7 +197,7 @@ end
     for (τ,τ_inactive) in zip(τ_list, τ_inactive_list)
         parameters = Dict("model" => "ConstantLifetime", "model_inactive" => "ConstantLifetime", "parameters" => Dict("τh" => τ, "τe" => τ), "parameters_inactive" => Dict("τh" => τ_inactive, "τe" => τ_inactive),
             "inactive_layer_geometry" => simA_inactive_layer_geometry)
-        trapping_model=CombinedChargeTrappingModel{T}(parameters)
+        trapping_model=CombinedChargeTrappingModel{T}(parameters, simA.detector.semiconductor.temperature)
         simA.detector = SolidStateDetector(simA.detector, trapping_model)
         evt_bulk = Event(pos_bulk , Edep)
         timed_simulate!(evt_bulk, simA)
@@ -184,7 +227,7 @@ end
     τ, τ_inactive = 1u"ms", 100u"ns"
     parameters = Dict("model" => "ConstantLifetime", "model_inactive" => "ConstantLifetime", "parameters" => Dict("τh" => τ, "τe" => τ), "parameters_inactive" => Dict("τh" => τ_inactive, "τe" => τ_inactive),
         "inactive_layer_geometry" => simA_inactive_layer_geometry)
-    trapping_model=CombinedChargeTrappingModel{T}(parameters)
+    trapping_model=CombinedChargeTrappingModel{T}(parameters, simA.detector.semiconductor.temperature)
     simA.detector = SolidStateDetector(simA.detector, trapping_model)
     signalsum_list_inactive = T[]
     for depth in (0.1:0.1:0.9)/1000
@@ -201,6 +244,17 @@ end
     end
     @test all(signalsum_list_inactive .< T(2.0))
     @test all(diff(signalsum_list_inactive) .> 0)
+
+    @testset "Matching temperature in CombinedCTM config is allowed" begin
+        config_dict = SolidStateDetectors.parse_config_file(SSD_examples[:TrueCoaxial])
+        config_dict["detectors"][1]["semiconductor"]["charge_trapping_model"]["temperature"] = 90
+        @test_nowarn Simulation{T}(config_dict)
+    end
+    @testset "Temperature mismatch in CombinedCTM config raises ConfigFileError" begin
+        config_dict = SolidStateDetectors.parse_config_file(SSD_examples[:TrueCoaxial])
+        config_dict["detectors"][1]["semiconductor"]["charge_trapping_model"]["temperature"] = 100
+        @test_throws SolidStateDetectors.ConfigFileError Simulation{T}(config_dict)
+    end
 end
 
 @timed_testset "Test completeness of charge drift models" begin
@@ -268,6 +322,22 @@ end
         @test SolidStateDetectors.in_inactive_layer(pt_active, nothing, simA.point_types) == false
         @test SolidStateDetectors.in_inactive_layer(pt_inactive, nothing, simA.point_types) == true
     end
+
+    @testset "CDM temperature is inherited from semiconductor when not in config" begin
+        @test simA.detector.semiconductor.charge_drift_model.temperature == simA.detector.semiconductor.temperature
+
+        # A matching temperature in the Charge Drift Model config entry is allowed
+        config_dict = SolidStateDetectors.parse_config_file(SSD_examples[:TrueCoaxial])
+        config_dict["detectors"][1]["semiconductor"]["charge_drift_model"]["temperature"] = 90
+        @test_nowarn Simulation{T}(config_dict)
+    end
+
+    @testset "Temperature mismatch in Charge Drift Model config raises ConfigFileError" begin
+        config_dict = SolidStateDetectors.parse_config_file(SSD_examples[:TrueCoaxial])
+        # semiconductor temperature is 90 K; setting Charge Drift Model temperature to a different value must throw
+        config_dict["detectors"][1]["semiconductor"]["charge_drift_model"]["temperature"] = 100
+        @test_throws SolidStateDetectors.ConfigFileError Simulation{T}(config_dict)
+    end
 end
 
 @timed_testset "Test IsotropicChargeDriftModel" begin
@@ -301,10 +371,6 @@ end
         "High-purity germanium" => joinpath(get_path_to_example_config_files(), "ADLChargeDriftModel/drift_velocity_config.yaml"),
         "Silicon" => joinpath(get_path_to_example_config_files(), "ADLChargeDriftModel/drift_velocity_Si_300K_config.yaml")
     )
-
-    geom_sigdigits(::Type{Int})::Int = 12
-    geom_sigdigits(::Type{Float32})::Int = 6
-    geom_sigdigits(::Type{Float64})::Int = 12
 
     for T in (Float32, Float64) 
         @testset "Precision type: $(T)" begin
@@ -568,7 +634,7 @@ end
 
 @timed_testset "Test grouping of charges" begin
     for N in 1:100
-        @timed_testset "Test for length $(N)" begin
+        @testset "Test for length $(N)" begin
             
             # Generate random data
             pts = [CartesianPoint{T}(rand(3)...) for _ in Base.OneTo(N)]
@@ -576,7 +642,9 @@ end
             d = rand(T)
             
             # Evaluate method
+            ptsg0    = group_points_by_distance(pts, d)
             ptsg, Eg = group_points_by_distance(pts, E, d)
+            @test ptsg0 == ptsg
             
             # Test correctness
             s0 = Set(pts)

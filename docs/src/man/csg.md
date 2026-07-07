@@ -1,7 +1,7 @@
 # Constructive Solid Geometry (CSG)
 
 All objects are defined through Constructive Solid Geometry (CSG),
-where complex geometries can be constructed by combining simple volume primitives (e.g. `Tube`) through [Boolean operators](@ref) and transformed using [Transformations](@ref). 
+where complex geometries can be constructed by combining simple volume primitives (e.g. `Tube`) through [Boolean Operators](@ref) and transformed using [Transformations](@ref). 
 
 The primitives which can be used are shown under [Volume Primitives](@ref) together with how they
 can be specified in the configuration files.
@@ -134,7 +134,7 @@ plot(prism)
 ````
 
 
-## Boolean operators
+## Boolean Operators
 
 The Boolean operators are `union`, `difference` and `intersection`:
 
@@ -203,11 +203,11 @@ If more than two geometries are passed, the `intersection` is constructed from a
 
 All [Volume Primitives](@ref) are defined such that they are centered around the origin of the coordinate system. They can be rotated in their local coordinate system and translated to their final position in the global coordinate system.
 
-There are two possibilities two rotate and translate volume primitives. One is to define the rotation/translation inside the primitive definition. The other one is to define it for complete sets like detectors, unions, etc.
+There are two possibilities to rotate and translate volume primitives. One is to define the rotation/translation inside the primitive definition. The other one is to define it for complete sets like detectors, unions, etc.
 
 ### Rotations
 
-Rotations are defined in the configuration files by either a 3$\times$3 rotation matrix or a set of angles with respective rotation axes are required.
+Rotations are defined in the configuration files by either a 3$\times$3 rotation matrix or a set of angles with respective rotation axes.
 
 If a `tube` is to be rotated 45° around the `x` axis, the rotation is parsed to the primitive as additional `rotation` field in the primitive definition.
 ```yaml

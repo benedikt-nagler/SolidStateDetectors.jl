@@ -102,13 +102,10 @@ function Geometry(::Type{T}, ::Type{Ellipsoid}, dict::AbstractDict, input_units:
     
     r = parse_r_of_primitive(T, dict, input_units.length)
     φ = parse_φ_of_primitive(T, dict, angle_unit)
-    if !(φ === nothing)
-        error("Partial Ellipsoid (`φ = φ`) is not yet supported.")
-    end
+    isnothing(φ) || throw(ConfigFileError("Partial Ellipsoid (`φ = φ`) is not yet supported."))
     θ = parse_θ_of_primitive(T, dict, angle_unit)
-    if !(θ === nothing)
-        error("Partial Ellipsoid (`θ = θ`) is not yet supported.")
-    end
+    isnothing(θ) || throw(ConfigFileError("Partial Ellipsoid (`θ = θ`) is not yet supported."))
+
     e = if r isa Tuple{T,T}
         Ellipsoid{T}(ClosedPrimitive,
             r = r[2], 
@@ -147,10 +144,6 @@ _in(pt::CartesianPoint{T}, s::FullSphere{<:Any, OpenPrimitive}; csgtol::T = csg_
 
 function surfaces(e::Ellipsoid{T,ClosedPrimitive}) where {T}
     em = EllipsoidMantle{T,typeof(e.r),typeof(e.φ),typeof(e.θ),:inwards}(e.r, e.φ, e.θ, e.origin, e.rotation)
-    (em,)
-end
-function surfaces(e::Ellipsoid{T,OpenPrimitive}) where {T}
-    em = EllipsoidMantle{T,typeof(e.r),typeof(e.φ),typeof(e.θ),:outwards}(e.r, e.φ, e.θ, e.origin, e.rotation)
     (em,)
 end
 

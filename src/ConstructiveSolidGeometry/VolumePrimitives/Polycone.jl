@@ -58,7 +58,7 @@ struct Polycone{T,CO,N,TP<:Nothing} <: AbstractVolumePrimitive{T,CO}
         end
         # sort the points counter-clockwise in the r-z-plane
         if PolygonOps.area(tuple.(_r,_z)) < 0
-            _r, _z = reverse(_r), reverse!(_z)
+            _r, _z = reverse(_r), reverse(_z)
         end
         new{T,CO,nr,typeof(φ)}(_r, _z, φ, origin, rotation)
     end
@@ -137,7 +137,7 @@ function _in(pt::CartesianPoint{T}, c::Polycone{<:Any, OpenPrimitive}; csgtol::T
         PolygonOps.inpolygon((hypot(pt.x, pt.y), pt.z), tuple.(c.r, c.z), in = true, on = iszero(pt.x) && iszero(pt.y), out = false)
 end
 
-function surfaces(c::Polycone{T,<:Any,N,Nothing}) where {T,N}
+function surfaces(c::Polycone{T,ClosedPrimitive,N,Nothing}) where {T,N}
     s = []
     @inbounds for i in Base.OneTo(N-1)
         r1::T = c.r[i]

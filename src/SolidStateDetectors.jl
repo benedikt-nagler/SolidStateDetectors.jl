@@ -43,7 +43,7 @@ using .ConstructiveSolidGeometry:
             parse_rotation_matrix, parse_translate_vector, parse_CSG_transformation,
             transform, CSG_dict, Transformations, combine_transformations, barycenter,
             LocalAffineFrame, cartesian_zero, global_frame, frame_transformation, 
-            ConfigFileError, _parse_value, distance_squared,
+            ConfigFileError, _parse_value, distance_squared, geom_round,
             LengthQuantity, AngleQuantity, get_scale
 
 import .ConstructiveSolidGeometry: sample, to_internal_units, from_internal_units
@@ -69,14 +69,15 @@ export SSD_examples
 
 export Grid
 
-export ElectricPotential, PointTypes, EffectiveChargeDensity, DielectricDistribution, WeightingPotential, ElectricField
+export ElectricPotential, PointTypes, EffectiveChargeDensity, ImpurityScale, DielectricDistribution, WeightingPotential, ElectricField
 export apply_initial_state!
 export calculate_electric_potential!, calculate_weighting_potential!, calculate_electric_field!
 export ElectricFieldChargeDriftModel, ADLChargeDriftModel, ADL2016ChargeDriftModel, IsotropicChargeDriftModel, InactiveLayerChargeDriftModel, PowerLawTemperatureModel
 export ConstantImpurityDensity, LinearImpurityDensity, ThermalDiffusionLithiumDensity, PtypePNJunctionImpurityDensity
 export LinBouleImpurityDensity, ParBouleImpurityDensity, LinExpBouleImpurityDensity, ParExpBouleImpurityDensity, SplineBouleImpurityDensity
 export NoChargeTrappingModel, BoggsChargeTrappingModel, ConstantLifetimeChargeTrappingModel, CombinedChargeTrappingModel
-export get_active_volume, is_depleted, estimate_depletion_voltage
+export get_active_volume, is_depleted, estimate_depletion_voltage, set_point_type_depletion_handling!
+export adjust_impurity_and_electric_potential_to_match_depletion!, adjust_bias_and_electric_potential!
 export calculate_stored_energy, calculate_mutual_capacitance, calculate_capacitance_matrix
 export simulate_waveforms
 export run_geant4_simulation

@@ -174,3 +174,67 @@ end
 
 _extend_refinement_limits(rl::Real) = (rl, rl, rl )
 _extend_refinement_limits(rl::Tuple{<:Real,<:Real,<:Real}) = rl
+
+@inline function has_surface_points(slice::AbstractArray{PointType})::Bool
+    return any(is_in_inactive_layer, slice)
+end
+
+function _refine_axis_surface( ax::DiscreteAxis{T, <:Any, <:Any, ClosedInterval{T}}, refine_flags::AbstractVector{Bool}, max_spacing::T;
+    extra_before::Int = 5,  # intervals to refine before first surface interval
+    extra_after::Int = 5    # intervals to refine after last surface interval
+) where {T}
+
+    old_ticks = ax.ticks
+    n_int = length(refine_flags)
+
+    # Find first and last surface intervals
+    first_surface = findfirst(refine_flags)
+    last_surface  = findlast(refine_flags)
+
+    (isnothing(first_surface) || isnothing(last_surface)) && return ax
+
+    # Add extra intervals before first surface interval
+    start_idx = max(first_surface - extra_before, 1)
+    refine_flags[start_idx:first_surface-1] .= true
+
+    # Add extra intervals after last surface interval
+    end_idx = min(last_surface + extra_after, n_int)
+    refine_flags[last_surface+1:end_idx] .= true
+
+    # Compute number of points to add per interval
+    ns = zeros(Int, n_int)
+    tmp = (zero(T), 1)
+    for i in eachindex(refine_flags)
+        if refine_flags[i]
+            Δ::T = (old_ticks[i+1] - old_ticks[i]) / max_spacing
+            if Δ > 1
+                ns[i] = ceil(Int, Δ) - 1
+                Δr::T = Δ % 1 > 0 ? Δ % 1 : one(Δ)
+                if Δr > tmp[1]
+                    tmp = (Δr, i)
+                end
+            end
+        end
+    end
+
+    # Ensure that the number of ticks is even
+    if isodd(sum(ns))
+        ns[tmp[2]] += 1
+    end
+
+    # Subdivide intervals
+    ticks = Vector{T}(undef, length(old_ticks) + sum(ns))
+    i_tick = 1
+    for j in 1:n_int
+        ticks[i_tick] = old_ticks[j]
+        sub_width = (old_ticks[j+1] - old_ticks[j]) / (ns[j]+1)
+        for k in 1:ns[j]
+            i_tick += 1
+            ticks[i_tick] = old_ticks[j] + k*sub_width
+        end
+        i_tick += 1
+    end
+    ticks[end] = old_ticks[end]
+
+    return typeof(ax)(ax.interval, ticks)
+end

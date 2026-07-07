@@ -41,7 +41,7 @@ end
 
 #Type promotion happens here
 function CartesianVector(x::TX, y::TY, z::TZ) where {TX<:Real,TY<:Real,TZ<:Real}
-    # ToDo: Simplify this:
+    # TODO: Simplify this:
     eltypes = _csg_get_promoted_eltype.((TX,TY,TZ))
     T = float(promote_type(eltypes...))
     CartesianVector{T}(T(x),T(y),T(z))
@@ -51,7 +51,7 @@ CartesianVector(; x = 0, y = 0, z = 0) = CartesianVector(x,y,z)
 
 CartesianVector{T}(; x = 0, y = 0, z = 0) where {T} = CartesianVector{T}(T(x),T(y),T(z))
 
-@inline Base.zero(::CartesianVector{T}) where {T} = CartesianVector{T}(zero(T),zero(T),zero(T))
+@inline Base.zero(::Union{<:CartesianVector{T}, <:Type{CartesianVector{T}}}) where {T} = CartesianVector{T}(zero(T),zero(T),zero(T))
 @inline Base.iszero(v::CartesianVector) = iszero(v.x) && iszero(v.y) && iszero(v.z)
 
 # Need to specialize multiplication and division with units for CartesianVector, otherwise result would just be an SVector:
@@ -62,7 +62,7 @@ Base.:(*)(v::CartesianVector{<:Real}, u::Unitful.Units{<:Any,Unitful.𝐋}) = Ca
 # for CartesianVector. Unitful doesn't encourage defining those for collections, but we'll view cartesian vectors as single
 # mathematical objects in regard to units:
 
-#ToDo: Uncomment when units are supported
+#TODO: Uncomment when units are supported
 #Unitful.uconvert(u::Unitful.Units{<:Any,Unitful.𝐋}, v::CartesianVector{<:Quantity{<:Real, Unitful.𝐋}}) = CartesianVector(uconvert(u, v.x), uconvert(u, v.y), uconvert(u, v.z))
 #Unitful.uconvert(u::Unitful.Units{<:Any,Unitful.NoDims}, v::CartesianVector{<:Quantity{<:Real, Unitful.NoDims}}) = CartesianVector(uconvert(u, v.x), uconvert(u, v.y), uconvert(u, v.z))
 #Unitful.ustrip(v::CartesianVector) = CartesianVector(ustrip(v.x), ustrip(v.y), ustrip(v.z))

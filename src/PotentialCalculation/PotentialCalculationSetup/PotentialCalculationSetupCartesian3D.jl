@@ -48,14 +48,14 @@ function set_point_types_and_fixed_potentials!(point_types::Array{PointType, 3},
     if NotOnlyPaintContacts
         for contact in det.contacts
             pot::T = isEP ? contact.potential : contact.id == weighting_potential_contact_id
-            is_inactive_layer_contact = isdefined(det.semiconductor.impurity_density_model, :surface_imp_model) && det.semiconductor.impurity_density_model.surface_imp_model.inactive_contact_id == contact.id
+            is_inactive_layer_contact = isdefined(det.semiconductor.impurity_density_model, :surface_imp_model) && contact.id in det.semiconductor.impurity_density_model.surface_imp_model.inactive_contact_id
             set_passive_or_contact_points(point_types, potential, grid, contact.geometry, pot, is_inactive_layer_contact, use_nthreads)
         end
     end
     if PaintContacts
         for contact in det.contacts
             pot::T = isEP ? contact.potential : contact.id == weighting_potential_contact_id
-            is_inactive_layer_contact = isdefined(det.semiconductor.impurity_density_model, :surface_imp_model) && det.semiconductor.impurity_density_model.surface_imp_model.inactive_contact_id == contact.id
+            is_inactive_layer_contact = isdefined(det.semiconductor.impurity_density_model, :surface_imp_model) && contact.id in det.semiconductor.impurity_density_model.surface_imp_model.inactive_contact_id
             fs = ConstructiveSolidGeometry.surfaces(contact.geometry)
             for face in fs
                 paint!(point_types, potential, face, contact.geometry, pot, grid, is_inactive_layer_contact)
@@ -107,7 +107,7 @@ function PotentialCalculationSetup(det::SolidStateDetector{T}, grid::CartesianGr
             Δmpx_inv::Vector{T} = inv.(Δmpx)
             Δhmpxr::Vector{T} = mpx[2:end] - ax_x # distances between midpoints and real grid points (half distances -> h), needed for weights wrr, wrl, ... & dV (volume element)
             Δhmpxl::Vector{T} = ax_x - mpx[1:end - 1]
-            wxr::Vector{T} = Δmpx_inv .* Δhmpxr # weights for epislon_r adding
+            wxr::Vector{T} = Δmpx_inv .* Δhmpxr # weights for epsilon_r adding
             wxl::Vector{T} = Δmpx_inv .* Δhmpxl
             wx::Array{T, 2} = zeros(T, 4, length(wxr) + 1)
             wx[1, 1:length(wxr)] = wxr
@@ -129,7 +129,7 @@ function PotentialCalculationSetup(det::SolidStateDetector{T}, grid::CartesianGr
             Δmpy_inv::Vector{T} = inv.(Δmpy)
             Δhmpyr::Vector{T} = mpy[2:end] - ax_y # distances between midpoints and real grid points (half distances -> h), needed for weights wrr, wrl, ... & dV (volume element)
             Δhmpyl::Vector{T} = ax_y - mpy[1:end - 1]
-            wyr::Vector{T} = Δmpy_inv .* Δhmpyr # weights for epislon_r adding
+            wyr::Vector{T} = Δmpy_inv .* Δhmpyr # weights for epsilon_r adding
             wyl::Vector{T} = Δmpy_inv .* Δhmpyl
             wy::Array{T, 2} = zeros(T, 4, length(wyr) + 1)
             wy[1, 1:length(wyr)] = wyr
@@ -151,7 +151,7 @@ function PotentialCalculationSetup(det::SolidStateDetector{T}, grid::CartesianGr
             Δmpz_inv::Vector{T} = inv.(Δmpz)
             Δhmpzr::Vector{T} = mpz[2:end] - ax_z # distances between midpoints and real grid points (half distances -> h), needed for weights wrr, wrl, ... & dV (volume element)
             Δhmpzl::Vector{T} = ax_z - mpz[1:end - 1]
-            wzr::Vector{T} = Δmpz_inv .* Δhmpzr # weights for epislon_r adding
+            wzr::Vector{T} = Δmpz_inv .* Δhmpzr # weights for epsilon_r adding
             wzl::Vector{T} = Δmpz_inv .* Δhmpzl
             wz::Array{T, 2} = zeros(T, 4, length(wzr) + 1)
             wz[1, 1:length(wzr)] = wzr

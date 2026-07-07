@@ -10,7 +10,7 @@
     pwΔmp2r, pwΔmp2l, 
     pwΔmp3r, pwΔmp3l,
 ) where {T, S}
-    
+
 
     # pww1r        = pcs.geom_weights[3][1, in1]
     pww1r        = geom_weights_3[1, in1]
@@ -172,14 +172,14 @@ end
     # The inner loop (over i1) is along the z-Dimension (Cylindrical Case), 
     # which is the 3rd dimension for Cylindrical coordinates: (r, φ, z)
     return @inbounds begin
-        ϵ_r[ in3, in2, in1 ],
-        ϵ_r[  i3, in2, in1 ],
-        ϵ_r[ in3,  i2, in1 ],
-        ϵ_r[  i3,  i2, in1 ],
-        ϵ_r[ in3, in2,  i1 ],
-        ϵ_r[  i3, in2,  i1 ],
-        ϵ_r[ in3,  i2,  i1 ],
-        ϵ_r[  i3,  i2,  i1 ]
+        ϵ_r[in3, in2, in1],
+        ϵ_r[i3,  in2, in1],
+        ϵ_r[in3,  i2, in1],
+        ϵ_r[i3,   i2, in1],
+        ϵ_r[in3, in2,  i1],
+        ϵ_r[i3,  in2,  i1],
+        ϵ_r[in3,  i2,  i1],
+        ϵ_r[i3,   i2,  i1]
     end
 end
 
@@ -190,14 +190,14 @@ end
     # The inner loop (over i1) is along the x-Dimension (Cartesian Case), 
     # which is the 1rd dimension for Cartesian coordinates: (x, y, z)
     return @inbounds begin
-        ϵ_r[ in1, in2, in3 ], 
-        ϵ_r[ in1, in2,  i3 ],
-        ϵ_r[ in1,  i2, in3 ], 
-        ϵ_r[ in1,  i2,  i3 ],
-        ϵ_r[  i1, in2, in3 ],
-        ϵ_r[  i1, in2,  i3 ],
-        ϵ_r[  i1,  i2, in3 ],
-        ϵ_r[  i1,  i2,  i3 ]
+        ϵ_r[in1, in2, in3],
+        ϵ_r[in1, in2,  i3],
+        ϵ_r[in1,  i2, in3],
+        ϵ_r[in1,  i2,  i3],
+        ϵ_r[ i1, in2, in3],
+        ϵ_r[ i1, in2,  i3],
+        ϵ_r[ i1,  i2, in3],
+        ϵ_r[ i1,  i2,  i3]
     end
 end
 

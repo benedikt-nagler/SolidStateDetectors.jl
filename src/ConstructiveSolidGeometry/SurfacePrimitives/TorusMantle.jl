@@ -79,6 +79,8 @@ end
 
 flip(t::TorusMantle{T,TP,TT,:inwards}) where {T,TP,TT} = 
 TorusMantle{T,TP,TT,:outwards}(t.r_torus, t.r_tube, t.φ, t.θ, t.origin, t.rotation )
+flip(t::TorusMantle{T,TP,TT,:outwards}) where {T,TP,TT} = 
+TorusMantle{T,TP,TT,:inwards}(t.r_torus, t.r_tube, t.φ, t.θ, t.origin, t.rotation )
 
 get_φ_limits(tm::TorusMantle{T,T}) where {T} = T(0), tm.φ
 get_φ_limits(tm::TorusMantle{T,Nothing}) where {T} = T(0), T(2π)
@@ -337,22 +339,20 @@ end
 _θNear(θ::Real, θMin::T, θMax::T) where {T} = _Δθ(T(θ),θMin) ≤ _Δθ(T(θ),θMax) ? θMin : θMax
 
 function distance_to_surface(pt::AbstractCoordinatePoint{T}, t::TorusMantle{T, Nothing})::T where {T}
-    pt = CylindricalPoint(pt)
 
-    if !_in_φ(pt, t.φ)
-        throw(AssertionError("φ-Partial Torus not implemented yet"))
-    end
+    pt_cyl  = CylindricalPoint(_transform_into_object_coordinate_system(CartesianPoint(pt), t))
 
-    t_origin = CylindricalPoint(t.origin)
-    pt_r = pt.r - t_origin.r - t.r_torus
-    pt_z = pt.z - t_origin.z
+    _in_φ(pt_cyl, t.φ) || throw(ArgumentError("φ-Partial Torus not implemented yet"))
+
+    pt_r = pt_cyl.r - t.r_torus
+    pt_z = pt_cyl.z
     pt_θ = atan(pt_z, pt_r)
 
     θMin::T, θMax::T = get_θ_limits(t)
-    if _in_angular_interval_closed(pt_θ, t.θ)
-        return abs(norm((pt_r,pt_z)) - t.r_tube)
+    return if _in_angular_interval_closed(pt_θ, t.θ)
+        abs(hypot(pt_r, pt_z) - t.r_tube)
     else
         sθNear, cθNear = sincos(_θNear(pt_θ, θMin, θMax))
-        return norm((pt_r - t.r_tube*cθNear, pt_z-t.r_tube*sθNear))
+        hypot(pt_r - t.r_tube * cθNear, pt_z - t.r_tube * sθNear)
     end
 end
