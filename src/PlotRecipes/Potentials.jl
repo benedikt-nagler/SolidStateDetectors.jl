@@ -1,64 +1,7 @@
-_get_potential_plot_information(sp::ScalarPotential, ::Bool) = _get_potential_plot_information(sp) # ignore point type bool for all other potentials
-
-function _get_potential_plot_information(p::ElectricPotential)::Tuple{Symbol, Tuple{Quantity, Quantity}, String, Unitful.Units}
-    return (:viridis, extrema(p.data).*internal_voltage_unit, "Electric Potential", internal_voltage_unit)
-end
-
-function _get_potential_plot_information(::WeightingPotential{T})::Tuple{Symbol, Tuple{T,T}, String, Unitful.Units} where {T}
-    return (:viridis, (zero(T), one(T)), "Weighting Potential", Unitful.NoUnits)
-end
-
-function _get_potential_plot_information(ecd::EffectiveChargeDensity)::Tuple{Symbol, Tuple{Quantity, Quantity}, String, Unitful.Units}
-    return (:inferno, extrema(ecd.data).*u"V/m^2", "Effective Charge Density", u"V/m^2")
-end
-
-function _get_potential_plot_information(::PointTypes{T}, all_point_types::Bool)::Tuple{Symbol, Tuple{T,T}, String, Unitful.Units} where {T}
-    return (:viridis, (zero(0), (all_point_types ? 31 : 7)*one(T)), "Point Type Map", Unitful.NoUnits)
-end
-
-function _get_potential_plot_information(::ImpurityScale{T})::Tuple{Symbol, Tuple{T,T}, String, Unitful.Units} where {T}
-    return (:viridis, (zero(T), one(T)), "Impurity Scale", Unitful.NoUnits)
-end
-
-function get_crosssection_idx_and_value(grid::Grid, ::Any, ::Any, ::Any)
-    error(ArgumentError, ": The cross section your are trying to plot is not given in the right format.\nPlease pass a number with matching or no units.")
-end
-
+# Plot-data helpers (`_get_potential_plot_information`, `get_crosssection_idx_and_value`)
+# live in `plot_utils.jl` so they are shared with the Makie extension.
 
 ## Potentials with cylindrical grids
-
-function get_crosssection_idx_and_value(grid::CylindricalGrid{T}, r::Union{Real, LengthQuantity, Missing}, φ::Union{Real, AngleQuantity, Missing}, z::Union{Real, LengthQuantity, Missing})::Tuple{Symbol,Int,T,Unitful.Units} where {T <: SSDFloat}
-
-    cross_section::Symbol, idx::Int, units::Unitful.Units = if ismissing(φ) && ismissing(r) && ismissing(z)
-        return get_crosssection_idx_and_value(grid, r, T(0.0), z)
-    elseif !ismissing(φ) && ismissing(r) && ismissing(z)
-        φ_rad::T = T(to_internal_units(φ isa Real ? deg2rad(φ) : φ))
-        while !(grid.φ.interval.left <= φ_rad <= grid.φ.interval.right) && grid.φ.interval.right != grid.φ.interval.left
-            if φ_rad > grid.φ.interval.right
-                φ_rad -= width(grid.φ.interval)
-            elseif φ_rad < grid.φ.interval.left
-                φ_rad += width(grid.φ.interval)
-            end
-        end
-        :φ, searchsortednearest(grid.φ, φ_rad), φ isa Real ? u"°" : unit(φ)
-    elseif ismissing(φ) && !ismissing(r) && ismissing(z)
-        :r, searchsortednearest(grid.r, T(to_internal_units(r))), r isa Real ? internal_length_unit : unit(r)
-    elseif ismissing(φ) && ismissing(r) && !ismissing(z)
-        :z, searchsortednearest(grid.z, T(to_internal_units(z))), z isa Real ? internal_length_unit : unit(z)
-    else
-        error(ArgumentError, ": Only one of the keywords `r, φ, z` is allowed.")
-    end
-
-    value::T = if cross_section == :φ
-        rad2deg(grid.φ[idx])
-    elseif cross_section == :r
-        grid.r[idx]
-    elseif cross_section == :z
-        grid.z[idx]
-    end
-
-    cross_section, idx, value, units
-end
 
 @recipe function f(sp::ScalarPotential{T,3,Cylindrical}; r = missing, φ = missing, z = missing, contours_equal_potential = false, full_det = false, all_point_types = false) where {T <: SSDFloat}
 
@@ -192,23 +135,6 @@ end
 
 
 ## Potentials with Cartesian grids
-
-function get_crosssection_idx_and_value(grid::CartesianGrid3D{T}, x::Union{Real, LengthQuantity, Missing}, y::Union{Real, LengthQuantity, Missing}, z::Union{Real, LengthQuantity, Missing})::Tuple{Symbol,Int,T,Unitful.Units} where {T <: SSDFloat}
-
-    cross_section::Symbol, idx::Int, units::Unitful.Units = if ismissing(x) && ismissing(y) && ismissing(z)
-        return get_crosssection_idx_and_value(grid, T(0.0), y, z)
-    elseif !ismissing(x) && ismissing(y) && ismissing(z)
-        :x, searchsortednearest(grid.x, T(to_internal_units(x))), x isa Real ? internal_length_unit : unit(x)
-    elseif ismissing(x) && !ismissing(y) && ismissing(z)
-        :y, searchsortednearest(grid.y, T(to_internal_units(y))), y isa Real ? internal_length_unit : unit(y)
-    elseif ismissing(x) && ismissing(y) && !ismissing(z)
-        :z, searchsortednearest(grid.z, T(to_internal_units(z))), z isa Real ? internal_length_unit : unit(z)
-    else
-        error(ArgumentError, ": Only one of the keywords `x, y, z` is allowed.")
-    end
-    value::T = grid[cross_section][idx]
-    cross_section, idx, value, units
-end
 
 @recipe function f(sp::ScalarPotential{T,3,Cartesian}; x = missing, y = missing, z = missing, contours_equal_potential = false, all_point_types = false) where {T <: SSDFloat}
     

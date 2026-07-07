@@ -130,6 +130,30 @@ include("IO/IO.jl")
 include("PlotRecipes/PlotRecipes.jl")
 export @P_str # protected strings to overwrite plot labels with units
 
+export electricfieldplot, electricfieldplot!, ElectricFieldPlot
+export electricfieldlinesplot, electricfieldlinesplot!, ElectricFieldLines
+
+function electricfieldplot(args...; kwargs...)
+    ext = Base.get_extension(@__MODULE__, :SolidStateDetectorsMakieExt)
+    isnothing(ext) && error("Load a Makie backend (e.g. `using CairoMakie`) to use `electricfieldplot`")
+    ext.electricfieldplot(args...; kwargs...)
+end
+function electricfieldplot!(args...; kwargs...)
+    ext = Base.get_extension(@__MODULE__, :SolidStateDetectorsMakieExt)
+    isnothing(ext) && error("Load a Makie backend (e.g. `using CairoMakie`) to use `electricfieldplot!`")
+    ext.electricfieldplot!(args...; kwargs...)
+end
+function electricfieldlinesplot(args...; kwargs...)
+    ext = Base.get_extension(@__MODULE__, :SolidStateDetectorsMakieExt)
+    isnothing(ext) && error("Load a Makie backend (e.g. `using CairoMakie`) to use `electricfieldlinesplot`")
+    ext.electricfieldlinesplot(args...; kwargs...)
+end
+function electricfieldlinesplot!(args...; kwargs...)
+    ext = Base.get_extension(@__MODULE__, :SolidStateDetectorsMakieExt)
+    isnothing(ext) && error("Load a Makie backend (e.g. `using CairoMakie`) to use `electricfieldlinesplot!`")
+    ext.electricfieldlinesplot!(args...; kwargs...)
+end
+
 
 export GridPoint
 @deprecate GridPoint(grid::Grid{T, N, S}, idxs::Vararg{Int, N}) where {T, N, S} getpoint(grid, idxs...)

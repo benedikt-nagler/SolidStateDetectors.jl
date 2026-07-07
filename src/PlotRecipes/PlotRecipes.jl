@@ -1,3 +1,4 @@
+include("plot_utils.jl")
 include("ChargeCloudModels.jl")
 include("DriftPaths.jl")
 include("ElectricField.jl")
