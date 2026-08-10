@@ -1,16 +1,23 @@
 # Smoke tests for the Makie plotting extension (`SolidStateDetectorsMakieExt`).
 #
-# CairoMakie renders headless, so these run in CI without a display. This file is only included
-# (see `runtests.jl`) on Julia versions where the pinned Makie (0.21) can load — `using CairoMakie`
-# must not be reached otherwise, as it would trigger a failing precompilation.
+# CairoMakie renders headless, so these run in CI without a display.
+#
+# NOTE: these are deliberately shallow — they cannot detect a wrong colormap, a missing colorbar, a
+# transposed array or a lost title. They are replaced by the tier-1 parity assertions of
+# `docs/makie_migration_plan.md` §3.2 as each recipe is ported.
 
 using Test
 using SolidStateDetectors
 using CairoMakie
 
+const ssd_makie_ext = Base.get_extension(SolidStateDetectors, :SolidStateDetectorsMakieExt)
+
 @testset "Makie extension loaded" begin
-    ext = Base.get_extension(SolidStateDetectors, :SolidStateDetectorsMakieExt)
-    @test ext !== nothing
+    @test ssd_makie_ext !== nothing
+    # The entry points are declared in the main module and given methods by the extension, so
+    # they must be one and the same function (plan D4a) — a forwarding stub would not be.
+    @test SolidStateDetectors.electricfieldplot === ssd_makie_ext.electricfieldplot
+    @test !isempty(methods(SolidStateDetectors.electricfieldplot))
 end
 
 @testset "ElectricField recipe" begin
@@ -31,6 +38,14 @@ end
     # mutating form into an existing axis
     fig = Makie.Figure(); ax = Makie.Axis(fig[1, 1])
     @test electricfieldplot!(ax, sim.electric_field, φ = 30) isa Makie.AbstractPlot
+
+    # generic Makie entry points must route to the recipe (`plottype`/`convert_arguments`),
+    # which is what keeps the `plot(sim.electric_field, ...)` call sites in the docs working
+    gfap = Makie.plot(sim.electric_field, φ = 30)
+    @test gfap isa Makie.FigureAxisPlot
+    @test gfap.plot isa ssd_makie_ext.ElectricFieldPlot
+    fig2 = Makie.Figure(); ax2 = Makie.Axis(fig2[1, 1])
+    @test Makie.plot!(ax2, sim.electric_field, φ = 30) isa ssd_makie_ext.ElectricFieldPlot
 end
 
 @testset "ElectricField recipe (Cartesian)" begin

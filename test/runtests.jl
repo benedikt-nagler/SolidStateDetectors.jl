@@ -61,14 +61,8 @@ end
     if Sys.WORD_SIZE == 64 include("test_geant4.jl") end
 end
 
-# The pinned Makie (0.21) cannot precompile on Julia >= 1.12, so only run (and only load CairoMakie)
-# on supported versions. Remove the guard once the Makie compat bound is raised.
-if VERSION < v"1.12-"
-    @timed_testset "Makie plotting extension" begin
-        include("test_plotting.jl")
-    end
-else
-    @info "Skipping Makie plotting tests: Makie 0.21 is incompatible with Julia $(VERSION)."
+@timed_testset "Makie plotting extension" begin
+    include("test_plotting.jl")
 end
 
 display(testtimer())

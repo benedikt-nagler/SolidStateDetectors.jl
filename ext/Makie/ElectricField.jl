@@ -9,24 +9,46 @@
 # `get_extended_ticks`) live in the main package (`src/PlotRecipes/plot_utils.jl`,
 # `src/Axes/DiscreteAxis.jl`) and are reused here.
 
-# Field-line plotting is not yet ported to Makie (the `ElectricFieldLines` stub is still pending).
-# Until it lands, the Plots.jl recipe `plot_electric_fieldlines` remains available. Defining these
-# here gives a clear message instead of an `UndefVarError` from the main-module forwarding stub.
-const _fieldlines_todo = "`electricfieldlinesplot` is not yet implemented in the Makie extension; " *
-    "use the Plots.jl recipe `plot_electric_fieldlines` for now."
-electricfieldlinesplot(args...; kwargs...) = error(_fieldlines_todo)
-electricfieldlinesplot!(args...; kwargs...) = error(_fieldlines_todo)
+# Field-line plotting (`plot_electric_fieldlines` in Plots.jl) is not ported yet — it is step 9 of
+# `docs/makie_migration_plan.md`. No entry point is declared for it until then, so that the package
+# never exports a name that has no methods.
 
-@recipe(ElectricFieldPlot) do scene
-    Attributes(
-        colormap = :inferno,
-        colorrange = Makie.automatic,
-        # cross-section selectors (only one may be set); cylindrical: r/φ/z, Cartesian: x/y/z
-        r = missing, φ = missing, z = missing, x = missing, y = missing,
-        contours_equal_potential = false,
-        full_det = false,
-    )
+"""
+    electricfieldplot(ef::ElectricField; kwargs...)
+    electricfieldplot!(ax, ef::ElectricField; kwargs...)
+
+Plot the magnitude of the electric field `ef` on a cross section of the detector.
+
+Exactly one cross-section selector must be given: `r`, `φ` or `z` for a cylindrical field,
+`x`, `y` or `z` for a Cartesian one. The value is snapped to the closest grid tick.
+"""
+@recipe ElectricFieldPlot (ef,) begin
+    "Colormap of the field magnitude."
+    colormap = :inferno
+    "Limits of the color scale; `Makie.automatic` takes them from the data."
+    colorrange = Makie.automatic
+    "Cylindrical cross section at this radius."
+    r = missing
+    "Cylindrical cross section at this angle (in degrees, unless a unit is attached)."
+    φ = missing
+    "Cross section at this height; cylindrical fields are drawn into a `PolarAxis`."
+    z = missing
+    "Cartesian cross section at this `x`."
+    x = missing
+    "Cartesian cross section at this `y`."
+    y = missing
+    "Overlay contour lines of the field magnitude."
+    contours_equal_potential = false
+    "Mirror a cylindrical `φ` cross section to show the full detector."
+    full_det = false
 end
+
+# Make the generic entry points (`plot(ef)`, `plot!(ax, ef)`) route to this recipe — that is what
+# keeps the existing `plot(sim.electric_field, φ = 30)` call sites in the docs working. The
+# `convert_arguments` method is the identity: the recipe consumes the `ElectricField` itself, and
+# without it Makie would try (and fail) to convert the field into point data.
+Makie.plottype(::ElectricField{<:Any, 3}) = ElectricFieldPlot
+Makie.convert_arguments(::Type{<:ElectricFieldPlot}, ef::ElectricField{<:Any, 3}) = (ef,)
 
 # `preferred_axis_type` runs before the recipe's default attributes are merged into the plot, so the
 # only place the user-passed cross-section keywords exist yet is the raw kwargs dict `p.kw`. An absent

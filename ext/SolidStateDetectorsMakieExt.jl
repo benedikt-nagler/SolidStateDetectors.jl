@@ -10,6 +10,11 @@ using Unitful
 using SolidStateDetectors
 using SolidStateDetectors.ConstructiveSolidGeometry
 
+# The plotting entry points are *declared* in the main module (see the "Makie plotting entry points"
+# block in `src/SolidStateDetectors.jl`); `import` — not `using` — is what lets `@recipe` attach its
+# methods to those functions instead of creating new ones in this module.
+import SolidStateDetectors: electricfieldplot, electricfieldplot!
+
 # Non-exported helpers / types reused from the main package.
 import SolidStateDetectors: SSDFloat, ElectricField,
     get_crosssection_idx_and_value, get_extended_ticks, get_2π_potential,

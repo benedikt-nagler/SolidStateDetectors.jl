@@ -131,28 +131,31 @@ include("IO/IO.jl")
 include("PlotRecipes/PlotRecipes.jl")
 export @P_str # protected strings to overwrite plot labels with units
 
-export electricfieldplot, electricfieldplot!, ElectricFieldPlot
-export electricfieldlinesplot, electricfieldlinesplot!, ElectricFieldLines
+# --- Makie plotting entry points ---------------------------------------------------------------
+#
+# The Makie recipes live in the `SolidStateDetectorsMakieExt` extension (weakdep `Makie`), but the
+# plotting *functions* are declared here, so that there is exactly one function object per entry
+# point: `SolidStateDetectors.electricfieldplot` **is** the recipe function, and the extension only
+# attaches methods to it (`import SolidStateDetectors: electricfieldplot` before `@recipe`).
+#
+# A forwarding stub would be a different function object from the one Makie's `@recipe` generates,
+# so `Makie.plot(obj)` / `plot!(ax, obj)` could never route to the recipe, and every method
+# signature and docstring would be erased behind `args...; kwargs...`.
+#
+# Consequence: without a Makie backend loaded these functions have no methods at all. `__init__`
+# registers a `MethodError` hint that says which package to load — see `_makie_backend_hint`.
+export electricfieldplot, electricfieldplot!
+function electricfieldplot end
+function electricfieldplot! end
 
-function electricfieldplot(args...; kwargs...)
-    ext = Base.get_extension(@__MODULE__, :SolidStateDetectorsMakieExt)
-    isnothing(ext) && error("Load a Makie backend (e.g. `using CairoMakie`) to use `electricfieldplot`")
-    ext.electricfieldplot(args...; kwargs...)
-end
-function electricfieldplot!(args...; kwargs...)
-    ext = Base.get_extension(@__MODULE__, :SolidStateDetectorsMakieExt)
-    isnothing(ext) && error("Load a Makie backend (e.g. `using CairoMakie`) to use `electricfieldplot!`")
-    ext.electricfieldplot!(args...; kwargs...)
-end
-function electricfieldlinesplot(args...; kwargs...)
-    ext = Base.get_extension(@__MODULE__, :SolidStateDetectorsMakieExt)
-    isnothing(ext) && error("Load a Makie backend (e.g. `using CairoMakie`) to use `electricfieldlinesplot`")
-    ext.electricfieldlinesplot(args...; kwargs...)
-end
-function electricfieldlinesplot!(args...; kwargs...)
-    ext = Base.get_extension(@__MODULE__, :SolidStateDetectorsMakieExt)
-    isnothing(ext) && error("Load a Makie backend (e.g. `using CairoMakie`) to use `electricfieldlinesplot!`")
-    ext.electricfieldlinesplot!(args...; kwargs...)
+const _makie_entry_points = (electricfieldplot, electricfieldplot!)
+
+function _makie_backend_hint(io::IO, exc::MethodError, @nospecialize(argtypes), @nospecialize(kwargs))
+    exc.f in _makie_entry_points || return nothing
+    isnothing(Base.get_extension(@__MODULE__, :SolidStateDetectorsMakieExt)) || return nothing
+    print(io, "\n\n`$(nameof(exc.f))` is provided by the SolidStateDetectors Makie extension. ",
+        "Load a Makie backend first, e.g. `using CairoMakie` (or `using GLMakie`).")
+    return nothing
 end
 
 
@@ -165,6 +168,7 @@ function __init__()
     @require LegendHDF5IO ="c9265ca6-b027-5446-b1a4-febfa8dd10b0" begin
         include("../ext/SolidStateDetectorsLegendHDF5IOExt.jl")
     end
+    Base.Experimental.register_error_hint(_makie_backend_hint, MethodError)
 end
 
 end # module
