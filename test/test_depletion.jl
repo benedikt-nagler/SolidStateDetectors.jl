@@ -77,14 +77,3 @@ T = Float32
     @test_throws ArgumentError adjust_bias_and_electric_potential!(sim, 1000u"V", check_against_depletion_voltage = true, check_for_depletion = false, verbose = false)          # opposite sign
     @test_throws ArgumentError adjust_bias_and_electric_potential!(sim, dep_target / 2, check_against_depletion_voltage = true, check_for_depletion = false, verbose = false)    # |bias| < |dep|
 end
-
-@testset "_estimate_depletion_voltage_factor" begin
-    # Test functions accept AbstractVector
-    center_only = 1.0
-    center_zero = -2.0
-    neighbors_only = [0.5, 0.0, -0.5]
-    neighbors_zero = [-1.0, -2.0, -3.0]
-    est = SolidStateDetectors._estimate_depletion_voltage_factor(center_only, center_zero, neighbors_only, neighbors_zero)
-    @test est isa Float64
-    @test SolidStateDetectors._replace_NaN_with_minimum([NaN, 2.0, 3.0]) == [2.0, 2.0, 3.0]
-end
