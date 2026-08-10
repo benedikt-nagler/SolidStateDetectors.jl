@@ -3,8 +3,9 @@
 # CairoMakie renders headless, so these run in CI without a display.
 #
 # NOTE: these are deliberately shallow — they cannot detect a wrong colormap, a missing colorbar, a
-# transposed array or a lost title. They are replaced by the tier-1 parity assertions of
-# `docs/makie_migration_plan.md` §3.2 as each recipe is ported.
+# transposed array or a lost title. As each recipe is ported they are replaced by assertions that
+# compare title, axis labels, limits, `colorrange` and the plotted data against the output of the
+# corresponding Plots.jl recipe.
 
 using Test
 using SolidStateDetectors

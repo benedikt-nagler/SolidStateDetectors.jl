@@ -9,9 +9,9 @@
 # `get_extended_ticks`) live in the main package (`src/PlotRecipes/plot_utils.jl`,
 # `src/Axes/DiscreteAxis.jl`) and are reused here.
 
-# Field-line plotting (`plot_electric_fieldlines` in Plots.jl) is not ported yet — it is step 9 of
-# `docs/makie_migration_plan.md`. No entry point is declared for it until then, so that the package
-# never exports a name that has no methods.
+# Field-line plotting is not ported yet; the Plots.jl recipe `plot_electric_fieldlines` remains the
+# way to draw them. No Makie entry point is declared until it lands, so that the package never
+# exports a name that has no methods.
 
 """
     electricfieldplot(ef::ElectricField; kwargs...)
