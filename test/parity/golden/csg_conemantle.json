@@ -1,0 +1,210 @@
+{
+  "axes": [
+    {
+      "aspect_ratio": "auto",
+      "clims": null,
+      "colorbar": "best",
+      "colorbar_title": "m",
+      "colormap": "",
+      "legend_entries": [
+        "Cone Mantle"
+      ],
+      "legend_position": "best",
+      "projection": "3d",
+      "title": "",
+      "xguide": "x",
+      "xlims": null,
+      "xunit": "m",
+      "yguide": "y",
+      "ylims": null,
+      "yunit": "m",
+      "zguide": "z",
+      "zunit": "m"
+    }
+  ],
+  "backend": "plots",
+  "call": "plot(ConeMantle)",
+  "error": "",
+  "group": "csg",
+  "id": "csg_conemantle",
+  "note": "",
+  "series": [
+    {
+      "alpha": null,
+      "color": "#009afa",
+      "fillalpha": 0.5,
+      "label": "",
+      "linecolor": "#ffffff",
+      "linewidth": 0.0,
+      "markershape": "none",
+      "markersize": 4.0,
+      "n_connections": 40,
+      "seriestype": "mesh3d",
+      "subplot": 1,
+      "x": {
+        "digest": [
+          0.68531023,
+          -0.58531027,
+          -0.62300926,
+          0.68531035,
+          0.68531023,
+          -0.62300934,
+          -0.58531019,
+          0.68531035
+        ],
+        "digest_size": [
+          8
+        ],
+        "extrema": [
+          -1.0,
+          1.0
+        ],
+        "hash": "c6de7ab11c665844",
+        "n_missing": 0,
+        "size": [
+          82
+        ],
+        "unit": ""
+      },
+      "y": {
+        "digest": [
+          0.58531024,
+          0.68531019,
+          -0.62300937,
+          -0.58531011,
+          0.58531024,
+          0.62300925,
+          -0.68531029,
+          -0.58531011
+        ],
+        "digest_size": [
+          8
+        ],
+        "extrema": [
+          -1.0,
+          1.0
+        ],
+        "hash": "1d19953a846a6a52",
+        "n_missing": 0,
+        "size": [
+          82
+        ],
+        "unit": ""
+      },
+      "z": {
+        "digest": [
+          -1.0,
+          -1.0,
+          -1.0,
+          -1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "digest_size": [
+          8
+        ],
+        "extrema": [
+          -1.0,
+          1.0
+        ],
+        "hash": "d57df43fff849430",
+        "n_missing": 0,
+        "size": [
+          82
+        ],
+        "unit": ""
+      }
+    },
+    {
+      "alpha": null,
+      "color": "#009afa",
+      "fillalpha": 1.0,
+      "label": "Cone Mantle",
+      "linecolor": "#000000",
+      "linewidth": 2.0,
+      "markershape": "none",
+      "markersize": 4.0,
+      "n_connections": 82,
+      "seriestype": "mesh3d",
+      "subplot": 1,
+      "x": {
+        "digest": [
+          0.68531023,
+          -0.58531027,
+          -0.62300926,
+          0.68531035,
+          0.68531023,
+          -0.62300934,
+          -0.58531019,
+          0.68531035
+        ],
+        "digest_size": [
+          8
+        ],
+        "extrema": [
+          -1.0,
+          1.0
+        ],
+        "hash": "c6de7ab11c665844",
+        "n_missing": 0,
+        "size": [
+          82
+        ],
+        "unit": ""
+      },
+      "y": {
+        "digest": [
+          0.58531024,
+          0.68531019,
+          -0.62300937,
+          -0.58531011,
+          0.58531024,
+          0.62300925,
+          -0.68531029,
+          -0.58531011
+        ],
+        "digest_size": [
+          8
+        ],
+        "extrema": [
+          -1.0,
+          1.0
+        ],
+        "hash": "1d19953a846a6a52",
+        "n_missing": 0,
+        "size": [
+          82
+        ],
+        "unit": ""
+      },
+      "z": {
+        "digest": [
+          -1.0,
+          -1.0,
+          -1.0,
+          -1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "digest_size": [
+          8
+        ],
+        "extrema": [
+          -1.0,
+          1.0
+        ],
+        "hash": "d57df43fff849430",
+        "n_missing": 0,
+        "size": [
+          82
+        ],
+        "unit": ""
+      }
+    }
+  ],
+  "version": 1
+}

@@ -1,0 +1,187 @@
+{
+  "axes": [
+    {
+      "aspect_ratio": "1",
+      "clims": [
+        0.0,
+        1.8502274e8
+      ],
+      "colorbar": "best",
+      "colorbar_title": "Effective Charge Density (V m⁻²)",
+      "colormap": "grad(#000004,#bb3755,#fcffa4)",
+      "legend_entries": [],
+      "legend_position": "best",
+      "projection": "none",
+      "title": "Effective Charge Density @ x = 0.000125 m",
+      "xguide": "y",
+      "xlims": [
+        -0.0089999996,
+        0.0089999996
+      ],
+      "xunit": "m",
+      "yguide": "z",
+      "ylims": [
+        -0.0089999996,
+        0.0089999996
+      ],
+      "yunit": "m",
+      "zguide": "",
+      "zunit": "V m⁻²"
+    }
+  ],
+  "backend": "plots",
+  "call": "plot(EffectiveChargeDensity; x = 0)",
+  "error": "",
+  "group": "potentials",
+  "id": "potentials_car_chargedensity_x",
+  "note": "",
+  "series": [
+    {
+      "alpha": null,
+      "color": "grad(#000004,#bb3755,#fcffa4)",
+      "fillalpha": null,
+      "label": "y1",
+      "linecolor": "grad(#000004,#bb3755,#fcffa4)",
+      "linewidth": 0.0,
+      "markershape": "none",
+      "markersize": 4.0,
+      "n_connections": 0,
+      "seriestype": "heatmap",
+      "subplot": 1,
+      "x": {
+        "digest": [
+          -0.0099999995,
+          -0.0051250001,
+          -0.0035000001,
+          -0.0015625001,
+          0.0010625,
+          0.0035000001,
+          0.0051250001,
+          0.0099999995
+        ],
+        "digest_size": [
+          8
+        ],
+        "extrema": [
+          -0.012999999,
+          0.012999999
+        ],
+        "hash": "57b02cdb029cbf29",
+        "n_missing": 0,
+        "size": [
+          12
+        ],
+        "unit": ""
+      },
+      "y": {
+        "digest": [
+          -0.010624999,
+          -0.0065000001,
+          -0.0041875001,
+          -0.0015625001,
+          0.001,
+          0.0034375,
+          0.0049374998,
+          0.0099999995
+        ],
+        "digest_size": [
+          8
+        ],
+        "extrema": [
+          -0.013249999,
+          0.012999999
+        ],
+        "hash": "8df33538f8ed624a",
+        "n_missing": 0,
+        "size": [
+          16
+        ],
+        "unit": ""
+      },
+      "z": {
+        "digest": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          6.0867472e7,
+          7.6920448e7,
+          7.7938288e7,
+          7.88592e7,
+          4.7586948e7,
+          0.0,
+          0.0,
+          0.0,
+          1.4202416e8,
+          1.7948108e8,
+          1.8185607e8,
+          1.8400486e8,
+          1.1103625e8,
+          0.0,
+          0.0,
+          0.0,
+          1.4202416e8,
+          1.794811e8,
+          1.8185607e8,
+          1.8400488e8,
+          1.1103626e8,
+          0.0,
+          0.0,
+          0.0,
+          1.4202416e8,
+          1.794811e8,
+          1.8185608e8,
+          1.8400487e8,
+          1.1103625e8,
+          0.0,
+          0.0,
+          0.0,
+          1.4202416e8,
+          1.7948108e8,
+          1.8185607e8,
+          1.8400486e8,
+          1.1103625e8,
+          0.0,
+          0.0,
+          0.0,
+          6.0867472e7,
+          7.6920448e7,
+          7.7938288e7,
+          7.88592e7,
+          4.7586948e7,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "digest_size": [
+          8,
+          8
+        ],
+        "extrema": [
+          0.0,
+          1.8502274e8
+        ],
+        "hash": "bf9689abc6cf9af9",
+        "n_missing": 0,
+        "size": [
+          16,
+          12
+        ],
+        "unit": ""
+      }
+    }
+  ],
+  "version": 1
+}

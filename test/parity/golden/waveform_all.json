@@ -1,0 +1,160 @@
+{
+  "axes": [
+    {
+      "aspect_ratio": "auto",
+      "clims": null,
+      "colorbar": "best",
+      "colorbar_title": "",
+      "colormap": "",
+      "legend_entries": [],
+      "legend_position": "best",
+      "projection": "none",
+      "title": "",
+      "xguide": "t",
+      "xlims": null,
+      "xunit": "ns",
+      "yguide": "signal",
+      "ylims": null,
+      "yunit": "e",
+      "zguide": "",
+      "zunit": ""
+    }
+  ],
+  "backend": "plots",
+  "call": "plot(Array)",
+  "error": "",
+  "group": "waveforms",
+  "id": "waveform_all",
+  "note": "",
+  "series": [
+    {
+      "alpha": null,
+      "color": "#009afa",
+      "fillalpha": null,
+      "label": "y1",
+      "linecolor": "#009afa",
+      "linewidth": 1.0,
+      "markershape": "none",
+      "markersize": 4.0,
+      "n_connections": 0,
+      "seriestype": "path",
+      "subplot": 1,
+      "x": {
+        "digest": [
+          95.0,
+          290.0,
+          485.0,
+          680.0,
+          875.0,
+          1070.0,
+          1265.0,
+          1460.0
+        ],
+        "digest_size": [
+          8
+        ],
+        "extrema": [
+          0.0,
+          1555.0
+        ],
+        "hash": "7e05c821425c7949",
+        "n_missing": 0,
+        "size": [
+          312
+        ],
+        "unit": ""
+      },
+      "y": {
+        "digest": [
+          0.0005960702,
+          0.0019177333,
+          0.003269357,
+          0.0053677214,
+          0.0071180248,
+          0.0091163039,
+          0.010340924,
+          0.010375918
+        ],
+        "digest_size": [
+          8
+        ],
+        "extrema": [
+          0.0,
+          0.010376119
+        ],
+        "hash": "1831ac791f01b0a9",
+        "n_missing": 0,
+        "size": [
+          312
+        ],
+        "unit": ""
+      },
+      "z": null
+    },
+    {
+      "alpha": null,
+      "color": "#e36f47",
+      "fillalpha": null,
+      "label": "y2",
+      "linecolor": "#e36f47",
+      "linewidth": 1.0,
+      "markershape": "none",
+      "markersize": 4.0,
+      "n_connections": 0,
+      "seriestype": "path",
+      "subplot": 1,
+      "x": {
+        "digest": [
+          95.0,
+          290.0,
+          485.0,
+          680.0,
+          875.0,
+          1070.0,
+          1265.0,
+          1460.0
+        ],
+        "digest_size": [
+          8
+        ],
+        "extrema": [
+          0.0,
+          1555.0
+        ],
+        "hash": "7e05c821425c7949",
+        "n_missing": 0,
+        "size": [
+          312
+        ],
+        "unit": ""
+      },
+      "y": {
+        "digest": [
+          -0.00060194216,
+          -0.0019366656,
+          -0.0033015664,
+          -0.005420389,
+          -0.0071877981,
+          -0.0092054835,
+          -0.010442204,
+          -0.010477551
+        ],
+        "digest_size": [
+          8
+        ],
+        "extrema": [
+          -0.010477769,
+          0.0
+        ],
+        "hash": "fa2eea2bd877fff6",
+        "n_missing": 0,
+        "size": [
+          312
+        ],
+        "unit": ""
+      },
+      "z": null
+    }
+  ],
+  "version": 1
+}

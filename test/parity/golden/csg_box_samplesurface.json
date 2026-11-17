@@ -1,0 +1,122 @@
+{
+  "axes": [
+    {
+      "aspect_ratio": "1.0",
+      "clims": null,
+      "colorbar": "best",
+      "colorbar_title": "m",
+      "colormap": "",
+      "legend_entries": [
+        "Box"
+      ],
+      "legend_position": "best",
+      "projection": "3d",
+      "title": "",
+      "xguide": "x",
+      "xlims": null,
+      "xunit": "m",
+      "yguide": "y",
+      "ylims": null,
+      "yunit": "m",
+      "zguide": "z",
+      "zunit": "m"
+    }
+  ],
+  "backend": "plots",
+  "call": "plot(Box; seriestype = :samplesurface)",
+  "error": "",
+  "group": "csg",
+  "id": "csg_box_samplesurface",
+  "note": "",
+  "series": [
+    {
+      "alpha": 0.2,
+      "color": "#009afa",
+      "fillalpha": 0.2,
+      "label": "Box",
+      "linecolor": "#000000",
+      "linewidth": 0.0,
+      "markershape": "circle",
+      "markersize": 3.0,
+      "n_connections": 0,
+      "seriestype": "scatter3d",
+      "subplot": 1,
+      "x": {
+        "digest": [
+          0.10950677,
+          -0.018914684,
+          -0.014536107,
+          -0.065098972,
+          1.0,
+          0.47809643,
+          -0.50017838,
+          -1.0
+        ],
+        "digest_size": [
+          8
+        ],
+        "extrema": [
+          -1.0,
+          1.0
+        ],
+        "hash": "69c71e618c18a393",
+        "n_missing": 0,
+        "size": [
+          12162
+        ],
+        "unit": ""
+      },
+      "y": {
+        "digest": [
+          -0.49388668,
+          -0.36401843,
+          -0.63163602,
+          -0.19127813,
+          0.22581025,
+          0.65671566,
+          0.63500203,
+          0.16327483
+        ],
+        "digest_size": [
+          8
+        ],
+        "extrema": [
+          -2.0,
+          2.0
+        ],
+        "hash": "5f4e4deedb0d6bf4",
+        "n_missing": 0,
+        "size": [
+          12162
+        ],
+        "unit": ""
+      },
+      "z": {
+        "digest": [
+          -1.0,
+          -0.47801125,
+          0.49819011,
+          1.0,
+          0.20899237,
+          -0.14442646,
+          -0.014972903,
+          -0.094652859
+        ],
+        "digest_size": [
+          8
+        ],
+        "extrema": [
+          -1.0,
+          1.0
+        ],
+        "hash": "c252988710ce3742",
+        "n_missing": 0,
+        "size": [
+          12162
+        ],
+        "unit": ""
+      }
+    }
+  ],
+  "version": 1
+}

@@ -1,0 +1,11 @@
+{
+  "axes": [],
+  "backend": "plots",
+  "call": "plot(…)",
+  "error": "Cannot convert CartesianPoint{Float32} to series data for plotting",
+  "group": "csg",
+  "id": "csg_vector",
+  "note": "No valid Plots reference: `plot(::CartesianVector)` errors under Plots 1.41 (the `:vector` series-type recipe is never reached). Verify at tier 2 instead.",
+  "series": [],
+  "version": 1
+}

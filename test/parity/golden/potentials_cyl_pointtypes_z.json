@@ -1,0 +1,181 @@
+{
+  "axes": [
+    {
+      "aspect_ratio": "auto",
+      "clims": [
+        0.0,
+        7.0
+      ],
+      "colorbar": "best",
+      "colorbar_title": "Point Type Map",
+      "colormap": "grad(#440154,#21908c,#fde725)",
+      "legend_entries": [],
+      "legend_position": "best",
+      "projection": "polar",
+      "title": "Point Type Map @ z = 0.0375 m",
+      "xguide": "",
+      "xlims": null,
+      "xunit": "rad",
+      "yguide": "",
+      "ylims": null,
+      "yunit": "m",
+      "zguide": "",
+      "zunit": ""
+    }
+  ],
+  "backend": "plots",
+  "call": "plot(PointTypes; z = 0.04)",
+  "error": "",
+  "group": "potentials",
+  "id": "potentials_cyl_pointtypes_z",
+  "note": "",
+  "series": [
+    {
+      "alpha": null,
+      "color": "grad(#440154,#21908c,#fde725)",
+      "fillalpha": null,
+      "label": "y1",
+      "linecolor": "grad(#440154,#21908c,#fde725)",
+      "linewidth": 0.0,
+      "markershape": "none",
+      "markersize": 4.0,
+      "n_connections": 0,
+      "seriestype": "heatmap",
+      "subplot": 1,
+      "x": {
+        "digest": [
+          0.34906585,
+          1.134464,
+          1.9198621,
+          2.7052603,
+          3.4906584,
+          4.2760566,
+          5.0614548,
+          5.8468528
+        ],
+        "digest_size": [
+          8
+        ],
+        "extrema": [
+          0.0,
+          6.1959186
+        ],
+        "hash": "71a4c10b7593bd71",
+        "n_missing": 0,
+        "size": [
+          72
+        ],
+        "unit": ""
+      },
+      "y": {
+        "digest": [
+          0.0015,
+          0.004,
+          0.0095000003,
+          0.016284999,
+          0.023236666,
+          0.026775003,
+          0.034333337,
+          0.037999999
+        ],
+        "digest_size": [
+          8
+        ],
+        "extrema": [
+          0.0,
+          0.039999999
+        ],
+        "hash": "3f8163f7160a5a",
+        "n_missing": 0,
+        "size": [
+          24
+        ],
+        "unit": ""
+      },
+      "z": {
+        "digest": [
+          1.0,
+          1.0,
+          3.3333333,
+          5.0,
+          5.0,
+          5.0,
+          0.66666667,
+          1.0,
+          1.0,
+          1.0,
+          3.3333333,
+          5.0,
+          5.0,
+          5.0,
+          0.66666667,
+          1.0,
+          1.0,
+          1.0,
+          3.3333333,
+          5.0,
+          5.0,
+          5.0,
+          0.66666667,
+          1.0,
+          1.0,
+          1.0,
+          3.3333333,
+          5.0,
+          5.0,
+          5.0,
+          0.66666667,
+          1.0,
+          1.0,
+          1.0,
+          3.3333333,
+          5.0,
+          5.0,
+          5.0,
+          0.66666667,
+          1.0,
+          1.0,
+          1.0,
+          3.3333333,
+          5.0,
+          5.0,
+          5.0,
+          0.66666667,
+          1.0,
+          1.0,
+          1.0,
+          3.3333333,
+          5.0,
+          5.0,
+          5.0,
+          0.66666667,
+          1.0,
+          1.0,
+          1.0,
+          3.3333333,
+          5.0,
+          5.0,
+          5.0,
+          0.66666667,
+          1.0
+        ],
+        "digest_size": [
+          8,
+          8
+        ],
+        "extrema": [
+          0.0,
+          5.0
+        ],
+        "hash": "1de0cbbed9416d49",
+        "n_missing": 0,
+        "size": [
+          24,
+          72
+        ],
+        "unit": ""
+      }
+    }
+  ],
+  "version": 1
+}

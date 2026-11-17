@@ -1,0 +1,210 @@
+{
+  "axes": [
+    {
+      "aspect_ratio": "auto",
+      "clims": null,
+      "colorbar": "best",
+      "colorbar_title": "m",
+      "colormap": "",
+      "legend_entries": [
+        "Torus Mantle"
+      ],
+      "legend_position": "best",
+      "projection": "3d",
+      "title": "",
+      "xguide": "x",
+      "xlims": null,
+      "xunit": "m",
+      "yguide": "y",
+      "ylims": null,
+      "yunit": "m",
+      "zguide": "z",
+      "zunit": "m"
+    }
+  ],
+  "backend": "plots",
+  "call": "plot(TorusMantle)",
+  "error": "",
+  "group": "csg",
+  "id": "csg_torusmantle",
+  "note": "",
+  "series": [
+    {
+      "alpha": null,
+      "color": "#009afa",
+      "fillalpha": 0.5,
+      "label": "",
+      "linecolor": "#ffffff",
+      "linewidth": 0.0,
+      "markershape": "none",
+      "markersize": 4.0,
+      "n_connections": 1600,
+      "seriestype": "mesh3d",
+      "subplot": 1,
+      "x": {
+        "digest": [
+          0.11065233,
+          0.066170459,
+          0.020675672,
+          0.0025017809,
+          -0.0046190803,
+          0.020675673,
+          0.066170467,
+          0.11065233
+        ],
+        "digest_size": [
+          8
+        ],
+        "extrema": [
+          -2.5,
+          2.5
+        ],
+        "hash": "99c19a281b367527",
+        "n_missing": 0,
+        "size": [
+          1681
+        ],
+        "unit": ""
+      },
+      "y": {
+        "digest": [
+          0.016892104,
+          0.038851743,
+          0.026514768,
+          0.008500013,
+          -0.0084597193,
+          -0.026514769,
+          -0.038851727,
+          -0.016892077
+        ],
+        "digest_size": [
+          8
+        ],
+        "extrema": [
+          -2.5,
+          2.5
+        ],
+        "hash": "9e8c3d1323973b8f",
+        "n_missing": 0,
+        "size": [
+          1681
+        ],
+        "unit": ""
+      },
+      "z": {
+        "digest": [
+          0.15555203,
+          0.43963178,
+          0.45427643,
+          0.19090732,
+          -0.19000263,
+          -0.45427646,
+          -0.43963172,
+          -0.15555196
+        ],
+        "digest_size": [
+          8
+        ],
+        "extrema": [
+          -0.5,
+          0.5
+        ],
+        "hash": "b80a1552d3eea099",
+        "n_missing": 0,
+        "size": [
+          1681
+        ],
+        "unit": ""
+      }
+    },
+    {
+      "alpha": null,
+      "color": "#009afa",
+      "fillalpha": 1.0,
+      "label": "Torus Mantle",
+      "linecolor": "#000000",
+      "linewidth": 2.0,
+      "markershape": "none",
+      "markersize": 4.0,
+      "n_connections": 160,
+      "seriestype": "mesh3d",
+      "subplot": 1,
+      "x": {
+        "digest": [
+          0.11065233,
+          0.066170459,
+          0.020675672,
+          0.0025017809,
+          -0.0046190803,
+          0.020675673,
+          0.066170467,
+          0.11065233
+        ],
+        "digest_size": [
+          8
+        ],
+        "extrema": [
+          -2.5,
+          2.5
+        ],
+        "hash": "99c19a281b367527",
+        "n_missing": 0,
+        "size": [
+          1681
+        ],
+        "unit": ""
+      },
+      "y": {
+        "digest": [
+          0.016892104,
+          0.038851743,
+          0.026514768,
+          0.008500013,
+          -0.0084597193,
+          -0.026514769,
+          -0.038851727,
+          -0.016892077
+        ],
+        "digest_size": [
+          8
+        ],
+        "extrema": [
+          -2.5,
+          2.5
+        ],
+        "hash": "9e8c3d1323973b8f",
+        "n_missing": 0,
+        "size": [
+          1681
+        ],
+        "unit": ""
+      },
+      "z": {
+        "digest": [
+          0.15555203,
+          0.43963178,
+          0.45427643,
+          0.19090732,
+          -0.19000263,
+          -0.45427646,
+          -0.43963172,
+          -0.15555196
+        ],
+        "digest_size": [
+          8
+        ],
+        "extrema": [
+          -0.5,
+          0.5
+        ],
+        "hash": "b80a1552d3eea099",
+        "n_missing": 0,
+        "size": [
+          1681
+        ],
+        "unit": ""
+      }
+    }
+  ],
+  "version": 1
+}

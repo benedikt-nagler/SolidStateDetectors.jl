@@ -1,0 +1,125 @@
+{
+  "axes": [
+    {
+      "aspect_ratio": "auto",
+      "clims": null,
+      "colorbar": "best",
+      "colorbar_title": "Dielectric Distribution",
+      "colormap": "grad(#000004,#bb3755,#fcffa4)",
+      "legend_entries": [],
+      "legend_position": "best",
+      "projection": "polar",
+      "title": "Dielectric Distribution @ z = 0.045 m",
+      "xguide": "",
+      "xlims": null,
+      "xunit": "rad",
+      "yguide": "",
+      "ylims": null,
+      "yunit": "m",
+      "zguide": "",
+      "zunit": ""
+    }
+  ],
+  "backend": "plots",
+  "call": "plot(DielectricDistribution; z = 0.04)",
+  "error": "",
+  "group": "potentials",
+  "id": "potentials_cyl_dielectric_z",
+  "note": "",
+  "series": [
+    {
+      "alpha": null,
+      "color": "grad(#000004,#bb3755,#fcffa4)",
+      "fillalpha": null,
+      "label": "y1",
+      "linecolor": "grad(#000004,#bb3755,#fcffa4)",
+      "linewidth": 0.0,
+      "markershape": "none",
+      "markersize": 4.0,
+      "n_connections": 0,
+      "seriestype": "heatmap",
+      "subplot": 1,
+      "x": {
+        "digest": [
+          -6.2831855,
+          0.0,
+          6.2831855
+        ],
+        "digest_size": [
+          3
+        ],
+        "extrema": [
+          -6.2831855,
+          6.2831855
+        ],
+        "hash": "cfee4f17d6455881",
+        "n_missing": 0,
+        "size": [
+          3
+        ],
+        "unit": ""
+      },
+      "y": {
+        "digest": [
+          0.0014166667,
+          0.004,
+          0.0095000003,
+          0.016458333,
+          0.023051249,
+          0.02697792,
+          0.034142502,
+          0.041291665
+        ],
+        "digest_size": [
+          8
+        ],
+        "extrema": [
+          0.0,
+          0.049499996
+        ],
+        "hash": "1814e07934fe9e02",
+        "n_missing": 0,
+        "size": [
+          24
+        ],
+        "unit": ""
+      },
+      "z": {
+        "digest": [
+          1.0,
+          1.0,
+          16.0,
+          16.0,
+          16.0,
+          16.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          16.0,
+          16.0,
+          16.0,
+          16.0,
+          1.0,
+          1.0
+        ],
+        "digest_size": [
+          8,
+          2
+        ],
+        "extrema": [
+          1.0,
+          16.0
+        ],
+        "hash": "5aab7bd3f8019bc9",
+        "n_missing": 0,
+        "size": [
+          23,
+          2
+        ],
+        "unit": ""
+      }
+    }
+  ],
+  "version": 1
+}

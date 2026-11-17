@@ -1,0 +1,639 @@
+{
+  "axes": [
+    {
+      "aspect_ratio": "1.0",
+      "clims": null,
+      "colorbar": "best",
+      "colorbar_title": "m",
+      "colormap": "",
+      "legend_entries": [
+        "NBodyChargeCloud"
+      ],
+      "legend_position": "best",
+      "projection": "3d",
+      "title": "",
+      "xguide": "x",
+      "xlims": null,
+      "xunit": "m",
+      "yguide": "y",
+      "ylims": null,
+      "yunit": "m",
+      "zguide": "z",
+      "zunit": "m"
+    }
+  ],
+  "backend": "plots",
+  "call": "plot(NBodyChargeCloud)",
+  "error": "",
+  "group": "chargeclouds",
+  "id": "chargecloud_icosahedron",
+  "note": "",
+  "series": [
+    {
+      "alpha": null,
+      "color": "#0000ff",
+      "fillalpha": null,
+      "label": "NBodyChargeCloud",
+      "linecolor": "#0000ff",
+      "linewidth": 0.0,
+      "markershape": "circle",
+      "markersize": 10.0,
+      "n_connections": 0,
+      "seriestype": "scatter3d",
+      "subplot": 1,
+      "x": {
+        "digest": [
+          0.0
+        ],
+        "digest_size": [
+          1
+        ],
+        "extrema": [
+          0.0,
+          0.0
+        ],
+        "hash": "e32a616320e38bb7",
+        "n_missing": 0,
+        "size": [
+          1
+        ],
+        "unit": ""
+      },
+      "y": {
+        "digest": [
+          0.0
+        ],
+        "digest_size": [
+          1
+        ],
+        "extrema": [
+          0.0,
+          0.0
+        ],
+        "hash": "e32a616320e38bb7",
+        "n_missing": 0,
+        "size": [
+          1
+        ],
+        "unit": ""
+      },
+      "z": {
+        "digest": [
+          0.0
+        ],
+        "digest_size": [
+          1
+        ],
+        "extrema": [
+          0.0,
+          0.0
+        ],
+        "hash": "e32a616320e38bb7",
+        "n_missing": 0,
+        "size": [
+          1
+        ],
+        "unit": ""
+      }
+    },
+    {
+      "alpha": null,
+      "color": "#0000ff",
+      "fillalpha": null,
+      "label": "",
+      "linecolor": "#0000ff",
+      "linewidth": 0.0,
+      "markershape": "circle",
+      "markersize": 3.6787944,
+      "n_connections": 0,
+      "seriestype": "scatter3d",
+      "subplot": 1,
+      "x": {
+        "digest": [
+          0.00022360681,
+          0.0001381966,
+          -0.00036180345,
+          -0.00011180336,
+          0.0001118034,
+          -0.00044721362,
+          -0.00013819666,
+          0.00018090177
+        ],
+        "digest_size": [
+          8
+        ],
+        "extrema": [
+          -0.00044721362,
+          0.00044721362
+        ],
+        "hash": "bd0f3795ac22d1ac",
+        "n_missing": 0,
+        "size": [
+          12
+        ],
+        "unit": ""
+      },
+      "y": {
+        "digest": [
+          0.0,
+          0.00042532544,
+          0.00026286553,
+          -0.00034409552,
+          0.00034409549,
+          -3.9096656e-11,
+          -0.00042532542,
+          -0.00013143272
+        ],
+        "digest_size": [
+          8
+        ],
+        "extrema": [
+          -0.00042532542,
+          0.00042532544
+        ],
+        "hash": "442c28a7fcb5c7",
+        "n_missing": 0,
+        "size": [
+          12
+        ],
+        "unit": ""
+      },
+      "z": {
+        "digest": [
+          0.00036180342,
+          0.00022360681,
+          0.00022360681,
+          0.00022360681,
+          -0.00022360681,
+          -0.00022360681,
+          -0.00022360681,
+          -0.00036180342
+        ],
+        "digest_size": [
+          8
+        ],
+        "extrema": [
+          -0.00050000002,
+          0.00050000002
+        ],
+        "hash": "4f87165aeb5b97b3",
+        "n_missing": 0,
+        "size": [
+          12
+        ],
+        "unit": ""
+      }
+    },
+    {
+      "alpha": null,
+      "color": "#0000ff",
+      "fillalpha": null,
+      "label": "",
+      "linecolor": "#0000ff",
+      "linewidth": 1.0,
+      "markershape": "none",
+      "markersize": 3.6787944,
+      "n_connections": 0,
+      "seriestype": "path3d",
+      "subplot": 1,
+      "x": {
+        "digest": [
+          0.00026967235,
+          -0.0002412023,
+          0.00036180348,
+          -0.00012060116,
+          -0.00031573789,
+          0.00025000011,
+          7.4535589e-5,
+          7.4535633e-5
+        ],
+        "digest_size": [
+          8
+        ],
+        "extrema": [
+          -0.00044721362,
+          0.00044721362
+        ],
+        "hash": "6870e9845b91186a",
+        "n_missing": 0,
+        "size": [
+          22
+        ],
+        "unit": ""
+      },
+      "y": {
+        "digest": [
+          8.7621855e-5,
+          -1.3032219e-11,
+          5.8207661e-11,
+          0.00037117213,
+          -0.00022939703,
+          -0.00034409543,
+          0.00022939699,
+          -0.00022939701
+        ],
+        "digest_size": [
+          8
+        ],
+        "extrema": [
+          -0.00042532542,
+          0.00042532544
+        ],
+        "hash": "b8a540c2378cebe5",
+        "n_missing": 0,
+        "size": [
+          22
+        ],
+        "unit": ""
+      },
+      "z": {
+        "digest": [
+          0.00016666667,
+          -0.00022360681,
+          -0.00022360681,
+          7.4535603e-5,
+          -7.4535603e-5,
+          0.0,
+          0.00022360681,
+          0.00022360681
+        ],
+        "digest_size": [
+          8
+        ],
+        "extrema": [
+          -0.00022360681,
+          0.00050000002
+        ],
+        "hash": "91297189445e90eb",
+        "n_missing": 0,
+        "size": [
+          22
+        ],
+        "unit": ""
+      }
+    },
+    {
+      "alpha": null,
+      "color": "#0000ff",
+      "fillalpha": null,
+      "label": "",
+      "linecolor": "#0000ff",
+      "linewidth": 1.0,
+      "markershape": "none",
+      "markersize": 3.6787944,
+      "n_connections": 0,
+      "seriestype": "path3d",
+      "subplot": 1,
+      "x": {
+        "digest": [
+          0.0001381966,
+          0.0,
+          0.00013819667
+        ],
+        "digest_size": [
+          3
+        ],
+        "extrema": [
+          0.0,
+          0.00013819667
+        ],
+        "hash": "5da49bcf941dbc14",
+        "n_missing": 0,
+        "size": [
+          3
+        ],
+        "unit": ""
+      },
+      "y": {
+        "digest": [
+          0.00042532544,
+          0.0,
+          -0.00042532542
+        ],
+        "digest_size": [
+          3
+        ],
+        "extrema": [
+          -0.00042532542,
+          0.00042532544
+        ],
+        "hash": "b07f27af1fb81502",
+        "n_missing": 0,
+        "size": [
+          3
+        ],
+        "unit": ""
+      },
+      "z": {
+        "digest": [
+          0.00022360681,
+          0.00050000002,
+          0.00022360681
+        ],
+        "digest_size": [
+          3
+        ],
+        "extrema": [
+          0.00022360681,
+          0.00050000002
+        ],
+        "hash": "779bb9ccdfaacc97",
+        "n_missing": 0,
+        "size": [
+          3
+        ],
+        "unit": ""
+      }
+    },
+    {
+      "alpha": null,
+      "color": "#0000ff",
+      "fillalpha": null,
+      "label": "",
+      "linecolor": "#0000ff",
+      "linewidth": 1.0,
+      "markershape": "none",
+      "markersize": 3.6787944,
+      "n_connections": 0,
+      "seriestype": "path3d",
+      "subplot": 1,
+      "x": {
+        "digest": [
+          -0.0003618034,
+          0.0,
+          -0.00036180345
+        ],
+        "digest_size": [
+          3
+        ],
+        "extrema": [
+          -0.00036180345,
+          0.0
+        ],
+        "hash": "9be2eab49b54af23",
+        "n_missing": 0,
+        "size": [
+          3
+        ],
+        "unit": ""
+      },
+      "y": {
+        "digest": [
+          -0.00026286562,
+          0.0,
+          0.00026286553
+        ],
+        "digest_size": [
+          3
+        ],
+        "extrema": [
+          -0.00026286562,
+          0.00026286553
+        ],
+        "hash": "908c9b7994890f7e",
+        "n_missing": 0,
+        "size": [
+          3
+        ],
+        "unit": ""
+      },
+      "z": {
+        "digest": [
+          0.00022360681,
+          0.00050000002,
+          0.00022360681
+        ],
+        "digest_size": [
+          3
+        ],
+        "extrema": [
+          0.00022360681,
+          0.00050000002
+        ],
+        "hash": "779bb9ccdfaacc97",
+        "n_missing": 0,
+        "size": [
+          3
+        ],
+        "unit": ""
+      }
+    },
+    {
+      "alpha": null,
+      "color": "#0000ff",
+      "fillalpha": null,
+      "label": "",
+      "linecolor": "#0000ff",
+      "linewidth": 1.0,
+      "markershape": "none",
+      "markersize": 3.6787944,
+      "n_connections": 0,
+      "seriestype": "path3d",
+      "subplot": 1,
+      "x": {
+        "digest": [
+          0.00036180342,
+          0.0,
+          -0.00013819663
+        ],
+        "digest_size": [
+          3
+        ],
+        "extrema": [
+          -0.00013819663,
+          0.00036180342
+        ],
+        "hash": "4a2c6b3a5de44fef",
+        "n_missing": 0,
+        "size": [
+          3
+        ],
+        "unit": ""
+      },
+      "y": {
+        "digest": [
+          0.00026286556,
+          0.0,
+          0.00042532542
+        ],
+        "digest_size": [
+          3
+        ],
+        "extrema": [
+          0.0,
+          0.00042532542
+        ],
+        "hash": "a51f0c74a8ffcfb4",
+        "n_missing": 0,
+        "size": [
+          3
+        ],
+        "unit": ""
+      },
+      "z": {
+        "digest": [
+          -0.00022360681,
+          -0.00050000002,
+          -0.00022360681
+        ],
+        "digest_size": [
+          3
+        ],
+        "extrema": [
+          -0.00050000002,
+          -0.00022360681
+        ],
+        "hash": "23f7e0003a9247dd",
+        "n_missing": 0,
+        "size": [
+          3
+        ],
+        "unit": ""
+      }
+    },
+    {
+      "alpha": null,
+      "color": "#0000ff",
+      "fillalpha": null,
+      "label": "",
+      "linecolor": "#0000ff",
+      "linewidth": 1.0,
+      "markershape": "none",
+      "markersize": 3.6787944,
+      "n_connections": 0,
+      "seriestype": "path3d",
+      "subplot": 1,
+      "x": {
+        "digest": [
+          -0.00044721362,
+          0.0,
+          -0.00013819666
+        ],
+        "digest_size": [
+          3
+        ],
+        "extrema": [
+          -0.00044721362,
+          0.0
+        ],
+        "hash": "2823ce23d385b823",
+        "n_missing": 0,
+        "size": [
+          3
+        ],
+        "unit": ""
+      },
+      "y": {
+        "digest": [
+          -3.9096656e-11,
+          0.0,
+          -0.00042532542
+        ],
+        "digest_size": [
+          3
+        ],
+        "extrema": [
+          -0.00042532542,
+          0.0
+        ],
+        "hash": "ce8877fbe5390847",
+        "n_missing": 0,
+        "size": [
+          3
+        ],
+        "unit": ""
+      },
+      "z": {
+        "digest": [
+          -0.00022360681,
+          -0.00050000002,
+          -0.00022360681
+        ],
+        "digest_size": [
+          3
+        ],
+        "extrema": [
+          -0.00050000002,
+          -0.00022360681
+        ],
+        "hash": "23f7e0003a9247dd",
+        "n_missing": 0,
+        "size": [
+          3
+        ],
+        "unit": ""
+      }
+    },
+    {
+      "alpha": null,
+      "color": "#0000ff",
+      "fillalpha": null,
+      "label": "",
+      "linecolor": "#0000ff",
+      "linewidth": 1.0,
+      "markershape": "none",
+      "markersize": 3.6787944,
+      "n_connections": 0,
+      "seriestype": "path3d",
+      "subplot": 1,
+      "x": {
+        "digest": [
+          0.00036180354,
+          0.0
+        ],
+        "digest_size": [
+          2
+        ],
+        "extrema": [
+          0.0,
+          0.00036180354
+        ],
+        "hash": "cd5b085d75cd6ca0",
+        "n_missing": 0,
+        "size": [
+          2
+        ],
+        "unit": ""
+      },
+      "y": {
+        "digest": [
+          -0.00026286545,
+          0.0
+        ],
+        "digest_size": [
+          2
+        ],
+        "extrema": [
+          -0.00026286545,
+          0.0
+        ],
+        "hash": "95b92449a7549ad8",
+        "n_missing": 0,
+        "size": [
+          2
+        ],
+        "unit": ""
+      },
+      "z": {
+        "digest": [
+          -0.00022360681,
+          -0.00050000002
+        ],
+        "digest_size": [
+          2
+        ],
+        "extrema": [
+          -0.00050000002,
+          -0.00022360681
+        ],
+        "hash": "6cc0c43015766a5d",
+        "n_missing": 0,
+        "size": [
+          2
+        ],
+        "unit": ""
+      }
+    }
+  ],
+  "version": 1
+}

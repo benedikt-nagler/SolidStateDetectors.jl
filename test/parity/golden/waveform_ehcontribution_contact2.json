@@ -1,0 +1,228 @@
+{
+  "axes": [
+    {
+      "aspect_ratio": "auto",
+      "clims": null,
+      "colorbar": "best",
+      "colorbar_title": "",
+      "colormap": "",
+      "legend_entries": [
+        "Electron contribution",
+        "Hole contribution",
+        "Sum"
+      ],
+      "legend_position": "best",
+      "projection": "none",
+      "title": "",
+      "xguide": "t",
+      "xlims": null,
+      "xunit": "ns",
+      "yguide": "false",
+      "ylims": null,
+      "yunit": "e",
+      "zguide": "",
+      "zunit": ""
+    }
+  ],
+  "backend": "plots",
+  "call": "plot_electron_and_hole_contribution(Event, Simulation, Int64)",
+  "error": "",
+  "group": "waveforms",
+  "id": "waveform_ehcontribution_contact2",
+  "note": "",
+  "series": [
+    {
+      "alpha": null,
+      "color": "#009afa",
+      "fillalpha": null,
+      "label": "Electron contribution",
+      "linecolor": "#ff0000",
+      "linewidth": 2.0,
+      "markershape": "none",
+      "markersize": 4.0,
+      "n_connections": 0,
+      "seriestype": "path",
+      "subplot": 1,
+      "x": {
+        "digest": [
+          95.0,
+          290.0,
+          485.0,
+          680.0,
+          875.0,
+          1070.0,
+          1265.0,
+          1460.0
+        ],
+        "digest_size": [
+          8
+        ],
+        "extrema": [
+          0.0,
+          1555.0
+        ],
+        "hash": "7e05c821425c7949",
+        "n_missing": 0,
+        "size": [
+          312
+        ],
+        "unit": ""
+      },
+      "y": {
+        "digest": [
+          -0.33892199,
+          -0.33897683,
+          -0.33897683,
+          -0.33897683,
+          -0.33897683,
+          -0.33897683,
+          -0.33897683,
+          -0.33897683
+        ],
+        "digest_size": [
+          8
+        ],
+        "extrema": [
+          -0.33897683,
+          -0.33866915
+        ],
+        "hash": "26631262e3886870",
+        "n_missing": 0,
+        "size": [
+          312
+        ],
+        "unit": ""
+      },
+      "z": null
+    },
+    {
+      "alpha": null,
+      "color": "#e36f47",
+      "fillalpha": null,
+      "label": "Hole contribution",
+      "linecolor": "#008000",
+      "linewidth": 2.0,
+      "markershape": "none",
+      "markersize": 4.0,
+      "n_connections": 0,
+      "seriestype": "path",
+      "subplot": 1,
+      "x": {
+        "digest": [
+          95.0,
+          290.0,
+          485.0,
+          680.0,
+          875.0,
+          1070.0,
+          1265.0,
+          1460.0
+        ],
+        "digest_size": [
+          8
+        ],
+        "extrema": [
+          0.0,
+          1555.0
+        ],
+        "hash": "7e05c821425c7949",
+        "n_missing": 0,
+        "size": [
+          312
+        ],
+        "unit": ""
+      },
+      "y": {
+        "digest": [
+          0.33832004,
+          0.33704015,
+          0.33567525,
+          0.33355642,
+          0.33178901,
+          0.32977134,
+          0.32853461,
+          0.32849927
+        ],
+        "digest_size": [
+          8
+        ],
+        "extrema": [
+          0.32849908,
+          0.33866915
+        ],
+        "hash": "c0a8b3b1b6ca2ee7",
+        "n_missing": 0,
+        "size": [
+          312
+        ],
+        "unit": ""
+      },
+      "z": null
+    },
+    {
+      "alpha": 0.5,
+      "color": "#3ea44e",
+      "fillalpha": 0.5,
+      "label": "Sum",
+      "linecolor": "#e36f47",
+      "linewidth": 2.0,
+      "markershape": "none",
+      "markersize": 4.0,
+      "n_connections": 0,
+      "seriestype": "path",
+      "subplot": 1,
+      "x": {
+        "digest": [
+          95.0,
+          290.0,
+          485.0,
+          680.0,
+          875.0,
+          1070.0,
+          1265.0,
+          1460.0
+        ],
+        "digest_size": [
+          8
+        ],
+        "extrema": [
+          0.0,
+          1555.0
+        ],
+        "hash": "7e05c821425c7949",
+        "n_missing": 0,
+        "size": [
+          312
+        ],
+        "unit": ""
+      },
+      "y": {
+        "digest": [
+          -0.00060194216,
+          -0.0019366656,
+          -0.0033015664,
+          -0.005420389,
+          -0.0071877981,
+          -0.0092054835,
+          -0.010442204,
+          -0.010477551
+        ],
+        "digest_size": [
+          8
+        ],
+        "extrema": [
+          -0.010477769,
+          0.0
+        ],
+        "hash": "fa2eea2bd877fff6",
+        "n_missing": 0,
+        "size": [
+          312
+        ],
+        "unit": ""
+      },
+      "z": null
+    }
+  ],
+  "version": 1
+}

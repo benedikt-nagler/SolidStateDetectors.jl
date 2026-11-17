@@ -1,0 +1,99 @@
+{
+  "axes": [
+    {
+      "aspect_ratio": "1.0",
+      "clims": null,
+      "colorbar": "best",
+      "colorbar_title": "m",
+      "colormap": "",
+      "legend_entries": [],
+      "legend_position": "best",
+      "projection": "3d",
+      "title": "",
+      "xguide": "x",
+      "xlims": null,
+      "xunit": "m",
+      "yguide": "y",
+      "ylims": null,
+      "yunit": "m",
+      "zguide": "z",
+      "zunit": "m"
+    }
+  ],
+  "backend": "plots",
+  "call": "plot(CylindricalPoint)",
+  "error": "",
+  "group": "csg",
+  "id": "csg_cylpoint",
+  "note": "",
+  "series": [
+    {
+      "alpha": null,
+      "color": "#009afa",
+      "fillalpha": null,
+      "label": "y1",
+      "linecolor": "#009afa",
+      "linewidth": 0.0,
+      "markershape": "circle",
+      "markersize": 4.0,
+      "n_connections": 0,
+      "seriestype": "scatter3d",
+      "subplot": 1,
+      "x": {
+        "digest": [
+          0.70710677
+        ],
+        "digest_size": [
+          1
+        ],
+        "extrema": [
+          0.70710677,
+          0.70710677
+        ],
+        "hash": "4ee1009d75ac28f3",
+        "n_missing": 0,
+        "size": [
+          1
+        ],
+        "unit": ""
+      },
+      "y": {
+        "digest": [
+          0.70710677
+        ],
+        "digest_size": [
+          1
+        ],
+        "extrema": [
+          0.70710677,
+          0.70710677
+        ],
+        "hash": "4ee1009d75ac28f3",
+        "n_missing": 0,
+        "size": [
+          1
+        ],
+        "unit": ""
+      },
+      "z": {
+        "digest": [
+          2.0
+        ],
+        "digest_size": [
+          1
+        ],
+        "extrema": [
+          2.0,
+          2.0
+        ],
+        "hash": "22efc2b39ff1c79b",
+        "n_missing": 0,
+        "size": [
+          1
+        ],
+        "unit": ""
+      }
+    }
+  ],
+  "version": 1
+}

@@ -1,0 +1,31 @@
+{
+  "axes": [
+    {
+      "aspect_ratio": "auto",
+      "clims": null,
+      "colorbar": "best",
+      "colorbar_title": "",
+      "colormap": "",
+      "legend_entries": [],
+      "legend_position": "best",
+      "projection": "none",
+      "title": "",
+      "xguide": "",
+      "xlims": null,
+      "xunit": "",
+      "yguide": "",
+      "ylims": null,
+      "yunit": "",
+      "zguide": "",
+      "zunit": ""
+    }
+  ],
+  "backend": "plots",
+  "call": "plot_electric_fieldlines(Simulation; sampling = 1 mm)",
+  "error": "",
+  "group": "fieldlines",
+  "id": "fieldlines_car_default",
+  "note": "",
+  "series": [],
+  "version": 1
+}

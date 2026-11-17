@@ -1,0 +1,98 @@
+{
+  "axes": [
+    {
+      "aspect_ratio": "1.0",
+      "clims": null,
+      "colorbar": "best",
+      "colorbar_title": "",
+      "colormap": "",
+      "legend_entries": [
+        "Box"
+      ],
+      "legend_position": "best",
+      "projection": "none",
+      "title": "",
+      "xguide": "x",
+      "xlims": null,
+      "xunit": "m",
+      "yguide": "y",
+      "ylims": null,
+      "yunit": "m",
+      "zguide": "",
+      "zunit": ""
+    }
+  ],
+  "backend": "plots",
+  "call": "plot(Box; seriestype = :slice, z = 0)",
+  "error": "",
+  "group": "csg",
+  "id": "csg_box_slice_z",
+  "note": "",
+  "series": [
+    {
+      "alpha": 1.0,
+      "color": "#009afa",
+      "fillalpha": 1.0,
+      "label": "Box",
+      "linecolor": "#000000",
+      "linewidth": 0.0,
+      "markershape": "circle",
+      "markersize": 1.0,
+      "n_connections": 0,
+      "seriestype": "scatter",
+      "subplot": 1,
+      "x": {
+        "digest": [
+          0.31252277,
+          0.33654893,
+          1.0,
+          1.0,
+          -0.31252277,
+          -0.33654893,
+          -1.0,
+          -1.0
+        ],
+        "digest_size": [
+          8
+        ],
+        "extrema": [
+          -1.0,
+          1.0
+        ],
+        "hash": "9dbe984d1cf21c69",
+        "n_missing": 0,
+        "size": [
+          1072
+        ],
+        "unit": ""
+      },
+      "y": {
+        "digest": [
+          -2.0,
+          -0.75515285,
+          0.67132005,
+          -0.81502522,
+          2.0,
+          0.75515285,
+          -0.67132005,
+          0.81502522
+        ],
+        "digest_size": [
+          8
+        ],
+        "extrema": [
+          -2.0,
+          2.0
+        ],
+        "hash": "c04889454a3c9f56",
+        "n_missing": 0,
+        "size": [
+          1072
+        ],
+        "unit": ""
+      },
+      "z": null
+    }
+  ],
+  "version": 1
+}

@@ -1,0 +1,120 @@
+{
+  "axes": [
+    {
+      "aspect_ratio": "1.0",
+      "clims": null,
+      "colorbar": "best",
+      "colorbar_title": "m",
+      "colormap": "",
+      "legend_entries": [],
+      "legend_position": "best",
+      "projection": "3d",
+      "title": "",
+      "xguide": "x",
+      "xlims": null,
+      "xunit": "m",
+      "yguide": "y",
+      "ylims": null,
+      "yunit": "m",
+      "zguide": "z",
+      "zunit": "m"
+    }
+  ],
+  "backend": "plots",
+  "call": "plot(Array)",
+  "error": "",
+  "group": "csg",
+  "id": "csg_points",
+  "note": "",
+  "series": [
+    {
+      "alpha": null,
+      "color": "#009afa",
+      "fillalpha": null,
+      "label": "y1",
+      "linecolor": "#009afa",
+      "linewidth": 0.0,
+      "markershape": "circle",
+      "markersize": 2.4806947,
+      "n_connections": 0,
+      "seriestype": "scatter3d",
+      "subplot": 1,
+      "x": {
+        "digest": [
+          0.96193975,
+          0.5448951,
+          -0.19134171,
+          -0.81549314,
+          -0.87699542,
+          -0.19134171,
+          0.5448951,
+          0.96193975
+        ],
+        "digest_size": [
+          8
+        ],
+        "extrema": [
+          -1.0,
+          1.0
+        ],
+        "hash": "fcf3dfce157ab0a2",
+        "n_missing": 0,
+        "size": [
+          17
+        ],
+        "unit": ""
+      },
+      "y": {
+        "digest": [
+          0.19134171,
+          0.81549314,
+          0.96193975,
+          0.5448951,
+          -0.3632634,
+          -0.96193975,
+          -0.81549314,
+          -0.19134171
+        ],
+        "digest_size": [
+          8
+        ],
+        "extrema": [
+          -1.0,
+          1.0
+        ],
+        "hash": "e25e097fa81e7db6",
+        "n_missing": 0,
+        "size": [
+          17
+        ],
+        "unit": ""
+      },
+      "z": {
+        "digest": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "digest_size": [
+          8
+        ],
+        "extrema": [
+          0.0,
+          0.0
+        ],
+        "hash": "768c6630e51b59fd",
+        "n_missing": 0,
+        "size": [
+          17
+        ],
+        "unit": ""
+      }
+    }
+  ],
+  "version": 1
+}

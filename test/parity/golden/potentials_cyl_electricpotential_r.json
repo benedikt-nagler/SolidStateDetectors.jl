@@ -1,0 +1,187 @@
+{
+  "axes": [
+    {
+      "aspect_ratio": "1",
+      "clims": [
+        0.0,
+        3500.0015
+      ],
+      "colorbar": "best",
+      "colorbar_title": "Electric Potential (V)",
+      "colormap": "grad(#440154,#21908c,#fde725)",
+      "legend_entries": [],
+      "legend_position": "best",
+      "projection": "none",
+      "title": "Electric Potential @ φ = 0.0°",
+      "xguide": "r",
+      "xlims": [
+        0.0,
+        0.039999999
+      ],
+      "xunit": "m",
+      "yguide": "z",
+      "ylims": [
+        -0.0099999998,
+        0.090000004
+      ],
+      "yunit": "m",
+      "zguide": "",
+      "zunit": "V"
+    }
+  ],
+  "backend": "plots",
+  "call": "plot(ElectricPotential; r = 0.02)",
+  "error": "",
+  "group": "potentials",
+  "id": "potentials_cyl_electricpotential_r",
+  "note": "No valid Plots reference: `r` is a Plots alias for `:rotation`, so the cross-section keyword never reaches the recipe and the recorded plot is the `φ = 0` fallback. Verify this case at tier 2 (visual review) instead of against the golden spec.",
+  "series": [
+    {
+      "alpha": null,
+      "color": "grad(#440154,#21908c,#fde725)",
+      "fillalpha": null,
+      "label": "y1",
+      "linecolor": "grad(#440154,#21908c,#fde725)",
+      "linewidth": 0.0,
+      "markershape": "none",
+      "markersize": 4.0,
+      "n_connections": 0,
+      "seriestype": "heatmap",
+      "subplot": 1,
+      "x": {
+        "digest": [
+          0.0014166667,
+          0.004,
+          0.0095000003,
+          0.016458333,
+          0.023051249,
+          0.02697792,
+          0.034142502,
+          0.041291665
+        ],
+        "digest_size": [
+          8
+        ],
+        "extrema": [
+          0.0,
+          0.049499996
+        ],
+        "hash": "1814e07934fe9e02",
+        "n_missing": 0,
+        "size": [
+          24
+        ],
+        "unit": ""
+      },
+      "y": {
+        "digest": [
+          -0.01940625,
+          -0.00044166665,
+          0.0018125001,
+          0.0146875,
+          0.024999999,
+          0.05312499,
+          0.081416667,
+          0.100625
+        ],
+        "digest_size": [
+          8
+        ],
+        "extrema": [
+          -0.0337625,
+          0.11425
+        ],
+        "hash": "c93264f5acb15365",
+        "n_missing": 0,
+        "size": [
+          20
+        ],
+        "unit": ""
+      },
+      "z": {
+        "digest": [
+          2018.1728,
+          36.317433,
+          0.0,
+          1638.403,
+          3082.3615,
+          3499.2042,
+          3243.9019,
+          2601.4653,
+          2079.0847,
+          495.30586,
+          463.40988,
+          1642.9767,
+          3049.9096,
+          3499.7232,
+          3264.5909,
+          2597.8776,
+          2346.6038,
+          1844.5588,
+          1799.5828,
+          1660.7782,
+          2237.1505,
+          2691.6786,
+          3273.4216,
+          2567.1987,
+          2639.2545,
+          3357.9514,
+          3080.3386,
+          1791.0023,
+          1659.702,
+          2094.0656,
+          3253.8955,
+          2503.0758,
+          2707.128,
+          3494.4852,
+          3319.1006,
+          2150.1445,
+          1875.8688,
+          2396.7951,
+          3178.4423,
+          2377.1349,
+          2683.6065,
+          3494.3235,
+          3359.2019,
+          2454.3896,
+          2173.8859,
+          2791.5511,
+          2926.989,
+          2275.8687,
+          2553.7357,
+          3444.131,
+          3447.05,
+          3351.7269,
+          3254.1518,
+          3098.088,
+          2364.5427,
+          2037.6979,
+          2421.2399,
+          2982.4383,
+          3029.3584,
+          3210.9578,
+          3234.1814,
+          2846.958,
+          2172.1082,
+          1928.0663
+        ],
+        "digest_size": [
+          8,
+          8
+        ],
+        "extrema": [
+          0.0,
+          3500.0015
+        ],
+        "hash": "6d896c9e0818aca7",
+        "n_missing": 0,
+        "size": [
+          20,
+          24
+        ],
+        "unit": ""
+      }
+    }
+  ],
+  "version": 1
+}

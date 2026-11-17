@@ -1,0 +1,101 @@
+{
+  "axes": [
+    {
+      "aspect_ratio": "1.0",
+      "clims": null,
+      "colorbar": "best",
+      "colorbar_title": "m",
+      "colormap": "",
+      "legend_entries": [
+        "MonoenergeticSource"
+      ],
+      "legend_position": "best",
+      "projection": "3d",
+      "title": "",
+      "xguide": "x",
+      "xlims": null,
+      "xunit": "m",
+      "yguide": "y",
+      "ylims": null,
+      "yunit": "m",
+      "zguide": "z",
+      "zunit": "m"
+    }
+  ],
+  "backend": "plots",
+  "call": "plot(MonoenergeticSource)",
+  "error": "",
+  "group": "chargeclouds",
+  "id": "chargecloud_monoenergeticsource",
+  "note": "",
+  "series": [
+    {
+      "alpha": null,
+      "color": "#808080",
+      "fillalpha": null,
+      "label": "MonoenergeticSource",
+      "linecolor": "#000000",
+      "linewidth": 0.0,
+      "markershape": "circle",
+      "markersize": 5.0,
+      "n_connections": 0,
+      "seriestype": "scatter3d",
+      "subplot": 1,
+      "x": {
+        "digest": [
+          0.04
+        ],
+        "digest_size": [
+          1
+        ],
+        "extrema": [
+          0.04,
+          0.04
+        ],
+        "hash": "e5cfd9a9ce3cc7ec",
+        "n_missing": 0,
+        "size": [
+          1
+        ],
+        "unit": ""
+      },
+      "y": {
+        "digest": [
+          0.0
+        ],
+        "digest_size": [
+          1
+        ],
+        "extrema": [
+          0.0,
+          0.0
+        ],
+        "hash": "e32a616320e38bb7",
+        "n_missing": 0,
+        "size": [
+          1
+        ],
+        "unit": ""
+      },
+      "z": {
+        "digest": [
+          0.05
+        ],
+        "digest_size": [
+          1
+        ],
+        "extrema": [
+          0.05,
+          0.05
+        ],
+        "hash": "3f95adb0aceb7c45",
+        "n_missing": 0,
+        "size": [
+          1
+        ],
+        "unit": ""
+      }
+    }
+  ],
+  "version": 1
+}

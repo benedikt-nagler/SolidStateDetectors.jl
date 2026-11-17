@@ -1,0 +1,184 @@
+{
+  "axes": [
+    {
+      "aspect_ratio": "1",
+      "clims": null,
+      "colorbar": "best",
+      "colorbar_title": "Dielectric Distribution",
+      "colormap": "grad(#000004,#bb3755,#fcffa4)",
+      "legend_entries": [],
+      "legend_position": "best",
+      "projection": "none",
+      "title": "Dielectric Distribution @ x = -0.000594 m",
+      "xguide": "y",
+      "xlims": [
+        -0.017999999,
+        0.017999999
+      ],
+      "xunit": "m",
+      "yguide": "z",
+      "ylims": [
+        -0.017999999,
+        0.017999999
+      ],
+      "yunit": "m",
+      "zguide": "",
+      "zunit": ""
+    }
+  ],
+  "backend": "plots",
+  "call": "plot(DielectricDistribution; x = 0)",
+  "error": "",
+  "group": "potentials",
+  "id": "potentials_car_dielectric_x",
+  "note": "",
+  "series": [
+    {
+      "alpha": null,
+      "color": "grad(#000004,#bb3755,#fcffa4)",
+      "fillalpha": null,
+      "label": "y1",
+      "linecolor": "grad(#000004,#bb3755,#fcffa4)",
+      "linewidth": 0.0,
+      "markershape": "none",
+      "markersize": 4.0,
+      "n_connections": 0,
+      "seriestype": "heatmap",
+      "subplot": 1,
+      "x": {
+        "digest": [
+          -0.024499999,
+          -0.0060624999,
+          -0.0035000001,
+          -0.0015625001,
+          0.0010625,
+          0.0035000001,
+          0.0060624999,
+          0.024499999
+        ],
+        "digest_size": [
+          8
+        ],
+        "extrema": [
+          -0.035999998,
+          0.035999998
+        ],
+        "hash": "492b4979c55d1407",
+        "n_missing": 0,
+        "size": [
+          14
+        ],
+        "unit": ""
+      },
+      "y": {
+        "digest": [
+          -0.024624999,
+          -0.0074999998,
+          -0.0047916668,
+          -0.0015625001,
+          0.001,
+          0.0037916666,
+          0.0061874997,
+          0.024499999
+        ],
+        "digest_size": [
+          8
+        ],
+        "extrema": [
+          -0.035999998,
+          0.035999998
+        ],
+        "hash": "28f92724f0c89995",
+        "n_missing": 0,
+        "size": [
+          18
+        ],
+        "unit": ""
+      },
+      "z": {
+        "digest": [
+          5.75,
+          5.75,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          10.5,
+          10.5,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          10.5,
+          10.5,
+          8.5,
+          16.0,
+          16.0,
+          16.0,
+          8.5,
+          1.0,
+          10.5,
+          10.5,
+          8.5,
+          16.0,
+          16.0,
+          16.0,
+          8.5,
+          1.0,
+          10.5,
+          10.5,
+          8.5,
+          16.0,
+          16.0,
+          16.0,
+          8.5,
+          1.0,
+          10.5,
+          10.5,
+          8.5,
+          16.0,
+          16.0,
+          16.0,
+          8.5,
+          1.0,
+          10.5,
+          10.5,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          5.75,
+          5.75,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "digest_size": [
+          8,
+          8
+        ],
+        "extrema": [
+          1.0,
+          20.0
+        ],
+        "hash": "b2f4f1c38ccf6a2a",
+        "n_missing": 0,
+        "size": [
+          17,
+          13
+        ],
+        "unit": ""
+      }
+    }
+  ],
+  "version": 1
+}

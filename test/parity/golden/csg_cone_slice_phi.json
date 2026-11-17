@@ -1,0 +1,98 @@
+{
+  "axes": [
+    {
+      "aspect_ratio": "1.0",
+      "clims": null,
+      "colorbar": "best",
+      "colorbar_title": "",
+      "colormap": "",
+      "legend_entries": [
+        "Cone"
+      ],
+      "legend_position": "best",
+      "projection": "none",
+      "title": "",
+      "xguide": "r",
+      "xlims": null,
+      "xunit": "m",
+      "yguide": "z",
+      "ylims": null,
+      "yunit": "m",
+      "zguide": "",
+      "zunit": ""
+    }
+  ],
+  "backend": "plots",
+  "call": "plot(Cone; seriestype = :slice, φ = 0)",
+  "error": "",
+  "group": "csg",
+  "id": "csg_cone_slice_phi",
+  "note": "",
+  "series": [
+    {
+      "alpha": 1.0,
+      "color": "#009afa",
+      "fillalpha": 1.0,
+      "label": "Cone",
+      "linecolor": "#000000",
+      "linewidth": 0.0,
+      "markershape": "circle",
+      "markersize": 1.0,
+      "n_connections": 0,
+      "seriestype": "scatter",
+      "subplot": 1,
+      "x": {
+        "digest": [
+          0.24911661,
+          0.75088339,
+          0.24911661,
+          0.75088339,
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "digest_size": [
+          8
+        ],
+        "extrema": [
+          0.0,
+          1.0
+        ],
+        "hash": "307987b647acaf2d",
+        "n_missing": 0,
+        "size": [
+          1135
+        ],
+        "unit": ""
+      },
+      "y": {
+        "digest": [
+          1.0,
+          1.0,
+          -1.0,
+          -1.0,
+          -0.75265018,
+          -0.25265018,
+          0.24911661,
+          0.75088339
+        ],
+        "digest_size": [
+          8
+        ],
+        "extrema": [
+          -1.0,
+          1.0
+        ],
+        "hash": "5b6f7f97f615b030",
+        "n_missing": 0,
+        "size": [
+          1135
+        ],
+        "unit": ""
+      },
+      "z": null
+    }
+  ],
+  "version": 1
+}

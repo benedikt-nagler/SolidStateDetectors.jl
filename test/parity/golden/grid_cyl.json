@@ -1,0 +1,179 @@
+{
+  "axes": [
+    {
+      "aspect_ratio": "auto",
+      "clims": null,
+      "colorbar": "none",
+      "colorbar_title": "",
+      "colormap": "",
+      "legend_entries": [],
+      "legend_position": "none",
+      "projection": "none",
+      "title": "",
+      "xguide": "Grid point density - Axis 1",
+      "xlims": null,
+      "xunit": "",
+      "yguide": "",
+      "ylims": null,
+      "yunit": "",
+      "zguide": "",
+      "zunit": ""
+    },
+    {
+      "aspect_ratio": "auto",
+      "clims": null,
+      "colorbar": "none",
+      "colorbar_title": "",
+      "colormap": "",
+      "legend_entries": [],
+      "legend_position": "none",
+      "projection": "none",
+      "title": "",
+      "xguide": "Grid point density - Axis 3",
+      "xlims": null,
+      "xunit": "",
+      "yguide": "",
+      "ylims": null,
+      "yunit": "",
+      "zguide": "",
+      "zunit": ""
+    }
+  ],
+  "backend": "plots",
+  "call": "plot(Grid)",
+  "error": "",
+  "group": "grids",
+  "id": "grid_cyl",
+  "note": "",
+  "series": [
+    {
+      "alpha": null,
+      "color": "#009afa",
+      "fillalpha": null,
+      "label": "y1",
+      "linecolor": "#009afa",
+      "linewidth": 1.0,
+      "markershape": "none",
+      "markersize": 4.0,
+      "n_connections": 0,
+      "seriestype": "path",
+      "subplot": 1,
+      "x": {
+        "digest": [
+          0.0,
+          0.0066666667,
+          0.0125,
+          0.018333333,
+          0.025,
+          0.03,
+          0.036666667,
+          0.0425
+        ],
+        "digest_size": [
+          8
+        ],
+        "extrema": [
+          0.0,
+          0.045
+        ],
+        "hash": "8b6b8eb29e92423a",
+        "n_missing": 0,
+        "size": [
+          19
+        ],
+        "unit": ""
+      },
+      "y": {
+        "digest": [
+          3.5,
+          3.0,
+          3.0,
+          2.0,
+          3.0,
+          1.5,
+          3.6666667,
+          0.0
+        ],
+        "digest_size": [
+          8
+        ],
+        "extrema": [
+          0.0,
+          7.0
+        ],
+        "hash": "7edd59371dbd2736",
+        "n_missing": 0,
+        "size": [
+          19
+        ],
+        "unit": ""
+      },
+      "z": null
+    },
+    {
+      "alpha": null,
+      "color": "#009afa",
+      "fillalpha": null,
+      "label": "y2",
+      "linecolor": "#009afa",
+      "linewidth": 1.0,
+      "markershape": "none",
+      "markersize": 4.0,
+      "n_connections": 0,
+      "seriestype": "path",
+      "subplot": 2,
+      "x": {
+        "digest": [
+          -0.0066666667,
+          0.0066666667,
+          0.023333333,
+          0.036666667,
+          0.053333333,
+          0.066666667,
+          0.083333333,
+          0.096666667
+        ],
+        "digest_size": [
+          8
+        ],
+        "extrema": [
+          -0.01,
+          0.1
+        ],
+        "hash": "ab42bdf408f90608",
+        "n_missing": 0,
+        "size": [
+          24
+        ],
+        "unit": ""
+      },
+      "y": {
+        "digest": [
+          2.6666667,
+          3.3333333,
+          2.0,
+          0.66666667,
+          0.66666667,
+          1.0,
+          2.3333333,
+          0.66666667
+        ],
+        "digest_size": [
+          8
+        ],
+        "extrema": [
+          0.0,
+          4.0
+        ],
+        "hash": "addbc5ac6a9c5d1c",
+        "n_missing": 0,
+        "size": [
+          24
+        ],
+        "unit": ""
+      },
+      "z": null
+    }
+  ],
+  "version": 1
+}

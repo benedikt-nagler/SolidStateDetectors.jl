@@ -1,0 +1,187 @@
+{
+  "axes": [
+    {
+      "aspect_ratio": "1",
+      "clims": [
+        0.0,
+        1.0
+      ],
+      "colorbar": "best",
+      "colorbar_title": "Impurity Scale",
+      "colormap": "grad(#440154,#21908c,#fde725)",
+      "legend_entries": [],
+      "legend_position": "best",
+      "projection": "none",
+      "title": "Impurity Scale @ φ = 0.0°",
+      "xguide": "r",
+      "xlims": [
+        0.0,
+        0.039999999
+      ],
+      "xunit": "m",
+      "yguide": "z",
+      "ylims": [
+        -0.0099999998,
+        0.090000004
+      ],
+      "yunit": "m",
+      "zguide": "",
+      "zunit": ""
+    }
+  ],
+  "backend": "plots",
+  "call": "plot(ImpurityScale; φ = 0)",
+  "error": "",
+  "group": "potentials",
+  "id": "potentials_cyl_impurityscale_phi",
+  "note": "",
+  "series": [
+    {
+      "alpha": null,
+      "color": "grad(#440154,#21908c,#fde725)",
+      "fillalpha": null,
+      "label": "y1",
+      "linecolor": "grad(#440154,#21908c,#fde725)",
+      "linewidth": 0.0,
+      "markershape": "none",
+      "markersize": 4.0,
+      "n_connections": 0,
+      "seriestype": "heatmap",
+      "subplot": 1,
+      "x": {
+        "digest": [
+          0.0014166667,
+          0.004,
+          0.0095000003,
+          0.016458333,
+          0.023051249,
+          0.02697792,
+          0.034142502,
+          0.041291665
+        ],
+        "digest_size": [
+          8
+        ],
+        "extrema": [
+          0.0,
+          0.049499996
+        ],
+        "hash": "1814e07934fe9e02",
+        "n_missing": 0,
+        "size": [
+          24
+        ],
+        "unit": ""
+      },
+      "y": {
+        "digest": [
+          -0.01940625,
+          -0.00044166665,
+          0.0018125001,
+          0.0146875,
+          0.024999999,
+          0.05312499,
+          0.081416667,
+          0.100625
+        ],
+        "digest_size": [
+          8
+        ],
+        "extrema": [
+          -0.0337625,
+          0.11425
+        ],
+        "hash": "c93264f5acb15365",
+        "n_missing": 0,
+        "size": [
+          20
+        ],
+        "unit": ""
+      },
+      "z": {
+        "digest": [
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "digest_size": [
+          8,
+          8
+        ],
+        "extrema": [
+          1.0,
+          1.0
+        ],
+        "hash": "392669e3a8dccbd4",
+        "n_missing": 0,
+        "size": [
+          20,
+          24
+        ],
+        "unit": ""
+      }
+    }
+  ],
+  "version": 1
+}

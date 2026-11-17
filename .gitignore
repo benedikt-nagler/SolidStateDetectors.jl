@@ -8,3 +8,5 @@ Manifest.toml
 .vscode*
 *.gdml
 test/*h5
+# Parity gallery renders (devscripts/plot_gallery.jl) — review material, not repo content
+gallery/

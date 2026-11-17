@@ -1,0 +1,187 @@
+{
+  "axes": [
+    {
+      "aspect_ratio": "1",
+      "clims": [
+        -3.0083155e8,
+        0.0
+      ],
+      "colorbar": "best",
+      "colorbar_title": "Effective Charge Density (V m⁻²)",
+      "colormap": "grad(#000004,#bb3755,#fcffa4)",
+      "legend_entries": [],
+      "legend_position": "best",
+      "projection": "none",
+      "title": "Effective Charge Density @ φ = 0.0°",
+      "xguide": "r",
+      "xlims": [
+        0.0,
+        0.039999999
+      ],
+      "xunit": "m",
+      "yguide": "z",
+      "ylims": [
+        -0.0099999998,
+        0.090000004
+      ],
+      "yunit": "m",
+      "zguide": "",
+      "zunit": "V m⁻²"
+    }
+  ],
+  "backend": "plots",
+  "call": "plot(EffectiveChargeDensity; r = 0.02)",
+  "error": "",
+  "group": "potentials",
+  "id": "potentials_cyl_chargedensity_r",
+  "note": "No valid Plots reference: `r` is a Plots alias for `:rotation`, so the cross-section keyword never reaches the recipe and the recorded plot is the `φ = 0` fallback. Verify this case at tier 2 (visual review) instead of against the golden spec.",
+  "series": [
+    {
+      "alpha": null,
+      "color": "grad(#000004,#bb3755,#fcffa4)",
+      "fillalpha": null,
+      "label": "y1",
+      "linecolor": "grad(#000004,#bb3755,#fcffa4)",
+      "linewidth": 0.0,
+      "markershape": "none",
+      "markersize": 4.0,
+      "n_connections": 0,
+      "seriestype": "heatmap",
+      "subplot": 1,
+      "x": {
+        "digest": [
+          0.0014166667,
+          0.004,
+          0.0095000003,
+          0.016458333,
+          0.023051249,
+          0.02697792,
+          0.034142502,
+          0.041291665
+        ],
+        "digest_size": [
+          8
+        ],
+        "extrema": [
+          0.0,
+          0.049499996
+        ],
+        "hash": "1814e07934fe9e02",
+        "n_missing": 0,
+        "size": [
+          24
+        ],
+        "unit": ""
+      },
+      "y": {
+        "digest": [
+          -0.01940625,
+          -0.00044166665,
+          0.0018125001,
+          0.0146875,
+          0.024999999,
+          0.05312499,
+          0.081416667,
+          0.100625
+        ],
+        "digest_size": [
+          8
+        ],
+        "extrema": [
+          -0.0337625,
+          0.11425
+        ],
+        "hash": "c93264f5acb15365",
+        "n_missing": 0,
+        "size": [
+          20
+        ],
+        "unit": ""
+      },
+      "z": {
+        "digest": [
+          0.0,
+          -5.0327076e7,
+          -1.8555047e8,
+          -2.0605827e8,
+          -1.2949325e8,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          -5.0327079e7,
+          -1.8555048e8,
+          -2.0605828e8,
+          -1.2949326e8,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          -5.0327079e7,
+          -1.8555047e8,
+          -2.0605828e8,
+          -2.2515242e8,
+          -2.6748117e8,
+          -8.5030352e7,
+          0.0,
+          0.0,
+          -5.0327077e7,
+          -1.8555047e8,
+          -2.0605827e8,
+          -2.28451e8,
+          -2.7670465e8,
+          -8.7962434e7,
+          0.0,
+          0.0,
+          -5.0327077e7,
+          -1.8555047e8,
+          -2.0605828e8,
+          -2.2845101e8,
+          -2.7670466e8,
+          -8.7962432e7,
+          0.0,
+          0.0,
+          -5.0327076e7,
+          -1.8555047e8,
+          -2.0605828e8,
+          -2.2845099e8,
+          -1.6406619e8,
+          -4.8868018e6,
+          0.0,
+          0.0,
+          -3.0755421e7,
+          -1.1339191e8,
+          -1.2592445e8,
+          -9.6531933e7,
+          -6.3262467e6,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "digest_size": [
+          8,
+          8
+        ],
+        "extrema": [
+          -3.0083155e8,
+          0.0
+        ],
+        "hash": "da8ae84c1b115183",
+        "n_missing": 0,
+        "size": [
+          20,
+          24
+        ],
+        "unit": ""
+      }
+    }
+  ],
+  "version": 1
+}

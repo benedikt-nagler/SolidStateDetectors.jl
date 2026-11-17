@@ -1,0 +1,210 @@
+{
+  "axes": [
+    {
+      "aspect_ratio": "auto",
+      "clims": null,
+      "colorbar": "best",
+      "colorbar_title": "m",
+      "colormap": "",
+      "legend_entries": [
+        "Elliptical Surface"
+      ],
+      "legend_position": "best",
+      "projection": "3d",
+      "title": "",
+      "xguide": "x",
+      "xlims": null,
+      "xunit": "m",
+      "yguide": "y",
+      "ylims": null,
+      "yunit": "m",
+      "zguide": "z",
+      "zunit": "m"
+    }
+  ],
+  "backend": "plots",
+  "call": "plot(EllipticalSurface)",
+  "error": "",
+  "group": "csg",
+  "id": "csg_ellipticalsurface",
+  "note": "",
+  "series": [
+    {
+      "alpha": null,
+      "color": "#009afa",
+      "fillalpha": 0.5,
+      "label": "",
+      "linecolor": "#ffffff",
+      "linewidth": 0.0,
+      "markershape": "none",
+      "markersize": 4.0,
+      "n_connections": 40,
+      "seriestype": "mesh3d",
+      "subplot": 1,
+      "x": {
+        "digest": [
+          0.76595029,
+          0.5733833,
+          -0.22513216,
+          -0.86917508,
+          -0.92775366,
+          -0.36905559,
+          0.44286696,
+          0.92775373
+        ],
+        "digest_size": [
+          8
+        ],
+        "extrema": [
+          -1.0,
+          1.0
+        ],
+        "hash": "b47f4afa1990d2ac",
+        "n_missing": 0,
+        "size": [
+          42
+        ],
+        "unit": ""
+      },
+      "y": {
+        "digest": [
+          0.1838884,
+          0.78919442,
+          0.93774278,
+          0.44286671,
+          -0.30144552,
+          -0.89097924,
+          -0.86917491,
+          -0.30144532
+        ],
+        "digest_size": [
+          8
+        ],
+        "extrema": [
+          -1.0,
+          1.0
+        ],
+        "hash": "8183559e43598ff5",
+        "n_missing": 0,
+        "size": [
+          42
+        ],
+        "unit": ""
+      },
+      "z": {
+        "digest": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "digest_size": [
+          8
+        ],
+        "extrema": [
+          0.0,
+          0.0
+        ],
+        "hash": "417388339863a5d7",
+        "n_missing": 0,
+        "size": [
+          42
+        ],
+        "unit": ""
+      }
+    },
+    {
+      "alpha": null,
+      "color": "#009afa",
+      "fillalpha": 1.0,
+      "label": "Elliptical Surface",
+      "linecolor": "#000000",
+      "linewidth": 2.0,
+      "markershape": "none",
+      "markersize": 4.0,
+      "n_connections": 42,
+      "seriestype": "mesh3d",
+      "subplot": 1,
+      "x": {
+        "digest": [
+          0.76595029,
+          0.5733833,
+          -0.22513216,
+          -0.86917508,
+          -0.92775366,
+          -0.36905559,
+          0.44286696,
+          0.92775373
+        ],
+        "digest_size": [
+          8
+        ],
+        "extrema": [
+          -1.0,
+          1.0
+        ],
+        "hash": "b47f4afa1990d2ac",
+        "n_missing": 0,
+        "size": [
+          42
+        ],
+        "unit": ""
+      },
+      "y": {
+        "digest": [
+          0.1838884,
+          0.78919442,
+          0.93774278,
+          0.44286671,
+          -0.30144552,
+          -0.89097924,
+          -0.86917491,
+          -0.30144532
+        ],
+        "digest_size": [
+          8
+        ],
+        "extrema": [
+          -1.0,
+          1.0
+        ],
+        "hash": "8183559e43598ff5",
+        "n_missing": 0,
+        "size": [
+          42
+        ],
+        "unit": ""
+      },
+      "z": {
+        "digest": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "digest_size": [
+          8
+        ],
+        "extrema": [
+          0.0,
+          0.0
+        ],
+        "hash": "417388339863a5d7",
+        "n_missing": 0,
+        "size": [
+          42
+        ],
+        "unit": ""
+      }
+    }
+  ],
+  "version": 1
+}

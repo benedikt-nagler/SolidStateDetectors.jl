@@ -1,0 +1,184 @@
+{
+  "axes": [
+    {
+      "aspect_ratio": "1",
+      "clims": null,
+      "colorbar": "best",
+      "colorbar_title": "Electric Field Strength (V m⁻¹)",
+      "colormap": "grad(#000004,#bb3755,#fcffa4)",
+      "legend_entries": [],
+      "legend_position": "best",
+      "projection": "none",
+      "title": "Electric Field (Magn.) @ φ = 0.0°",
+      "xguide": "r",
+      "xlims": [
+        0.0,
+        0.039999999
+      ],
+      "xunit": "m",
+      "yguide": "z",
+      "ylims": [
+        -0.0099999998,
+        0.090000004
+      ],
+      "yunit": "m",
+      "zguide": "",
+      "zunit": "V m⁻¹"
+    }
+  ],
+  "backend": "plots",
+  "call": "plot(ElectricField; r = 0.02)",
+  "error": "",
+  "group": "efield",
+  "id": "efield_cyl_r",
+  "note": "No valid Plots reference: `r` is a Plots alias for `:rotation`, so the cross-section keyword never reaches the recipe and the recorded plot is the `φ = 0` fallback. Verify this case at tier 2 (visual review) instead of against the golden spec.",
+  "series": [
+    {
+      "alpha": null,
+      "color": "grad(#000004,#bb3755,#fcffa4)",
+      "fillalpha": null,
+      "label": "y1",
+      "linecolor": "grad(#000004,#bb3755,#fcffa4)",
+      "linewidth": 0.0,
+      "markershape": "none",
+      "markersize": 4.0,
+      "n_connections": 0,
+      "seriestype": "heatmap",
+      "subplot": 1,
+      "x": {
+        "digest": [
+          0.0014166667,
+          0.004,
+          0.0095000003,
+          0.016458333,
+          0.023051249,
+          0.02697792,
+          0.034142502,
+          0.041291665
+        ],
+        "digest_size": [
+          8
+        ],
+        "extrema": [
+          0.0,
+          0.049499996
+        ],
+        "hash": "1814e07934fe9e02",
+        "n_missing": 0,
+        "size": [
+          24
+        ],
+        "unit": ""
+      },
+      "y": {
+        "digest": [
+          -0.01940625,
+          -0.00044166665,
+          0.0018125001,
+          0.0146875,
+          0.024999999,
+          0.05312499,
+          0.081416667,
+          0.100625
+        ],
+        "digest_size": [
+          8
+        ],
+        "extrema": [
+          -0.0337625,
+          0.11425
+        ],
+        "hash": "c93264f5acb15365",
+        "n_missing": 0,
+        "size": [
+          20
+        ],
+        "unit": ""
+      },
+      "z": {
+        "digest": [
+          187719.84,
+          676043.51,
+          202695.24,
+          142311.6,
+          313243.95,
+          1261.1284,
+          80387.52,
+          99996.268,
+          160929.07,
+          448602.97,
+          411668.95,
+          127554.97,
+          332585.03,
+          618.38677,
+          88450.391,
+          101244.2,
+          94898.025,
+          294585.0,
+          258174.77,
+          72315.662,
+          210423.54,
+          153626.32,
+          106454.74,
+          105380.95,
+          86982.668,
+          516956.8,
+          324614.52,
+          56009.839,
+          23156.87,
+          47190.803,
+          111182.58,
+          110660.88,
+          99488.314,
+          131706.42,
+          154633.16,
+          87544.589,
+          67071.947,
+          95739.132,
+          114111.43,
+          108931.98,
+          102868.23,
+          121345.05,
+          120385.1,
+          107038.93,
+          97813.201,
+          164998.95,
+          135779.17,
+          94852.193,
+          105623.17,
+          259789.0,
+          89796.078,
+          134785.01,
+          192424.87,
+          101665.21,
+          74940.166,
+          59588.449,
+          82374.839,
+          154984.31,
+          148132.37,
+          93927.125,
+          85841.518,
+          67737.545,
+          60757.661,
+          47958.727
+        ],
+        "digest_size": [
+          8,
+          8
+        ],
+        "extrema": [
+          0.0,
+          1.4590644e6
+        ],
+        "hash": "a6ef0a361da3f509",
+        "n_missing": 0,
+        "size": [
+          20,
+          24
+        ],
+        "unit": ""
+      }
+    }
+  ],
+  "version": 1
+}

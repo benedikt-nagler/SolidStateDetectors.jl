@@ -1,0 +1,96 @@
+{
+  "axes": [
+    {
+      "aspect_ratio": "auto",
+      "clims": null,
+      "colorbar": "best",
+      "colorbar_title": "",
+      "colormap": "",
+      "legend_entries": [],
+      "legend_position": "best",
+      "projection": "none",
+      "title": "",
+      "xguide": "t",
+      "xlims": null,
+      "xunit": "ns",
+      "yguide": "signal",
+      "ylims": null,
+      "yunit": "e",
+      "zguide": "",
+      "zunit": ""
+    }
+  ],
+  "backend": "plots",
+  "call": "plot(RDWaveform)",
+  "error": "",
+  "group": "waveforms",
+  "id": "waveform_single",
+  "note": "",
+  "series": [
+    {
+      "alpha": null,
+      "color": "#009afa",
+      "fillalpha": null,
+      "label": "y1",
+      "linecolor": "#009afa",
+      "linewidth": 1.0,
+      "markershape": "none",
+      "markersize": 4.0,
+      "n_connections": 0,
+      "seriestype": "path",
+      "subplot": 1,
+      "x": {
+        "digest": [
+          95.0,
+          290.0,
+          485.0,
+          680.0,
+          875.0,
+          1070.0,
+          1265.0,
+          1460.0
+        ],
+        "digest_size": [
+          8
+        ],
+        "extrema": [
+          0.0,
+          1555.0
+        ],
+        "hash": "7e05c821425c7949",
+        "n_missing": 0,
+        "size": [
+          312
+        ],
+        "unit": ""
+      },
+      "y": {
+        "digest": [
+          0.0005960702,
+          0.0019177333,
+          0.003269357,
+          0.0053677214,
+          0.0071180248,
+          0.0091163039,
+          0.010340924,
+          0.010375918
+        ],
+        "digest_size": [
+          8
+        ],
+        "extrema": [
+          0.0,
+          0.010376119
+        ],
+        "hash": "1831ac791f01b0a9",
+        "n_missing": 0,
+        "size": [
+          312
+        ],
+        "unit": ""
+      },
+      "z": null
+    }
+  ],
+  "version": 1
+}

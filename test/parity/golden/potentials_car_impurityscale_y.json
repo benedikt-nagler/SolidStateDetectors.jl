@@ -1,0 +1,187 @@
+{
+  "axes": [
+    {
+      "aspect_ratio": "1",
+      "clims": [
+        0.0,
+        1.0
+      ],
+      "colorbar": "best",
+      "colorbar_title": "Impurity Scale",
+      "colormap": "grad(#440154,#21908c,#fde725)",
+      "legend_entries": [],
+      "legend_position": "best",
+      "projection": "none",
+      "title": "Impurity Scale @ y = 0.0 m",
+      "xguide": "x",
+      "xlims": [
+        -0.0089999996,
+        0.0089999996
+      ],
+      "xunit": "m",
+      "yguide": "z",
+      "ylims": [
+        -0.0089999996,
+        0.0089999996
+      ],
+      "yunit": "m",
+      "zguide": "",
+      "zunit": ""
+    }
+  ],
+  "backend": "plots",
+  "call": "plot(ImpurityScale; y = 0)",
+  "error": "",
+  "group": "potentials",
+  "id": "potentials_car_impurityscale_y",
+  "note": "",
+  "series": [
+    {
+      "alpha": null,
+      "color": "grad(#440154,#21908c,#fde725)",
+      "fillalpha": null,
+      "label": "y1",
+      "linecolor": "grad(#440154,#21908c,#fde725)",
+      "linewidth": 0.0,
+      "markershape": "none",
+      "markersize": 4.0,
+      "n_connections": 0,
+      "seriestype": "heatmap",
+      "subplot": 1,
+      "x": {
+        "digest": [
+          -0.0084791663,
+          -0.0045000001,
+          -0.0032265626,
+          0.00058854144,
+          0.0044062498,
+          0.0049374998,
+          0.0053020834,
+          0.0088541664
+        ],
+        "digest_size": [
+          8
+        ],
+        "extrema": [
+          -0.012999999,
+          0.013093749
+        ],
+        "hash": "b257c766a47d51b9",
+        "n_missing": 0,
+        "size": [
+          22
+        ],
+        "unit": ""
+      },
+      "y": {
+        "digest": [
+          -0.010624999,
+          -0.0065000001,
+          -0.0041875001,
+          -0.0015625001,
+          0.001,
+          0.0034375,
+          0.0049374998,
+          0.0099999995
+        ],
+        "digest_size": [
+          8
+        ],
+        "extrema": [
+          -0.013249999,
+          0.012999999
+        ],
+        "hash": "8df33538f8ed624a",
+        "n_missing": 0,
+        "size": [
+          16
+        ],
+        "unit": ""
+      },
+      "z": {
+        "digest": [
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "digest_size": [
+          8,
+          8
+        ],
+        "extrema": [
+          1.0,
+          1.0
+        ],
+        "hash": "8b8fa54c36f7a5e5",
+        "n_missing": 0,
+        "size": [
+          16,
+          22
+        ],
+        "unit": ""
+      }
+    }
+  ],
+  "version": 1
+}

@@ -9,14 +9,12 @@ mkpath(outputdir)
 @info "Test output dir: $outputdir"
 
 @info "Loading packages"
-using Plots
+using CairoMakie
 using SolidStateDetectors; SSD = SolidStateDetectors
 using LinearAlgebra
 
 T = Float32
 @info "Testing now for Float32:"
-
-plot() # creates a plot so that the plots during the following loop pop up.
 
 for key in [:InvertedCoax, :BEGe, :Coax, :CGD, :Hexagon]
 
@@ -25,23 +23,19 @@ for key in [:InvertedCoax, :BEGe, :Coax, :CGD, :Hexagon]
     sim = Simulation(SSD_examples[key]);
     S = SSD.get_coordinate_system(sim)
 
-    apply_initial_state!(sim, ElectricPotential)
-    p = if S == SSD.Cartesian
-        plot(
-            plot(sim.electric_potential, y = 0.002),
-            plot(sim.q_eff_imp, y = 0.002),
-            plot(sim.point_types, y = 0.002),
-            size = (1000, 600), layout= (1, 3)
-        )
-    else
-        plot(
-            plot(sim.electric_potential),
-            plot(sim.q_eff_imp),
-            plot(sim.point_types),
-            size = (1000, 600), layout= (1, 3)
-        )
+    # The three initial fields side by side, in one figure. A Cartesian setup is cut at y = 2 mm;
+    # a cylindrical one takes the default cross section.
+    cut = S == SSD.Cartesian ? (; y = 0.002) : (;)
+    function field_panels(sim)
+        fig = Figure(size = (1000, 600))
+        for (i, f) in enumerate((sim.electric_potential, sim.q_eff_imp, sim.point_types))
+            scalarpotentialplot(fig[1, i], f; cut...)
+        end
+        fig
     end
-    savefig(joinpath(outputdir, "$(key)_0_init_setup"))
+
+    apply_initial_state!(sim, ElectricPotential)
+    save(joinpath(outputdir, "$(key)_0_init_setup.png"), field_panels(sim))
 
     nrefs = if key in [:InvertedCoax, :Heaxgon, :CGD]
         0:3
@@ -50,22 +44,8 @@ for key in [:InvertedCoax, :BEGe, :Coax, :CGD, :Hexagon]
     end
     for nref in nrefs
         SSD.update_till_convergence!(sim, ElectricPotential)
-        p = if S == SSD.Cartesian
-            plot(
-                plot(sim.electric_potential, y = 0.002),
-                plot(sim.q_eff_imp, y = 0.002),
-                plot(sim.point_types, y = 0.002),
-                size = (1000, 600), layout= (1, 3)
-            )
-        else
-            plot(
-                plot(sim.electric_potential),
-                plot(sim.q_eff_imp),
-                plot(sim.point_types),
-                size = (1000, 600), layout= (1, 3)
-            )
-        end
-        savefig(joinpath(outputdir, "$(key)_1_Electric_Potential_$(nref)_refinements"))
+        save(joinpath(outputdir, "$(key)_1_Electric_Potential_$(nref)_refinements.png"),
+             field_panels(sim))
         if nref != nrefs[end]
             SSD.refine!(sim, ElectricPotential, (100, 100, 100), (1e-4, 1e-4, 1e-4), update_other_fields = true)
         end
@@ -75,28 +55,20 @@ for key in [:InvertedCoax, :BEGe, :Coax, :CGD, :Hexagon]
     for contact in sim.detector.contacts
         calculate_weighting_potential!(sim, contact.id, refinement_limits = key == :Coax ? missing : [0.2], verbose = true)
     end
-    wpot_plots = if S != SSD.Cartesian
-        [ plot(sim.weighting_potentials[contact.id]) for contact in sim.detector.contacts ]
-    else
-        [ plot(sim.weighting_potentials[contact.id], y = 0.002) for contact in sim.detector.contacts ]
+    wpot_fig = Figure(size = (1000, 1000))
+    for (i, contact) in enumerate(sim.detector.contacts)
+        scalarpotentialplot(wpot_fig[1, i], sim.weighting_potentials[contact.id]; cut...)
     end
-    plot( wpot_plots..., size = (1000, 1000))
-    savefig(joinpath(outputdir, "$(key)_2_Weighting_Potentials"))
+    save(joinpath(outputdir, "$(key)_2_Weighting_Potentials.png"), wpot_fig)
 
     calculate_electric_field!(sim)
 
 
-    if S == SSD.Cylindrical
-        plot(sim.electric_field, φ = 30)
-        savefig(joinpath(outputdir, "$(key)_3_Electric_Field_strength"))
-        plot_electric_fieldlines!(sim, φ = 30)
-        savefig(joinpath(outputdir, "$(key)_3_1_Electric_Field_Lines"))
-    else
-        plot(sim.electric_field, y = 0)
-        savefig(joinpath(outputdir, "$(key)_3_Electric_Field_strength"))
-        plot_electric_fieldlines!(sim, y = 0)
-        savefig(joinpath(outputdir, "$(key)_3_1_Electric_Field_Lines"))
-    end
+    slice = S == SSD.Cylindrical ? (; φ = 30) : (; y = 0)
+    fap = electricfieldplot(sim.electric_field; slice...)
+    save(joinpath(outputdir, "$(key)_3_Electric_Field_strength.png"), fap.figure)
+    fieldlinesplot!(fap.axis, sim; slice...)
+    save(joinpath(outputdir, "$(key)_3_1_Electric_Field_Lines.png"), fap.figure)
 
     sim.detector = SolidStateDetector(sim.detector, ADLChargeDriftModel(T = T))
 
@@ -119,12 +91,13 @@ for key in [:InvertedCoax, :BEGe, :Coax, :CGD, :Hexagon]
     event = Event(pos, energy_depos)
     simulate!(event, sim)
 
-    plot(sim.detector)
-    plot!(event.drift_paths)
-    savefig(joinpath(outputdir, "$(key)_4_charge_drift"))
+    drift = detectorplot(sim.detector)
+    driftpathplot!(drift.axis, event.drift_paths)
+    save(joinpath(outputdir, "$(key)_4_charge_drift.png"), drift.figure)
 
-    plot([event.waveforms...], size = (1200, 600), lw = 1.5)
-    savefig(joinpath(outputdir, "$(key)_5_induced_signals"))
+    save(joinpath(outputdir, "$(key)_5_induced_signals.png"),
+         waveformplot([event.waveforms...]; linewidth = 1.5,
+                      figure = (; size = (1200, 600))).figure)
 
 end
 
