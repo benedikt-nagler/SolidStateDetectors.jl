@@ -1,13 +1,14 @@
 # Use
 #
-# DOCUMENTER_DEBUG=true GKSwstype=100 julia --color=yes make.jl local [linkcheck] [fixdoctests]
+# DOCUMENTER_DEBUG=true julia --color=yes make.jl local [linkcheck] [fixdoctests]
 #
-# for local builds.
+# for local builds. CairoMakie renders headless, so the `GKSwstype=100` GR workaround this build
+# needed under Plots.jl is gone.
 
 using Pkg
 using Documenter
 using Literate
-using Plots
+using CairoMakie
 using SolidStateDetectors
 using SolidStateDetectors.ConstructiveSolidGeometry
 

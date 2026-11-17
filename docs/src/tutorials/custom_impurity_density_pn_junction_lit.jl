@@ -17,13 +17,16 @@
 # and using reflecting boundaries in `y` and `z`.
 # Let's get started by loading the packages and the detector and have a look at its geometry:
 
-using Plots
+using CairoMakie
 using SolidStateDetectors
 using Unitful
 
 sim = Simulation{Float32}(SSD_examples[:InfiniteParallelPlateCapacitor])
-plot( sim.detector.semiconductor, fillalpha = 0.4)
-plot!(sim.detector, xlims = (-0.006, 0.006), aspect_ratio = :none)
+# The slab is 1 mm thin in x and 100 mm across, so equal data scaling makes x invisible and crowds
+# its ticks. A cube aspect is what `aspect_ratio = :none` did on the Plots side.
+fap = detectorplot(sim.detector.semiconductor; alpha = 0.4, axis = (; aspect = (1, 1, 1)))
+detectorplot!(fap.axis, sim.detector)
+fap.figure
 
 # ## Define the Impurity Density
 
@@ -97,14 +100,11 @@ calculate_electric_potential!(
 )
 calculate_electric_field!(sim)
 
-plot(
-    plot(sim.electric_potential, y = 0),
-    plot(sim.imp_scale, y = 0),
-    plot(sim.point_types, y = 0),
-    layout = (3, 1),
-    aspect_ratio = :none,
-    size = (800, 800)
-)
+fig = Figure(size = (1200, 350))
+scalarpotentialplot(fig[1, 1], sim.electric_potential; y = 0)
+scalarpotentialplot(fig[1, 2], sim.imp_scale; y = 0)
+scalarpotentialplot(fig[1, 3], sim.point_types; y = 0)
+fig
 
 # ## 1D Plots of the P-N Junction
 
@@ -113,32 +113,30 @@ plot(
 # the electric field strength (here equals the `x` component of the electric field) 
 # only over `x`.
 
-xs = uconvert.(u"mm", sim.electric_potential.grid[1] * u"m");
-plot(
-    begin
-        ρ_x = map(x -> SolidStateDetectors.get_impurity_density(
-            sim.detector.semiconductor.impurity_density_model, CartesianPoint{Float32}(x, 0, 0)),
-            sim.electric_potential.grid[1]
-        )
-        plot(xs, ρ_x .* sim.imp_scale[:, 1, 1], lw = 4, label ="", xguide = "x", unitformat = :square, yguide = "\$\\rho\$ [e/m\$^3\$]")
-        vline!([sim.detector.contacts[1].geometry.origin.x] * 1000, lw = 4, color = "green", label = "N+ Contact")
-        vline!([sim.detector.contacts[2].geometry.origin.x] * 1000, lw = 4, color = "red", label = "P+ Contact")
-        vline!([0], lw = 4, color = "black", label = "p-n junction")
-    end,
-    begin
-        plot(xs, sim.electric_potential.data[:,1,1], lw = 4, label ="", xguide = "x", unitformat = :square, yguide = "\$\\Phi\$ [V]")
-        vline!([sim.detector.contacts[1].geometry.origin.x] * 1000, lw = 4, color = "green", label = "N+ Contact")
-        vline!([sim.detector.contacts[2].geometry.origin.x] * 1000, lw = 4, color = "red", label = "P+ Contact")
-        vline!([0], lw = 4, color = "black", label = "p-n junction")
-    end,
-    begin
-        plot(xs, map(E -> E[1]/1000, sim.electric_field.data[:,1,1]), lw = 4, label ="", xguide = "x", unitformat = :square, yguide = "\$\\mathcal{E}_x\$ [V/mm]")
-        vline!([sim.detector.contacts[1].geometry.origin.x] * 1000, lw = 4, color = "green", label = "N+ Contact")
-        vline!([sim.detector.contacts[2].geometry.origin.x] * 1000, lw = 4, color = "red", label = "P+ Contact")
-        vline!([0], lw = 4, color = "black", label = "p-n junction")
-    end,
-    layout = (3, 1),
-    xlims = (-5.1, 5.1),
-    size = (800, 800),
-    lw = 2,
-)
+xs = ustrip.(u"mm", sim.electric_potential.grid[1] * u"m");
+
+# The three panels share their x axis and the same three marker lines, so both are factored out.
+n_contact_x = sim.detector.contacts[1].geometry.origin.x * 1000
+p_contact_x = sim.detector.contacts[2].geometry.origin.x * 1000
+
+function mark_junction!(ax)
+    vlines!(ax, [n_contact_x], linewidth = 4, color = :green, label = "N+ Contact")
+    vlines!(ax, [p_contact_x], linewidth = 4, color = :red, label = "P+ Contact")
+    vlines!(ax, [0], linewidth = 4, color = :black, label = "p-n junction")
+end
+
+ρ_x = map(x -> SolidStateDetectors.get_impurity_density(
+              sim.detector.semiconductor.impurity_density_model, CartesianPoint{Float32}(x, 0, 0)),
+          sim.electric_potential.grid[1])
+
+fig = Figure(size = (800, 800))
+panels = (("ρ / e m⁻³", ρ_x .* sim.imp_scale[:, 1, 1]),
+          ("Φ / V", sim.electric_potential.data[:, 1, 1]),
+          ("Eₓ / V mm⁻¹", map(E -> E[1] / 1000, sim.electric_field.data[:, 1, 1])))
+for (row, (ylabel, values)) in enumerate(panels)
+    ax = Axis(fig[row, 1], xlabel = "x / mm", ylabel = ylabel, limits = ((-5.1, 5.1), nothing))
+    lines!(ax, xs, values, linewidth = 4)
+    mark_junction!(ax)
+    row == 1 && axislegend(ax, position = :rt)
+end
+fig

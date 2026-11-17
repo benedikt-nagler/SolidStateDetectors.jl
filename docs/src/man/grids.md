@@ -32,18 +32,34 @@ At the boundaries of the world, there are no nearest neighbors.
 This requires choosing boundary conditions on how to continue the potential beyond the volume of the world.
 
 ````@example grid
-using Plots, LaTeXStrings #hide
+using CairoMakie, LaTeXStrings #hide
 xs = [1,2,3,4,5,6,7,8,9] #hide
 ys = [0.38,0.46,0.48,0.44,0.35,0.28,0.2,0.15,0.1] #hide
+tick_labels = [L"x_0"; [latexstring("x_{$i}") for i in 1:9]; L"x_{10}"] #hide
+# One base panel per block: a Makie `Figure` cannot be deep-copied the way a Plots object can, so #hide
+# the shared part is a function rather than a saved plot. #hide
+function base_panel(; extended_ticks = true) #hide
+    fig = Figure(size = (600, 220)) #hide
+    ax = Axis(fig[1, 1], xlabel = "Grid ticks", ylabel = "Potential values", #hide
+              limits = (-0.5, 10.5, 0, 0.55), ygridvisible = false, xticklabelsize = 16, #hide
+              xticks = extended_ticks ? (0:10, tick_labels) : (1:9, tick_labels[2:10])) #hide
+    vlines!(ax, [minimum(xs), maximum(xs)], color = :black, linestyle = :dash) #hide
+    vlines!(ax, [minimum(xs) - 1, maximum(xs) + 1], color = :darkgray, linestyle = :dash) #hide
+    scatter!(ax, xs, ys, label = "Potential", color = Makie.wong_colors()[1]) #hide
+    (fig, ax) #hide
+end #hide
+# A double-headed arrow: two `arrows2d!` calls pointing at each other. #hide
+function link!(ax, x1, x2, y; color) #hide
+    arrows2d!(ax, [x1, x2], [y, y], [x2 - x1, x1 - x2], [0.0, 0.0]; color) #hide
+end #hide
 nothing #hide
 ````
 
 In order to explain the different boundary conditions, assume a `DiscreteAxis` with `N` ticks, `x1` to `xN`, where `x1` and `xN` define the boundary of the world in that dimension. In this example, `N = 9`:
 ````@example grid
-vline([extrema(xs)...], color = :black, ls = :dash, label = "") #hide
-vline!([extrema(xs) .+ (-1,1)...], color = :darkgray, ls = :dash, label = "") #hide
-scatter!(xs, ys, label = "Potential", color = 1) #hide
-P = plot!(size = (600,200), xlims = (-0.5,10.5), ylims = (0,0.55), xlabel = "Grid ticks", ylabel = "Potential values", xticks = (1:9, latexstring.("x\$_".*string.(1:9).*"\$")), xtickfontsize = 12, margin = 5Plots.mm, ygrid = false, legend = (0.73,1)) #hide
+fig, ax = base_panel(extended_ticks = false) #hide
+axislegend(ax, position = :rt) #hide
+fig #hide
 ````
 
 For the potential calculation, extended ticks are added left and right of the outermost grid ticks. 
@@ -52,38 +68,44 @@ The choice of boundary condition influences which potential values these virtual
 
 `periodic`: This assumes the potential to be periodic beyond the world volume, i.e. `ϕ(x0) = ϕ(xN)` and `ϕ(xN+1) = ϕ(x1)`:
 ````@example grid
-A = deepcopy(P) #hide
-plot!(A, xticks = (0:10, [L"\"x$_0$\""; latexstring.("x\$_".*string.(1:9).*"\$"); L"\"x$_{10}$\""])) #hide
-plot!(A, [extrema(xs) .+ (0,1)...], [ys[begin],ys[begin]], arrow = arrow(:both, :closed), label = "", color = :orange) #hide
-plot!(A, [reverse(extrema(xs)) .- (0,1)...], [ys[end],ys[end]], arrow = arrow(:both, :closed), label = "", color = :orange) #hide
-scatter!(A, [0,length(xs)+1], [ys[end], ys[begin]], label = "periodic", color = :orange) #hide
+fig, ax = base_panel() #hide
+link!(ax, minimum(xs), maximum(xs) + 1, ys[begin]; color = :orange) #hide
+link!(ax, maximum(xs), minimum(xs) - 1, ys[end]; color = :orange) #hide
+scatter!(ax, [0, length(xs) + 1], [ys[end], ys[begin]], label = "periodic", color = :orange) #hide
+axislegend(ax, position = :rt) #hide
+fig #hide
 ````
 
 `reflecting`: This assumes mirror-symmetry in the potential with respect to the world boundary, i.e. `ϕ(x0) = ϕ(x2)` and `ϕ(xN+1) = ϕ(xN-1)`:
 ````@example grid
-A = deepcopy(P) #hide
-plot!(A, xticks = (0:10, [L"\"x$_0$\""; latexstring.("x\$_".*string.(1:9).*"\$"); L"\"x$_{10}$\""])) #hide
-plot!(A, [minimum(xs) .+ (-1,1)...], [ys[begin+1],ys[begin+1]], arrow = arrow(:both, :closed), label = "", color = :purple) #hide
-plot!(A, [maximum(xs) .+ (-1,1)...], [ys[end-1],ys[end-1]], arrow = arrow(:both, :closed), label = "", color = :purple) #hide
-scatter!([0,length(xs)+1], [ys[begin+1], ys[end-1]], label = "reflecting", color = :purple) #hide
+fig, ax = base_panel() #hide
+link!(ax, minimum(xs) - 1, minimum(xs) + 1, ys[begin+1]; color = :purple) #hide
+link!(ax, maximum(xs) - 1, maximum(xs) + 1, ys[end-1]; color = :purple) #hide
+scatter!(ax, [0, length(xs) + 1], [ys[begin+1], ys[end-1]], label = "reflecting", color = :purple) #hide
+axislegend(ax, position = :rt) #hide
+fig #hide
 ````
 
 `fixed` (or `fix`): This sets the potential beyond the world volume to the potential at the world boundary, i.e. `ϕ(x0) = ϕ(x1)` and `ϕ(xN+1) = ϕ(xN)`:
 ````@example grid
-A = deepcopy(P) #hide
-plot!(A, xticks = (0:10, [L"\"x$_0$\""; latexstring.("x\$_".*string.(1:9).*"\$"); L"\"x$_{10}$\""])) #hide
-plot!(A, [minimum(xs) .+ (-1,0)...], [ys[begin],ys[begin]], arrow = arrow(:both, :closed), label = "", color = :green) #hide
-plot!(A, [maximum(xs) .+ (1,0)...], [ys[end],ys[end]], arrow = arrow(:both, :closed), label = "", color = :green) #hide
-scatter!(A, [0,length(xs)+1], [ys[begin], ys[end]], label = "fix / fixed", color = :green) #hide
+fig, ax = base_panel() #hide
+link!(ax, minimum(xs) - 1, minimum(xs), ys[begin]; color = :green) #hide
+link!(ax, maximum(xs) + 1, maximum(xs), ys[end]; color = :green) #hide
+scatter!(ax, [0, length(xs) + 1], [ys[begin], ys[end]], label = "fix / fixed", color = :green) #hide
+axislegend(ax, position = :rt) #hide
+fig #hide
 ````
 
 `infinite` (or `inf`): Assumes the potential to follow a relationship beyond the world volume, where the ratio between neighboring ticks is expected to stay constant, i.e. `ϕ(x0)/ϕ(x1) = ϕ(x1)/ϕ(x2)` and `ϕ(xN+1)/ϕ(xN) = ϕ(xN)/ϕ(xN-1)`:
 ````@example grid
-A = deepcopy(P) #hide
-plot!(A, xticks = (0:10, [L"\"x$_0$\""; latexstring.("x\$_".*string.(1:9).*"\$"); L"\"x$_{10}$\""])) #hide
-plot!(A, -1:0.01:11, x -> ys[end] * (ys[end]/ys[end-1])^(x - xs[end]), color = :red, ls = :dash, label = "") #hide
-plot!(A, -1:0.01:11, x -> ys[begin] * (ys[begin+1]/ys[begin])^(x - xs[begin]), color = :red, ls = :dash, label = "") #hide
-scatter!(A, [0,length(xs)+1], [ys[begin]^2/ys[begin+1], ys[end]^2 / ys[end-1]], label = "inf / infinite", color = :red) #hide
+fig, ax = base_panel() #hide
+grid_x = -1:0.01:11 #hide
+lines!(ax, grid_x, x -> ys[end] * (ys[end] / ys[end-1])^(x - xs[end]), color = :red, linestyle = :dash) #hide
+lines!(ax, grid_x, x -> ys[begin] * (ys[begin+1] / ys[begin])^(x - xs[begin]), color = :red, linestyle = :dash) #hide
+scatter!(ax, [0, length(xs) + 1], [ys[begin]^2 / ys[begin+1], ys[end]^2 / ys[end-1]], #hide
+         label = "inf / infinite", color = :red) #hide
+axislegend(ax, position = :rt) #hide
+fig #hide
 ````
 
 

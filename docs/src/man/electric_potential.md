@@ -24,13 +24,13 @@ At the beginning of the simulation, each grid point, $(i,j,k)$ is assigned its d
 These quantities are stored in the fields `sim.q_eff_imp` and `sim.ϵ_r` and can be plotted using
 ```julia
 using SolidStateDetectors
-using Plots 
+using CairoMakie
 sim = Simulation(SSD_examples[:InvertedCoax])
 apply_initial_state!(sim, ElectricPotential)
-plot(
-  plot(sim.q_eff_imp),
-  plot(sim.ϵ_r)
-)
+fig = Figure(size = (800, 400))
+scalarpotentialplot(fig[1, 1], sim.q_eff_imp)
+scalarpotentialplot(fig[1, 2], sim.ϵ_r)
+fig
 ```
 
 

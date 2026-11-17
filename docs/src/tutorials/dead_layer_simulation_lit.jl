@@ -5,7 +5,7 @@
 # - using constant lifetime trapping model
 # - using mobility-tied diffusion model (by calling the `calculate_mobility` function with the drift model)
 
-using Plots
+using CairoMakie
 using Unitful
 using SolidStateDetectors
 T = Float64;
@@ -19,10 +19,12 @@ pn_r = 8.957282u"mm" # this one was calculated by searching the zero impurity po
 sim = Simulation{T}(SSD_examples[:TrueCoaxial])
 cfn = SSD_examples[:TrueCoaxial]
 print(open(f -> read(f, String), cfn))
-plot(sim.detector, xunit = u"mm", yunit = u"mm", zunit = u"mm")
-#jl savefig("tutorial_det_dl.pdf") # hide
-#md savefig("tutorial_det_dl.pdf") # hide
-#md savefig("tutorial_det_dl.svg"); nothing # hide
+# `:wireframe` rather than the default `:csg`: CairoMakie draws a translucent mesh triangle by
+# triangle, so a 3-D detector reads as a spiky web (see the warning in the Plotting manual).
+detectorplot(sim.detector; seriestype = :wireframe)
+#jl save("tutorial_det_dl.pdf", current_figure()) # hide
+#md save("tutorial_det_dl.pdf", current_figure()) # hide
+#md save("tutorial_det_dl.svg", current_figure()); nothing # hide
 #md # [![tutorial_det_dl](tutorial_det_dl.svg)](tutorial_det_dl.pdf)
 
 # > In the configuration file shown above, the position of the PN junction boundary `pn_r` was calculated as the position where the density is zero.
@@ -33,12 +35,17 @@ r_list = 0u"mm":0.01u"mm":det_r
 imp_list = map(r -> let pt::CylindricalPoint{T} = CylindricalPoint(r, 0u"°", z_draw)
     SolidStateDetectors.get_impurity_density(sim.detector.semiconductor.impurity_density_model, pt) * 1e-6u"cm^-3"
 end, r_list)
-plot(r_list, imp_list, xlabel = "r / mm", ylabel = "Impurity density / cm\$^{-3}\$", unitformat = :nounit, label = "",
-    color = :darkblue, lw = 2, grid = :on, xlims = (0, 10), ylims = (-2e10, 1e11))
-vline!([pn_r], lw = 2, ls = :dash, color = :darkred, label = "PN junction boundary")
-#jl savefig("tutorial_imp_dl.pdf") # hide
-#md savefig("tutorial_imp_dl.pdf") # hide
-#md savefig("tutorial_imp_dl.svg"); nothing # hide
+fig = Figure()
+ax = Axis(fig[1, 1], xlabel = "r / mm", ylabel = "Impurity density / cm⁻³",
+          limits = ((0, 10), (-2e10, 1e11)))
+lines!(ax, ustrip.(u"mm", r_list), ustrip.(u"cm^-3", imp_list), color = :darkblue, linewidth = 2)
+vlines!(ax, [ustrip(u"mm", pn_r)], linewidth = 2, linestyle = :dash, color = :darkred,
+        label = "PN junction boundary")
+axislegend(ax)
+fig
+#jl save("tutorial_imp_dl.pdf", current_figure()) # hide
+#md save("tutorial_imp_dl.pdf", current_figure()) # hide
+#md save("tutorial_imp_dl.svg", current_figure()); nothing # hide
 #md # [![tutorial_imp_dl](tutorial_imp_dl.svg)](tutorial_imp_dl.pdf)
 
 # ## Display the mobility curve
@@ -49,12 +56,17 @@ mobility_list = map(depth -> let pt::CartesianPoint{T} = CartesianPoint(det_r - 
     (µe = SolidStateDetectors.calculate_mobility(cdm, pt, Electron) * 10000u"cm^2/(V*s)",
      µh = SolidStateDetectors.calculate_mobility(cdm, pt, Hole) * 10000u"cm^2/(V*s)")
 end, depth_list)
-plot(depth_list,  getfield.(mobility_list, :µh), label = "Hole", lw = 4)
-plot!(depth_list, getfield.(mobility_list, :µe), label = "Electron", lw = 4)
-plot!(xlabel = "Depth to surface / mm", ylabel = "Mobility / cm\$^2\$/Vs", unitformat = :nounit, legend = :topleft, xlims = (0u"mm", det_r-pn_r))
-#jl savefig("tutorial_mob_dl.pdf") # hide
-#md savefig("tutorial_mob_dl.pdf") # hide
-#md savefig("tutorial_mob_dl.svg"); nothing # hide
+depths = ustrip.(u"mm", depth_list)
+fig = Figure()
+ax = Axis(fig[1, 1], xlabel = "Depth to surface / mm", ylabel = "Mobility / cm² / Vs",
+          limits = ((0, ustrip(u"mm", det_r - pn_r)), nothing))
+lines!(ax, depths, ustrip.(getfield.(mobility_list, :µh)), label = "Hole", linewidth = 4)
+lines!(ax, depths, ustrip.(getfield.(mobility_list, :µe)), label = "Electron", linewidth = 4)
+axislegend(ax, position = :lt)
+fig
+#jl save("tutorial_mob_dl.pdf", current_figure()) # hide
+#md save("tutorial_mob_dl.pdf", current_figure()) # hide
+#md save("tutorial_mob_dl.svg", current_figure()); nothing # hide
 #md # [![tutorial_mob_dl](tutorial_mob_dl.svg)](tutorial_mob_dl.pdf)
 
 # ## Calculate the electric field
@@ -71,28 +83,24 @@ calculate_electric_potential!(sim, refinement_limits = 0.1, grid = user_g, deple
 calculate_electric_field!(sim)
 calculate_weighting_potential!(sim, 1, depletion_handling = true)
 calculate_weighting_potential!(sim, 2, depletion_handling = true);
-plot(
-    begin
-        imp = plot(sim.imp_scale, φ = 0, xunit = u"mm", yunit = u"mm", title = "impurity scale")
-        vline!([pn_r], lw = 2, ls = :dash, color = :darkred, label = "PN junction boundary", legendfontsize = 6)
-    end,
-    begin
-        plot(sim.point_types, φ = 0, xunit = u"mm", yunit = u"mm", title = "point types")
-        vline!([pn_r], lw = 2, ls = :dash, color = :darkred, label = "PN junction boundary", legendfontsize = 6)
-    end,
-    begin
-        plot(sim.electric_potential, xunit = u"mm", yunit = u"mm", title = "electric potential")
-        vline!([pn_r], lw = 2, ls = :dash, color = :darkred, label = "PN junction boundary", legendfontsize = 6)
-    end,
-    begin
-        plot(sim.electric_field, xunit = u"mm", yunit = u"mm", title = "electric field", clims = (0, 100*2000))
-        vline!([pn_r], lw = 2, ls = :dash, color = :darkred, label = "PN junction boundary", legendfontsize = 6)
-    end,
-    size = (800, 600), layout = (2, 2),
-)
-#jl savefig("tutorial_ef_dl.pdf") # hide
-#md savefig("tutorial_ef_dl.pdf") # hide
-#md savefig("tutorial_ef_dl.svg"); nothing # hide
+# The same dashed marker goes on all four panels, so it is a function of the axis.
+mark_pn!(ax) = vlines!(ax, [ustrip(u"mm", pn_r)], linewidth = 2, linestyle = :dash,
+                       color = :darkred, label = "PN junction boundary")
+
+fig = Figure(size = (900, 700))
+ap = scalarpotentialplot(fig[1, 1], sim.imp_scale; φ = 0, axis = (; title = "impurity scale"))
+mark_pn!(ap.axis)
+ap = scalarpotentialplot(fig[1, 2], sim.point_types; φ = 0, axis = (; title = "point types"))
+mark_pn!(ap.axis)
+ap = scalarpotentialplot(fig[2, 1], sim.electric_potential; axis = (; title = "electric potential"))
+mark_pn!(ap.axis)
+ap = electricfieldplot(fig[2, 2], sim.electric_field; colorrange = (0, 100 * 2000),
+                       axis = (; title = "electric field"))
+mark_pn!(ap.axis)
+fig
+#jl save("tutorial_ef_dl.pdf", current_figure()) # hide
+#md save("tutorial_ef_dl.pdf", current_figure()) # hide
+#md save("tutorial_ef_dl.svg", current_figure()); nothing # hide
 #md # [![tutorial_ef_dl](tutorial_ef_dl.svg)](tutorial_ef_dl.pdf)
 
 # ## Pulse shape and CCE simulation
@@ -101,7 +109,8 @@ totTime = 5u"µs"
 totEnergy = 1u"keV" # --> simulating ~339 carrier pairs
 N = Int(totEnergy÷2.95u"eV")
 
-pulse_plot = plot()
+pulse_fig = Figure(size = (1000, 400))
+pulse_ax = Axis(pulse_fig[1, 1], xlabel = "Time / ns", ylabel = "Amplitude / e")
 eff_list = map(depth -> begin
     r = det_r-depth
     energy_depos = fill(2.95u"eV", N)
@@ -109,13 +118,19 @@ eff_list = map(depth -> begin
     evt = Event(starting_positions, energy_depos)
     simulate!(evt, sim, Δt = 1u"ns", max_nsteps = round(Int, totTime / 1u"ns"), diffusion = true, end_drift_when_no_field = false, self_repulsion = false)
     pulse = evt.waveforms[1]
-    plot!(pulse_plot, pulse, label = "Depth: $(round(typeof(depth), depth, digits = 1))", lw = 2, yunit = u"eV/V")
+    lines!(pulse_ax, ustrip.(u"ns", pulse.time), ustrip.(pulse.signal), linewidth = 2,
+           label = "Depth: $(round(typeof(depth), depth, digits = 1))")
     maximum(pulse.signal)/N
 end, depth_list)
-plot!(pulse_plot, legend = :topright, xlabel = "Time / ns", ylabel = "Amplitude / e", unitformat = :nounit)
-cce_plot = plot(depth_list, eff_list, xlabel = "Depth to surface / mm", ylabel = "Charge collection efficiency", lw = 2, color = :black, label = "", unitformat = :nounit)
-plot(pulse_plot, cce_plot, layout = (1, 2), size = (1000, 400), margin = 5Plots.mm)
-#jl savefig("tutorial_pulse_cce_dl.pdf") # hide
-#md savefig("tutorial_pulse_cce_dl.pdf") # hide
-#md savefig("tutorial_pulse_cce_dl.svg"); nothing # hide
+axislegend(pulse_ax, position = :rt)
+
+cce_ax = Axis(pulse_fig[1, 2], xlabel = "Depth to surface / mm",
+              ylabel = "Charge collection efficiency")
+# `eff_list` inherits the signal's `e` from `maximum(pulse.signal)/N`, and a ratio labelled "1.0e"
+# reads as a charge. This is what `unitformat = :nounit` did on the Plots side.
+lines!(cce_ax, ustrip.(u"mm", depth_list), ustrip.(eff_list), linewidth = 2, color = :black)
+pulse_fig
+#jl save("tutorial_pulse_cce_dl.pdf", current_figure()) # hide
+#md save("tutorial_pulse_cce_dl.pdf", current_figure()) # hide
+#md save("tutorial_pulse_cce_dl.svg", current_figure()); nothing # hide
 #md # [![tutorial_pulse_cce_dl](tutorial_pulse_cce_dl.svg)](tutorial_pulse_cce_dl.pdf)

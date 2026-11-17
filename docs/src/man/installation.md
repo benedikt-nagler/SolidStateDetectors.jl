@@ -10,32 +10,33 @@ using Pkg; pkg"add SolidStateDetectors"
 
 ## Visualization / Plotting (Optional)
 
-This package provides several [plot recipes](https://docs.juliaplots.org/latest/recipes/) for different outputs for the plotting package [Plots.jl](https://github.com/JuliaPlots/Plots.jl/).
+This package provides plotting functions for its geometries and simulation results, built on
+[Makie.jl](https://docs.makie.org). They live in a package extension, so they become available as
+soon as a Makie backend is loaded.
 
-In order to use these also install the [Plots.jl](https://github.com/JuliaPlots/Plots.jl/) package via
-
-```julia
-using Pkg; pkg"add Plots"
-```
-
-Load the [Plots.jl](https://github.com/JuliaPlots/Plots.jl/) package (and optionally the backend `pyplot`) via
+Install one via
 
 ```julia
-using Plots
+using Pkg; pkg"add CairoMakie"
 ```
 
-The backends supported by SolidStateDetectors.jl are `gr` and `pyplot`.
-By default, `gr` is loaded when importing `Plots`.
+Load a [Makie.jl](https://docs.makie.org) backend via
 
-For more information about the plot recipes of this package look up the [Plotting](@ref) section.
+```julia
+using CairoMakie
+```
+
+CairoMakie writes vector graphics and needs no display, which suits documents and headless machines.
+[GLMakie.jl](https://docs.makie.org/stable/explanations/backends/glmakie) opens an interactive window
+instead and renders three-dimensional detector geometry better; either one activates the plotting
+functions.
+
+For more information about the plotting functions of this package look up the [Plotting](@ref) section.
 
 This documentation was built with
 ```@example
-using Pkg, Plots # hide
-pkgversion(m::Module) = Pkg.TOML.parsefile(joinpath(dirname(string(first(methods(m.eval)).file)), "..", "Project.toml"))["version"] # hide
-Plots_version = pkgversion(Plots) # hide
-GR_version = pkgversion(GR) # hide
-print("Plots: v$(Plots_version) - GR: v$(GR_version)") # hide
+using CairoMakie # hide
+print("CairoMakie: v$(pkgversion(CairoMakie)) - Makie: v$(pkgversion(CairoMakie.Makie))") # hide
 ```
 
 ## GPU Support in Field Calculations

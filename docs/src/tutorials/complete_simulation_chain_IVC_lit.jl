@@ -1,44 +1,48 @@
 # # Simulation Chain: Inverted Coax Detector
 
-using Plots
+using CairoMakie
 using SolidStateDetectors
 using Unitful
 
 T = Float32
 sim = Simulation{T}(SSD_examples[:InvertedCoax])
 
-plot(sim.detector, xunit = u"mm", yunit = u"mm", zunit = u"mm", size = (700, 700))
-#jl savefig("tutorial_det.pdf") # hide
-#md savefig("tutorial_det.pdf") # hide
-#md savefig("tutorial_det.svg"); nothing # hide
+# `:wireframe` rather than the default `:csg`: CairoMakie draws a translucent mesh triangle by
+# triangle, so a 3-D detector reads as a spiky web (see the warning in the Plotting manual).
+detectorplot(sim.detector; seriestype = :wireframe, figure = (; size = (700, 700)))
+#jl save("tutorial_det.pdf", current_figure()) # hide
+#md save("tutorial_det.pdf", current_figure()) # hide
+#md save("tutorial_det.svg", current_figure()); nothing # hide
 #md # [![tutorial_det](tutorial_det.svg)](tutorial_det.pdf)
 
 # By default only the contacts and passives are shown in detector plots. One can also take a look at the semiconductor. The following plots show the semiconductor and slices in the y and z direction. 
 
-plot(
-    plot(sim.detector.semiconductor, st = :samplesurface),
-    plot(sim.detector.semiconductor, st = :slice, y = 0u"mm", lw = 2),
-    plot(sim.detector.semiconductor, st = :slice, z = 40u"mm", lw = 2),
-    layout = (1,3), size = (1500,500), legend = false
-    )
-#jl savefig("tutorial_semiconductor.pdf") # hide
-#md savefig("tutorial_semiconductor.pdf") # hide
-#md savefig("tutorial_semiconductor.svg"); nothing # hide
+# One object in three representations, so the legend would say "Semiconductor" three times and eat
+# a third of the width; `legend = false` gives the space back to the plots.
+fig = Figure(size = (1000, 350))
+detectorplot(fig[1, 1], sim.detector.semiconductor; seriestype = :samplesurface, legend = false)
+detectorplot(fig[1, 2], sim.detector.semiconductor; seriestype = :slice, y = 0u"mm",
+             markersize = 2, legend = false)
+detectorplot(fig[1, 3], sim.detector.semiconductor; seriestype = :slice, z = 40u"mm",
+             markersize = 2, legend = false)
+fig
+#jl save("tutorial_semiconductor.pdf", current_figure()) # hide
+#md save("tutorial_semiconductor.pdf", current_figure()) # hide
+#md save("tutorial_semiconductor.svg", current_figure()); nothing # hide
 #md # [![tutorial_semiconductor](tutorial_semiconductor.svg)](tutorial_semiconductor.pdf)
 
 # One can also have a look at how the initial conditions look like on the grid (it starts with a very coarse grid):
 
 apply_initial_state!(sim, ElectricPotential) # optional
-plot(
-    plot(sim.electric_potential), # initial electric potential (boundary conditions)
-    plot(sim.point_types), # map of different point types: fixed point / inside or outside detector volume / depleted/undepleted
-    plot(sim.q_eff_imp), # charge density distribution
-    plot(sim.ϵ_r), # dielectric distribution
-    layout = (1, 4), size = (1600, 500)
-)
-#jl savefig("tutorial_initial_condition.pdf") # hide
-#md savefig("tutorial_initial_condition.pdf") # hide
-#md savefig("tutorial_initial_condition.svg"); nothing # hide
+fig = Figure(size = (1000, 800))
+scalarpotentialplot(fig[1, 1], sim.electric_potential) # initial electric potential (boundary conditions)
+scalarpotentialplot(fig[1, 2], sim.point_types) # map of different point types: fixed point / inside or outside detector volume / depleted/undepleted
+scalarpotentialplot(fig[2, 1], sim.q_eff_imp) # charge density distribution
+scalarpotentialplot(fig[2, 2], sim.ϵ_r) # dielectric distribution
+fig
+#jl save("tutorial_initial_condition.pdf", current_figure()) # hide
+#md save("tutorial_initial_condition.pdf", current_figure()) # hide
+#md save("tutorial_initial_condition.svg", current_figure()); nothing # hide
 #md # [![tutorial_initial_condition](tutorial_initial_condition.svg)](tutorial_initial_condition.pdf)
 
 
@@ -47,16 +51,15 @@ plot(
 calculate_electric_potential!( sim,
                                refinement_limits = [0.2, 0.1, 0.05, 0.01])
 
-plot(
-    plot(sim.electric_potential, φ = 20), # initial electric potential (boundary conditions)
-    plot(sim.point_types), # map of different point types: fixed point / inside or outside detector volume / depleted/undepleted
-    plot(sim.q_eff_imp), # charge density distribution
-    plot(sim.ϵ_r), # dielectric distribution
-    layout = (1, 4), size = (1600, 500)
-)
-#jl savefig("tutorial_calculated_potential.pdf") # hide
-#md savefig("tutorial_calculated_potential.pdf") # hide
-#md savefig("tutorial_calculated_potential.svg"); nothing # hide
+fig = Figure(size = (1000, 800))
+scalarpotentialplot(fig[1, 1], sim.electric_potential; φ = 20) # calculated electric potential
+scalarpotentialplot(fig[1, 2], sim.point_types) # map of different point types: fixed point / inside or outside detector volume / depleted/undepleted
+scalarpotentialplot(fig[2, 1], sim.q_eff_imp) # charge density distribution
+scalarpotentialplot(fig[2, 2], sim.ϵ_r) # dielectric distribution
+fig
+#jl save("tutorial_calculated_potential.pdf", current_figure()) # hide
+#md save("tutorial_calculated_potential.pdf", current_figure()) # hide
+#md save("tutorial_calculated_potential.svg", current_figure()); nothing # hide
 #md # [![tutorial_calculated_potential](tutorial_calculated_potential.svg)](tutorial_calculated_potential.pdf)
 
 # SolidStateDetectors.jl supports active (i.e. depleted) volume calculation:
@@ -83,15 +86,14 @@ calculate_electric_potential!( sim_undep,
                                verbose = false)
 
 
-plot(
-    plot(sim_undep.electric_potential),
-    plot(sim_undep.point_types),
-    plot(sim_undep.imp_scale),
-    layout = (1, 3), size = (1200, 600)
-)
-#jl savefig("tutorial_calculated_potential_undep.pdf") # hide
-#md savefig("tutorial_calculated_potential_undep.pdf") # hide
-#md savefig("tutorial_calculated_potential_undep.svg"); nothing # hide
+fig = Figure(size = (1000, 400))
+scalarpotentialplot(fig[1, 1], sim_undep.electric_potential)
+scalarpotentialplot(fig[1, 2], sim_undep.point_types)
+scalarpotentialplot(fig[1, 3], sim_undep.imp_scale)
+fig
+#jl save("tutorial_calculated_potential_undep.pdf", current_figure()) # hide
+#md save("tutorial_calculated_potential_undep.pdf", current_figure()) # hide
+#md save("tutorial_calculated_potential_undep.svg", current_figure()); nothing # hide
 #md # [![tutorial_calculated_potential_undep](tutorial_calculated_potential_undep.svg)](tutorial_calculated_potential_undep.pdf)
 
 # 
@@ -115,12 +117,13 @@ estimate_depletion_voltage(sim)
 
 calculate_electric_field!(sim, n_points_in_φ = 72)
 
-plot(sim.electric_field, full_det = true, φ = 0.0, size = (700, 700), 
-    xunit = u"mm", yunit = u"mm", zunit = u"V/mm", clims = (0,800).*u"V/mm")
-plot_electric_fieldlines!(sim, full_det = true, φ = 0.0)
-#jl savefig("tutorial_electric_field.pdf") # hide
-#md savefig("tutorial_electric_field.pdf") # hide
-#md savefig("tutorial_electric_field.svg"); nothing # hide
+fap = electricfieldplot(sim.electric_field; full_det = true, φ = 0.0,
+                        figure = (; size = (700, 700)), colorrange = (0, 800_000))
+fieldlinesplot!(fap.axis, sim; full_det = true, φ = 0.0)
+fap.figure
+#jl save("tutorial_electric_field.pdf", current_figure()) # hide
+#md save("tutorial_electric_field.pdf", current_figure()) # hide
+#md save("tutorial_electric_field.svg", current_figure()); nothing # hide
 #md # [![tutorial_electric_field](tutorial_electric_field.svg)](tutorial_electric_field.pdf)
 
 
@@ -147,11 +150,12 @@ evt = Event(starting_positions, energy_depos);
 time_step = 5u"ns"
 drift_charges!(evt, sim, Δt = time_step)
 
-plot(sim.detector, xunit = u"mm", yunit = u"mm", zunit = u"mm", size = (700, 700))
-plot!(evt.drift_paths)
-#jl savefig("tutorial_drift_paths.pdf") # hide
-#md savefig("tutorial_drift_paths.pdf") # hide
-#md savefig("tutorial_drift_paths.svg"); nothing # hide
+fap = detectorplot(sim.detector; seriestype = :wireframe, figure = (; size = (700, 700)))
+driftpathplot!(fap.axis, evt.drift_paths)
+fap.figure
+#jl save("tutorial_drift_paths.pdf", current_figure()) # hide
+#md save("tutorial_drift_paths.pdf", current_figure()) # hide
+#md save("tutorial_drift_paths.svg", current_figure()); nothing # hide
 #md # [![tutorial_drift_paths](tutorial_drift_paths.svg)](tutorial_drift_paths.pdf)
 
 
@@ -163,17 +167,15 @@ for contact in sim.detector.contacts
     calculate_weighting_potential!(sim, contact.id, refinement_limits = [0.2, 0.1, 0.05, 0.01], n_points_in_φ = 2, verbose = false)
 end
 
-wp1 = plot(sim.weighting_potentials[1])
-      plot!(sim.detector, st = :slice, φ = 0)
-wp2 = plot(sim.weighting_potentials[2])
-      plot!(sim.detector, st = :slice, φ = 0)
-plot(
-    wp1, wp2,
-    size = (900, 700)
-)
-#jl savefig("tutorial_weighting_potentials.pdf") # hide
-#md savefig("tutorial_weighting_potentials.pdf") # hide
-#md savefig("tutorial_weighting_potentials.svg"); nothing # hide
+fig = Figure(size = (900, 700))
+for (i, wp) in enumerate(sim.weighting_potentials)
+    ap = scalarpotentialplot(fig[1, i], wp)
+    detectorplot!(ap.axis, sim.detector; seriestype = :slice, φ = 0)
+end
+fig
+#jl save("tutorial_weighting_potentials.pdf", current_figure()) # hide
+#md save("tutorial_weighting_potentials.pdf", current_figure()) # hide
+#md save("tutorial_weighting_potentials.svg", current_figure()); nothing # hide
 #md # [![tutorial_weighting_potentials](tutorial_weighting_potentials.svg)](tutorial_weighting_potentials.pdf)
 
 # ## Detector Capacitance Matrix
@@ -190,21 +192,23 @@ calculate_capacitance_matrix(sim)
 
 simulate!(evt, sim) # drift_charges + signal generation of all channels
 
-p_pc_signal = plot( evt.waveforms[1], lw = 1.5, xlims = (0, 1100), xlabel = "Time", unitformat = :slash,
-                    legend = false, tickfontsize = 12, ylabel = "Charge", guidefontsize = 14)
-#jl savefig("tutorial_waveforms.pdf") # hide
-#md savefig("tutorial_waveforms.pdf") # hide
-#md savefig("tutorial_waveforms.svg"); nothing # hide
+waveformplot(evt.waveforms[1]; linewidth = 1.5,
+             axis = (; limits = ((0, 1100), nothing), ylabel = "Charge / e",
+                       xticklabelsize = 14, yticklabelsize = 14, xlabelsize = 16, ylabelsize = 16))
+#jl save("tutorial_waveforms.pdf", current_figure()) # hide
+#md save("tutorial_waveforms.pdf", current_figure()) # hide
+#md save("tutorial_waveforms.svg", current_figure()); nothing # hide
 #md # [![tutorial_waveforms](tutorial_waveforms.svg)](tutorial_waveforms.pdf)
 
 # SolidStateDetectors.jl also allows separating the observed charge signal into the charge induced by the electrons and the charge induced by the holes.
 
 contact_id = 1
 simulate!(evt, sim, signal_unit = u"keV")
-plot_electron_and_hole_contribution(evt, sim, contact_id, 
-    xlims = (0, 1100), xlabel = "Time", ylabel = "Energy", 
-    legend = :topleft, tickfontsize = 12, guidefontsize = 14)
-#jl savefig("tutorial_waveform_contributions.pdf") # hide
-#md savefig("tutorial_waveform_contributions.pdf") # hide
-#md savefig("tutorial_waveform_contributions.svg"); nothing # hide
+ehcontributionplot(evt, sim, contact_id;
+                   axis = (; limits = ((0, 1100), nothing),
+                             xticklabelsize = 14, yticklabelsize = 14,
+                             xlabelsize = 16, ylabelsize = 16))
+#jl save("tutorial_waveform_contributions.pdf", current_figure()) # hide
+#md save("tutorial_waveform_contributions.pdf", current_figure()) # hide
+#md save("tutorial_waveform_contributions.svg", current_figure()); nothing # hide
 #md # [![tutorial_waveform_contributions](tutorial_waveform_contributions.svg)](tutorial_waveform_contributions.pdf)

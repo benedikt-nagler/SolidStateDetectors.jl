@@ -11,7 +11,7 @@ using Geant4
 # In order to run Geant4 simulations, a `Geant4.G4JLApplication` needs to be defined, which needs to include both the detector geometry and the particle source.
 # The extension features a function that creates a `Geant4.G4JLApplication` object from a SSD `Simulation` object and a particle source.
 
-using Plots
+using CairoMakie
 using ArraysOfArrays, Unitful
 
 # Two types of particle source are pre-defined in `SolidStateDetectors`:
@@ -58,11 +58,12 @@ source_2 = IsotopeSource(
 
 T = Float32
 sim = Simulation{T}(SSD_examples[:InvertedCoaxInCryostat])
-plot(sim.detector, size = (500,500))
-plot!(source_1)
-#jl savefig("detector.pdf") # hide
-#md savefig("detector.pdf") # hide
-#md savefig("detector.svg"); nothing # hide
+fap = detectorplot(sim.detector; seriestype = :wireframe, figure = (; size = (500, 500)))
+chargecloudplot!(fap.axis, source_1)
+fap.figure
+#jl save("detector.pdf", current_figure()) # hide
+#md save("detector.pdf", current_figure()) # hide
+#md save("detector.svg", current_figure()); nothing # hide
 #md # [![detector](detector.svg)](detector.pdf) 
 
 
@@ -87,12 +88,14 @@ events = run_geant4_simulation(app, N_events)
 
 # By extracting the position of each energy deposition from `events`, the spatial distribution of the events inside the detector can be visualized:
 
-plot(sim.detector, show_passives = false, size = (500,500), fmt = :png)
-plot!(source_1)
-plot!(flatview(events[1:1000].pos), ms = 0.5, msw = 0, color=:black, label = "")
-#jl savefig("events.pdf") # hide
-#md savefig("events.pdf") # hide
-#md savefig("events.svg"); nothing # hide
+fap = detectorplot(sim.detector; seriestype = :wireframe, show_passives = false,
+                   figure = (; size = (500, 500)))
+chargecloudplot!(fap.axis, source_1)
+csgplot!(fap.axis, flatview(events[1:1000].pos); markersize = 2, color = :black)
+fap.figure
+#jl save("events.pdf", current_figure()) # hide
+#md save("events.pdf", current_figure()) # hide
+#md save("events.svg", current_figure()); nothing # hide
 #md # [![events](events.svg)](events.pdf) 
 
 # The output of `run_geant4_simulation` can be stored using the `LegendHDF5IO` package:
@@ -115,11 +118,17 @@ using StatsBase
 
 h = fit(Histogram, ustrip.(u"keV", sum.(events.edep)), Weights(fill(10,length(events.edep))), 0:10:3000)
 
-plot(h, title = "Energy spectrum", bins = 500, yscale = :log10, st = :step, label = "")
-xlims!(0,3000, xlabel = "E in keV", ylabel = "counts")
-#jl savefig("spectrum.pdf") # hide
-#md savefig("spectrum.pdf") # hide
-#md savefig("spectrum.svg"); nothing # hide
+fig = Figure()
+ax = Axis(fig[1, 1], title = "Energy spectrum", yscale = log10,
+          xlabel = "E in keV", ylabel = "counts", limits = ((0, 3000), nothing))
+# `h` is already binned, so its outline is drawn directly rather than binned a second time. An empty
+# bin has no logarithm, so it becomes `NaN` and leaves a gap instead of stopping the conversion.
+counts = replace(float.(h.weights), 0.0 => NaN)
+stairs!(ax, first(h.edges), [counts; counts[end]], step = :post)
+fig
+#jl save("spectrum.pdf", current_figure()) # hide
+#md save("spectrum.pdf", current_figure()) # hide
+#md save("spectrum.svg", current_figure()); nothing # hide
 #md # [![spectrum](spectrum.svg)](spectrum.pdf) 
 
 
@@ -135,10 +144,10 @@ calculate_weighting_potential!(sim, 1, refinement_limits = [0.4,0.2,0.1,0.06], v
 # The previously generated events from the Geant4 simulation can now be used as input for the `simulate_waveforms` function:
 
 wf = simulate_waveforms(events[1:100], sim, Δt = 1u"ns", signal_unit = u"keV", max_nsteps = 2000)
-plot(wf[1:20].waveform, label = "")
-#jl savefig("waveforms.pdf") # hide
-#md savefig("waveforms.pdf") # hide
-#md savefig("waveforms.svg"); nothing # hide
+waveformplot(wf[1:20].waveform)
+#jl save("waveforms.pdf", current_figure()) # hide
+#md save("waveforms.pdf", current_figure()) # hide
+#md save("waveforms.svg", current_figure()); nothing # hide
 #md # [![waveforms](waveforms.svg)](waveforms.pdf) 
 
 
@@ -146,8 +155,8 @@ plot(wf[1:20].waveform, label = "")
 # We can add some baseline and tail to the pulses to match their lengths (in this case to 2000ns):
 
 w = add_baseline_and_extend_tail.(wf.waveform, 100, 2000)
-plot(w[1:20], label = "")
-#jl savefig("wf_and_amplitude.pdf") # hide
-#md savefig("wf_and_amplitude.pdf") # hide
-#md savefig("wf_and_amplitude.svg"); nothing # hide
+waveformplot(w[1:20])
+#jl save("wf_and_amplitude.pdf", current_figure()) # hide
+#md save("wf_and_amplitude.pdf", current_figure()) # hide
+#md save("wf_and_amplitude.svg", current_figure()); nothing # hide
 #md # [![wf_and_amplitude](wf_and_amplitude.svg)](wf_and_amplitude.pdf) 

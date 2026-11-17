@@ -12,7 +12,7 @@ can be specified in the configuration files.
 ````@example primitives
 using SolidStateDetectors
 import SolidStateDetectors.ConstructiveSolidGeometry as CSG
-using Plots
+using CairoMakie
 T = Float64;
 nothing #hide
 ````
@@ -41,7 +41,7 @@ Load the primitive from the configuration file via `CSG.Geometry`
 
 ````@example primitives
 box = CSG.Geometry(T, cfn)
-plot(box)
+csgplot(box)
 ````
 
 ### Cone
@@ -56,7 +56,7 @@ Load the primitive from the configuration file via `CSG.Geometry`
 
 ````@example primitives
 cone = CSG.Geometry(T, cfn)
-plot(cone)
+csgplot(cone)
 ````
 
 #### VaryingTube
@@ -70,7 +70,7 @@ Load the primitive from the configuration file via `CSG.Geometry`
 
 ````@example primitives
 cone = CSG.Geometry(T, cfn)
-plot(cone)
+csgplot(cone)
 ````
 
 #### Polycone
@@ -85,7 +85,7 @@ Load the primitive from the configuration file via `CSG.Geometry`
 
 ````@example primitives
 polycone = CSG.Geometry(T, cfn)
-plot(polycone)
+csgplot(polycone)
 ````
 
 
@@ -101,7 +101,7 @@ Load the primitive from the configuration file via `CSG.Geometry`
 
 ````@example primitives
 ellipsoid = CSG.Geometry(T, cfn)
-plot(ellipsoid)
+csgplot(ellipsoid)
 ````
 
 ### Torus
@@ -115,7 +115,7 @@ Load the primitive from the configuration file via `CSG.Geometry`
 
 ````@example primitives
 torus = CSG.Geometry(T, cfn)
-plot(torus, zlims = [-6,6], camera = (40, 55))
+csgplot(torus; axis = (; azimuth = 0.7π, elevation = 0.3π))
 ````
 
 ### Prism
@@ -130,7 +130,7 @@ Load the primitive from the configuration file via `CSG.Geometry`
 
 ````@example primitives
 prism = CSG.Geometry(T, cfn)
-plot(prism)
+csgplot(prism)
 ````
 
 

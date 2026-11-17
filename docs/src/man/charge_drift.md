@@ -496,13 +496,15 @@ One way of defining an [`NBodyChargeCloud`](@ref) is having a center point charg
 ````@example NBodyChargeCloud
 using SolidStateDetectors #hide
 using Unitful #hide
-using Plots #hide
+using CairoMakie #hide
 T = Float64 #hide
 center = CartesianPoint{T}(0,0,0)
 energy = 1460u"keV"
 nbcc = NBodyChargeCloud(center, energy)
-plot(nbcc)
-plot(nbcc, color = :red, size = (500,500), xlims = (-0.0012, 0.0012), ylims = (-0.0012,0.0012), zlims = (-0.0012,0.0012)) #hide
+chargecloudplot(nbcc)
+chargecloudplot(nbcc; color = :red, figure = (; size = (500, 500)), #hide
+                axis = (; xlims = (-1.2u"mm", 1.2u"mm"), ylims = (-1.2u"mm", 1.2u"mm"), #hide
+                          zlims = (-1.2u"mm", 1.2u"mm"))) #hide
 ````
 
 #### Equally Distributed on a Regular Sphere
@@ -513,8 +515,10 @@ For an [`NBodyChargeCloud`](@ref) consisting of more than around 50 charges, the
 center = CartesianPoint{T}(0,0,0)
 energy = 1460u"keV"
 nbcc = NBodyChargeCloud(center, energy, 100)
-plot(nbcc)
-plot(nbcc, color = :red, size = (500,500), xlims = (-0.0012, 0.0012), ylims = (-0.0012,0.0012), zlims = (-0.0012,0.0012)) #hide
+chargecloudplot(nbcc)
+chargecloudplot(nbcc; color = :red, figure = (; size = (500, 500)), #hide
+                axis = (; xlims = (-1.2u"mm", 1.2u"mm"), ylims = (-1.2u"mm", 1.2u"mm"), #hide
+                          zlims = (-1.2u"mm", 1.2u"mm"))) #hide
 ````
 
 
