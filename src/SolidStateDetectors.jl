@@ -21,7 +21,6 @@ using LightXML
 using ParallelProcessingTools
 using ProgressMeter
 using RadiationDetectorSignals
-using RecipesBase
 using Requires
 using Rotations
 using StaticArrays
@@ -129,7 +128,6 @@ include("MCEventsProcessing/MCEventsProcessing.jl")
 include("IO/IO.jl")
 
 include("PlotRecipes/PlotRecipes.jl")
-export @P_str # protected strings to overwrite plot labels with units
 
 # --- Makie plotting entry points ---------------------------------------------------------------
 #

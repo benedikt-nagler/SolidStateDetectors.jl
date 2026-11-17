@@ -12,7 +12,6 @@ module ConstructiveSolidGeometry
     using Parameters
     using PolygonOps
     using Polynomials
-    using RecipesBase
     using Rotations
     using StaticArrays
     using Statistics
@@ -132,7 +131,8 @@ module ConstructiveSolidGeometry
     include("IO.jl")
     include("DistanceToSurface.jl")
 
-    # Plotting
-    include("plotting/plotting.jl")
+    # Plotting: backend-agnostic helpers first, then the Plots.jl recipes that use them.
+    include("plot_utils.jl")
+    include("Meshing.jl")
 
 end
