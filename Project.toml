@@ -42,16 +42,19 @@ UnitfulAtomic = "a7773ee8-282e-5fa2-be4e-bd808c38a91a"
 YAML = "ddb6d928-2868-570f-bddf-ab3f9cf99eb6"
 
 [weakdeps]
+CairoMakie = "13f3f980-e62b-5c42-98c6-ff1f3baf88f0"
 Geant4 = "559df036-b7a0-42fd-85df-7d5dd9d70f44"
 Makie = "ee78f7c6-11fb-53f2-987a-cfe4a2b5a57a"
 
 [extensions]
+SolidStateDetectorsCairoMakieExt = ["Makie", "CairoMakie"]
 SolidStateDetectorsGeant4Ext = "Geant4"
 SolidStateDetectorsMakieExt = "Makie"
 
 [compat]
 Adapt = "3, 4"
 ArraysOfArrays = "0.5, 0.6"
+CairoMakie = "0.15"
 Clustering = "0.15"
 DataStructures = "0.17, 0.18, 0.19"
 Distributions = "0.24.5, 0.25"

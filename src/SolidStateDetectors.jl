@@ -148,7 +148,58 @@ export electricfieldplot, electricfieldplot!
 function electricfieldplot end
 function electricfieldplot! end
 
-const _makie_entry_points = (electricfieldplot, electricfieldplot!)
+export scalarpotentialplot, scalarpotentialplot!
+function scalarpotentialplot end
+function scalarpotentialplot! end
+
+export csgplot, csgplot!
+function csgplot end
+function csgplot! end
+
+export detectorplot, detectorplot!
+function detectorplot end
+function detectorplot! end
+
+export driftpathplot, driftpathplot!
+function driftpathplot end
+function driftpathplot! end
+
+export chargecloudplot, chargecloudplot!
+function chargecloudplot end
+function chargecloudplot! end
+
+export waveformplot, waveformplot!
+function waveformplot end
+function waveformplot! end
+
+# The Makie counterpart of `plot_electron_and_hole_contribution`, under its own name rather than as
+# a method on that function (D9): the Plots `@userplot` accepts `(args...; kwargs...)`, so a method
+# specific enough to take `(::Event, ::Simulation, ::Int)` would capture every call the moment Makie
+# is loaded, and the parity harness needs both backends usable in one session.
+export ehcontributionplot, ehcontributionplot!
+function ehcontributionplot end
+function ehcontributionplot! end
+
+export gridplot, gridplot!
+function gridplot end
+function gridplot! end
+
+# The Makie counterpart of `plot_electric_fieldlines`, named for the same reason as
+# `ehcontributionplot` (D9).
+export fieldlinesplot, fieldlinesplot!
+function fieldlinesplot end
+function fieldlinesplot! end
+
+const _makie_entry_points = (electricfieldplot, electricfieldplot!,
+                             scalarpotentialplot, scalarpotentialplot!,
+                             csgplot, csgplot!,
+                             detectorplot, detectorplot!,
+                             driftpathplot, driftpathplot!,
+                             chargecloudplot, chargecloudplot!,
+                             waveformplot, waveformplot!,
+                             ehcontributionplot, ehcontributionplot!,
+                             gridplot, gridplot!,
+                             fieldlinesplot, fieldlinesplot!)
 
 function _makie_backend_hint(io::IO, exc::MethodError, @nospecialize(argtypes), @nospecialize(kwargs))
     exc.f in _makie_entry_points || return nothing
